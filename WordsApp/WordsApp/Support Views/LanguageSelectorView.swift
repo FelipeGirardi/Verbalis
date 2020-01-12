@@ -13,14 +13,19 @@ struct LanguageSelectorView: View {
     var flag: String
     
     var body: some View {
+//            Button(action: {
+//                //self.userData.chosenLanguages.append()
+//            }) {
             VStack {
                 Text(language)
                     .fontWeight(.semibold)
-                    .font(.system(size: 25))
+                    .font(.system(size: 24))
                     .padding(.top, 15)
+                    .foregroundColor(.black)
 
                 Text(flag)
                     .font(.system(size: 70))
+                
             }
             .fixedSize()
             .frame(width: 150, height: 150)
@@ -36,12 +41,12 @@ struct LanguageSelectorView: View {
 struct LanguageSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LanguageSelectorView(language: languages[0], flag: flags[0])
-            LanguageSelectorView(language: languages[1], flag: flags[1])
-            LanguageSelectorView(language: languages[2], flag: flags[2])
-            LanguageSelectorView(language: languages[3], flag: flags[3])
-            LanguageSelectorView(language: languages[4], flag: flags[4])
-            LanguageSelectorView(language: languages[5], flag: flags[5])
+            LanguageSelectorView(language: languageData[0].name, flag: languageData[0].flag)
+            LanguageSelectorView(language: languageData[1].name, flag: languageData[1].flag)
+            LanguageSelectorView(language: languageData[2].name, flag: languageData[2].flag)
+            LanguageSelectorView(language: languageData[3].name, flag: languageData[3].flag)
+            LanguageSelectorView(language: languageData[4].name, flag: languageData[4].flag)
+            LanguageSelectorView(language: languageData[5].name, flag: languageData[5].flag)
         }
         .previewLayout(.fixed(width: 200, height: 200))
     }

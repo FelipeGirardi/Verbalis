@@ -7,6 +7,13 @@
 //
 
 import Foundation
+import SwiftUI
 
-let languages = ["Inglês", "Espanhol", "Alemão", "Italiano", "Francês", "Português"]
-let flags = ["🇺🇸", "🇪🇸", "🇩🇪", "🇮🇹", "🇫🇷", "🇧🇷"]
+let languageData: [Language] = [
+    Language(id: 0, name: "Inglês", flag: "🇺🇸", isChosen: false),
+    Language(id: 1, name: "Espanhol", flag: "🇪🇸", isChosen: false),
+    Language(id: 2, name: "Alemão", flag: "🇩🇪", isChosen: false),
+    Language(id: 3, name: "Italiano", flag: "🇮🇹", isChosen: false),
+    Language(id: 4, name: "Francês", flag: "🇫🇷", isChosen: false),
+    Language(id: 5, name: "Português", flag: "🇧🇷", isChosen: false)
+]
