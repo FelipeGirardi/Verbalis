@@ -13,9 +13,6 @@ struct LanguageSelectorView: View {
     var flag: String
     
     var body: some View {
-//            Button(action: {
-//                //self.userData.chosenLanguages.append()
-//            }) {
             VStack {
                 Text(language)
                     .fontWeight(.semibold)
@@ -31,11 +28,9 @@ struct LanguageSelectorView: View {
             .frame(width: 150, height: 150)
             .overlay(
                 RoundedRectangle(cornerRadius: 40)
-                    .stroke(Color(red: 30/255, green: 220/255, blue: 255/255), lineWidth: 8)
+                    .stroke(Color(red: 30/255, green: 220/255, blue: 255/255), lineWidth: 10)
             )
-        
     }
-    
 }
 
 struct LanguageSelectorView_Previews: PreviewProvider {
@@ -48,6 +43,6 @@ struct LanguageSelectorView_Previews: PreviewProvider {
             LanguageSelectorView(language: languageData[4].name, flag: languageData[4].flag)
             LanguageSelectorView(language: languageData[5].name, flag: languageData[5].flag)
         }
-        .previewLayout(.fixed(width: 200, height: 200))
+        .previewLayout(.fixed(width: 160, height: 160))
     }
 }
