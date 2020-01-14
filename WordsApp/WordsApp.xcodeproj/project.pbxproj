@@ -16,6 +16,8 @@
 		C0385A7F23CBB44D00F3749B /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0385A7E23CBB44D00F3749B /* UserData.swift */; };
 		C03887BB23CB8FB6008ED0A2 /* LanguageSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03887BA23CB8FB6008ED0A2 /* LanguageSelectorView.swift */; };
 		C03887BD23CB9E1C008ED0A2 /* LanguageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03887BC23CB9E1C008ED0A2 /* LanguageModel.swift */; };
+		C03AC46623CE4110009B400B /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AC46523CE4110009B400B /* Word.swift */; };
+		C03AC46823CE5194009B400B /* ChangeLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03AC46723CE5194009B400B /* ChangeLanguageView.swift */; };
 		C04E9CDD23CCF88F004D8105 /* MainWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E9CDC23CCF88F004D8105 /* MainWordsView.swift */; };
 		C04E9CDF23CD390D004D8105 /* WordsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E9CDE23CD390D004D8105 /* WordsTab.swift */; };
 		C04E9CE123CD3923004D8105 /* GroupsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04E9CE023CD3923004D8105 /* GroupsTab.swift */; };
@@ -35,6 +37,8 @@
 		C0385A7E23CBB44D00F3749B /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		C03887BA23CB8FB6008ED0A2 /* LanguageSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSelectorView.swift; sourceTree = "<group>"; };
 		C03887BC23CB9E1C008ED0A2 /* LanguageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageModel.swift; sourceTree = "<group>"; };
+		C03AC46523CE4110009B400B /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		C03AC46723CE5194009B400B /* ChangeLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageView.swift; sourceTree = "<group>"; };
 		C04E9CDC23CCF88F004D8105 /* MainWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWordsView.swift; sourceTree = "<group>"; };
 		C04E9CDE23CD390D004D8105 /* WordsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsTab.swift; sourceTree = "<group>"; };
 		C04E9CE023CD3923004D8105 /* GroupsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTab.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			children = (
 				C03887BC23CB9E1C008ED0A2 /* LanguageModel.swift */,
 				C07EF5C223CBBA63003FA014 /* Language.swift */,
+				C03AC46523CE4110009B400B /* Word.swift */,
 				C0385A7E23CBB44D00F3749B /* UserData.swift */,
 			);
 			path = Model;
@@ -119,6 +124,7 @@
 				C03887BA23CB8FB6008ED0A2 /* LanguageSelectorView.swift */,
 				C04E9CDE23CD390D004D8105 /* WordsTab.swift */,
 				C04E9CE023CD3923004D8105 /* GroupsTab.swift */,
+				C03AC46723CE5194009B400B /* ChangeLanguageView.swift */,
 			);
 			path = "Support Views";
 			sourceTree = "<group>";
@@ -199,7 +205,9 @@
 				C02FC50023CA561F00D21C1C /* AppDelegate.swift in Sources */,
 				C03887BB23CB8FB6008ED0A2 /* LanguageSelectorView.swift in Sources */,
 				C07EF5C323CBBA63003FA014 /* Language.swift in Sources */,
+				C03AC46623CE4110009B400B /* Word.swift in Sources */,
 				C02FC51623CA583500D21C1C /* LanguageChoiceView.swift in Sources */,
+				C03AC46823CE5194009B400B /* ChangeLanguageView.swift in Sources */,
 				C04E9CDD23CCF88F004D8105 /* MainWordsView.swift in Sources */,
 				C0694BD823CD538400B983B8 /* MainView.swift in Sources */,
 				C02FC50223CA561F00D21C1C /* SceneDelegate.swift in Sources */,

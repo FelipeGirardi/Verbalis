@@ -10,28 +10,20 @@ import SwiftUI
 
 struct MainWordsView: View {
     var body: some View {
-        TabView{
-            NavigationView {
-                List {
-                    Text("Hi")
+        TabView {
+            WordsTab()
+                .tabItem {
+                   Image(systemName: "a")
+                   Text("Palavras")
                 }
-                    .navigationBarTitle("Palavras", displayMode: .inline)
-                    .navigationBarItems(
-                        leading: Button(action: {
-                            // Actions
-                        }, label: { Text("Línguas") }),
-
-                        trailing: Button(action: {
-                            // Actions
-                        }, label: { Image(systemName: "plus") })
-                    )
-            }
-            .tabItem {
-               Image(systemName: "a")
-               Text("Palavras")
-            }
             
+            GroupsTab()
+                .tabItem {
+                   Image(systemName: "bookmark")
+                   Text("Grupos")
+                }
         }
+        .edgesIgnoringSafeArea(.top)
     }
 }
 

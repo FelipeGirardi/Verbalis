@@ -11,4 +11,7 @@ import Combine
 
 final class UserData: ObservableObject {
     @Published var languages = languageData
+    @Published var currentLanguageId = -1
+    @Published var chosenLanguagesIds = []
+    @Published var notChosenLanguagesIds = []
 }

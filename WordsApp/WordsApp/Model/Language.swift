@@ -13,11 +13,13 @@ struct Language: Hashable, Codable, Identifiable {
     var name: String
     var flag: String
     var isChosen: Bool
+    var wordList: [Word]
     
-    init(id: Int, name: String, flag: String, isChosen: Bool) {
+    init(id: Int, name: String, flag: String, isChosen: Bool, wordList: [Word]) {
         self.id = id
         self.name = name
         self.flag = flag
         self.isChosen = isChosen
+        self.wordList = wordList
     }
 }

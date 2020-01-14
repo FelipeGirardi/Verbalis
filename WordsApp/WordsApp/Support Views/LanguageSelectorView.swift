@@ -16,7 +16,8 @@ struct LanguageSelectorView: View {
             VStack {
                 Text(language)
                     .fontWeight(.semibold)
-                    .font(.system(size: 24))
+                    .font(Font.custom("Georgia", size: 22))
+                    //.font(.system(size: 24))
                     .padding(.top, 15)
                     .foregroundColor(.black)
 

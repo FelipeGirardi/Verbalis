@@ -27,11 +27,11 @@ struct LanguageChoiceView: View {
     var body: some View {
         
             VStack {
-                Text("Escolha uma ou mais línguas:")
-                    .fontWeight(.bold)
-                    .font(.system(size: 35))
+                Text("Quais línguas você quer aprender?")
+                    //.fontWeight(.bold)
+                    .font(Font.custom("Georgia-Bold", size: 30))
                     .multilineTextAlignment(.center)
-                    .padding(.top, CGFloat(50))
+                    .padding(EdgeInsets(top: 50, leading: 25, bottom: 0, trailing: 25))
                 
                 Spacer()
                 
@@ -44,6 +44,9 @@ struct LanguageChoiceView: View {
                                     self.userData.languages[position].isChosen.toggle()
                                     if(self.userData.languages[position].isChosen) {
                                         self.nSelected += 1
+                                        if(self.nSelected == 1) {
+                                            self.userData.currentLanguageId = self.userData.languages[position].id
+                                        }
                                     }
                                     else {
                                         self.nSelected -= 1
@@ -68,10 +71,17 @@ struct LanguageChoiceView: View {
                 
                 Button(action: {
                     self.choiceMade = true
+                    for lang in self.userData.languages {
+                        if(lang.isChosen) {
+                            self.userData.chosenLanguagesIds.append(lang.id)
+                        } else {
+                            self.userData.notChosenLanguagesIds.append(lang.id)
+                        }
+                    }
                 }, label: {
                     Text("Começar")
                         .fontWeight(.semibold)
-                        .font(.system(size: 25))
+                        .font(Font.custom("Georgia", size: 25))
                         .foregroundColor(Color.white)
                         .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 })
