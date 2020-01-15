@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct WordsTab: View {
-    @State var showingChosenLanguages = false
+    @State private var showingChosenLanguages: Bool = false
+    @EnvironmentObject var userData: UserData
     
     init() {
         UINavigationBar.appearance().backgroundColor = .clear
@@ -42,9 +43,14 @@ struct WordsTab: View {
                         //.foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
                     })
                 )
-            .sheet(isPresented: $showingChosenLanguages) {
-                EmptyView()
-            }
+                .sheet(isPresented: $showingChosenLanguages, onDismiss: {
+                    
+                }, content: {
+                    ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages)
+                        .environmentObject(self.userData)
+                    }
+                )
+            
         }
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C001C82A23CF87DA00DF8CDA /* ChangeLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001C82923CF87DA00DF8CDA /* ChangeLanguageButton.swift */; };
 		C02FC50023CA561F00D21C1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FC4FF23CA561F00D21C1C /* AppDelegate.swift */; };
 		C02FC50223CA561F00D21C1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FC50123CA561F00D21C1C /* SceneDelegate.swift */; };
 		C02FC50623CA562200D21C1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C02FC50523CA562200D21C1C /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C001C82923CF87DA00DF8CDA /* ChangeLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageButton.swift; sourceTree = "<group>"; };
 		C02FC4FC23CA561F00D21C1C /* WordsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02FC4FF23CA561F00D21C1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C02FC50123CA561F00D21C1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				C04E9CDE23CD390D004D8105 /* WordsTab.swift */,
 				C04E9CE023CD3923004D8105 /* GroupsTab.swift */,
 				C03AC46723CE5194009B400B /* ChangeLanguageView.swift */,
+				C001C82923CF87DA00DF8CDA /* ChangeLanguageButton.swift */,
 			);
 			path = "Support Views";
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				C02FC51623CA583500D21C1C /* LanguageChoiceView.swift in Sources */,
 				C03AC46823CE5194009B400B /* ChangeLanguageView.swift in Sources */,
 				C04E9CDD23CCF88F004D8105 /* MainWordsView.swift in Sources */,
+				C001C82A23CF87DA00DF8CDA /* ChangeLanguageButton.swift in Sources */,
 				C0694BD823CD538400B983B8 /* MainView.swift in Sources */,
 				C02FC50223CA561F00D21C1C /* SceneDelegate.swift in Sources */,
 				C03887BD23CB9E1C008ED0A2 /* LanguageModel.swift in Sources */,

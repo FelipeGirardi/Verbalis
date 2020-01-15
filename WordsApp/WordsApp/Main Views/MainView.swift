@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    @State var choiceMade = false
+    @State private var choiceMade = false
     
     var body: some View {
         return Group {
@@ -26,5 +26,6 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+            .environmentObject(UserData())
     }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct LanguageChoiceView: View {
     
     @EnvironmentObject var userData: UserData
-    @State var nSelected = 0
+    @State private var nSelected = 0
     @Binding var choiceMade: Bool
     
     var animation: Animation {
@@ -40,17 +40,17 @@ struct LanguageChoiceView: View {
                             ForEach(0 ..< 2) { column in
                                 Button(action: {
                                     withAnimation {
-                                    let position = self.calculateRowColumn(row: row, column: column)
-                                    self.userData.languages[position].isChosen.toggle()
-                                    if(self.userData.languages[position].isChosen) {
-                                        self.nSelected += 1
-                                        if(self.nSelected == 1) {
-                                            self.userData.currentLanguageId = self.userData.languages[position].id
+                                        let position = self.calculateRowColumn(row: row, column: column)
+                                        self.userData.languages[position].isChosen.toggle()
+                                        if(self.userData.languages[position].isChosen) {
+                                            self.nSelected += 1
+                                            if(self.nSelected == 1) {
+                                                self.userData.currentLanguageId = self.userData.languages[position].id
+                                            }
                                         }
-                                    }
-                                    else {
-                                        self.nSelected -= 1
-                                    }
+                                        else {
+                                            self.nSelected -= 1
+                                        }
                                     }
                                 }) {
                                     LanguageSelectorView(language: languageData[self.calculateRowColumn(row: row, column: column)].name, flag: languageData[self.calculateRowColumn(row: row, column: column)].flag)
@@ -73,9 +73,9 @@ struct LanguageChoiceView: View {
                     self.choiceMade = true
                     for lang in self.userData.languages {
                         if(lang.isChosen) {
-                            self.userData.chosenLanguagesIds.append(lang.id)
+                            self.userData.chosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag))
                         } else {
-                            self.userData.notChosenLanguagesIds.append(lang.id)
+                            self.userData.notChosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag))
                         }
                     }
                 }, label: {

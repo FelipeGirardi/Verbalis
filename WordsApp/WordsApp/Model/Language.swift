@@ -9,17 +9,29 @@
 import SwiftUI
 
 struct Language: Hashable, Codable, Identifiable {
-    var id: Int
+    var id: String
     var name: String
     var flag: String
     var isChosen: Bool
     var wordList: [Word]
     
-    init(id: Int, name: String, flag: String, isChosen: Bool, wordList: [Word]) {
-        self.id = id
+    init(name: String, flag: String, isChosen: Bool, wordList: [Word]) {
+        self.id = name
         self.name = name
         self.flag = flag
         self.isChosen = isChosen
         self.wordList = wordList
+    }
+}
+
+struct LanguageChoice: Hashable, Codable, Identifiable {
+    var id: String
+    var name: String
+    var flag: String
+    
+    init(name: String, flag: String) {
+        self.id = name
+        self.name = name
+        self.flag = flag
     }
 }

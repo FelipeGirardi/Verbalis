@@ -10,8 +10,8 @@ import SwiftUI
 import Combine
 
 final class UserData: ObservableObject {
-    @Published var languages = languageData
-    @Published var currentLanguageId = -1
-    @Published var chosenLanguagesIds = []
-    @Published var notChosenLanguagesIds = []
+    @Published var languages: [Language] = languageData
+    @Published var currentLanguageId: String = ""
+    @Published var chosenLanguages: [LanguageChoice] = []
+    @Published var notChosenLanguages: [LanguageChoice] = []
 }

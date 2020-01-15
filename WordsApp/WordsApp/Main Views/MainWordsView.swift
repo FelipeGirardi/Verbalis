@@ -30,5 +30,6 @@ struct MainWordsView: View {
 struct MainWordsView_Previews: PreviewProvider {
     static var previews: some View {
         MainWordsView()
+            .environmentObject(UserData())
     }
 }
