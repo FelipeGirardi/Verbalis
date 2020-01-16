@@ -10,10 +10,10 @@ import Foundation
 import SwiftUI
 
 let languageData: [Language] = [
-    Language(name: "Inglês", flag: "🇺🇸", isChosen: false, wordList: []),
-    Language(name: "Espanhol", flag: "🇪🇸", isChosen: false, wordList: []),
-    Language(name: "Alemão", flag: "🇩🇪", isChosen: false, wordList: []),
-    Language(name: "Italiano", flag: "🇮🇹", isChosen: false, wordList: []),
-    Language(name: "Francês", flag: "🇫🇷", isChosen: false, wordList: []),
-    Language(name: "Português", flag: "🇧🇷", isChosen: false, wordList: [])
+    Language(name: "Inglês", flag: "🇺🇸", isChosen: false),
+    Language(name: "Espanhol", flag: "🇪🇸", isChosen: false),
+    Language(name: "Alemão", flag: "🇩🇪", isChosen: false),
+    Language(name: "Italiano", flag: "🇮🇹", isChosen: false),
+    Language(name: "Francês", flag: "🇫🇷", isChosen: false),
+    Language(name: "Português", flag: "🇧🇷", isChosen: false)
 ]

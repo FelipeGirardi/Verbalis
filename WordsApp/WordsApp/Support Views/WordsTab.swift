@@ -10,7 +10,15 @@ import SwiftUI
 
 struct WordsTab: View {
     @State private var showingChosenLanguages: Bool = false
+    @State private var showingAddWord: Bool = false
     @EnvironmentObject var userData: UserData
+    
+    var currentLanguage: LanguageChoice {
+        self.userData.chosenLanguages.first(where: { $0.id == self.userData.currentLanguageId})!
+    }
+    var langName: String {
+        self.currentLanguage.name
+    }
     
     init() {
         UINavigationBar.appearance().backgroundColor = .clear
@@ -22,12 +30,14 @@ struct WordsTab: View {
     var body: some View {
         NavigationView {
             List {
-                Text("Hi 1")
-                Text("Hi 2")
-                Text("Hi 3")
+                ForEach(currentLanguage.wordsList, id: \.self) { word in
+                    Text(word.wordString)
+                }
             }
             //.padding(.top, 20)
-            .navigationBarTitle("Palavras", displayMode: .large)
+                .navigationBarTitle(Text(currentLanguage.flag + " " + currentLanguage.name)
+                    .font(Font.custom("Georgia-Bold", size: 25))
+                    , displayMode: .large)
                 .navigationBarItems(
                     leading: Button(action: {
                         self.showingChosenLanguages.toggle()
@@ -37,7 +47,7 @@ struct WordsTab: View {
                     }),
 
                     trailing: Button(action: {
-                        // Actions
+                        self.showingAddWord.toggle()
                     }, label: { Image(systemName: "plus")
                         .font(.system(size: 20))
                         //.foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
@@ -47,6 +57,14 @@ struct WordsTab: View {
                     
                 }, content: {
                     ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages)
+                        .environmentObject(self.userData)
+                    }
+                )
+            
+                .sheet(isPresented: $showingAddWord, onDismiss: {
+                    
+                }, content: {
+                    AddWordView(showingAddWord: self.$showingAddWord)
                         .environmentObject(self.userData)
                     }
                 )

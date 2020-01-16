@@ -73,9 +73,9 @@ struct LanguageChoiceView: View {
                     self.choiceMade = true
                     for lang in self.userData.languages {
                         if(lang.isChosen) {
-                            self.userData.chosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag))
+                            self.userData.chosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag, wordsList: [Word(wordString: "lalala", translations: [], synonyms: [], sentences: []), Word(wordString: "lilili", translations: [], synonyms: [], sentences: []), Word(wordString: "lololo", translations: [], synonyms: [], sentences: [])]))
                         } else {
-                            self.userData.notChosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag))
+                            self.userData.notChosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag, wordsList: []))
                         }
                     }
                 }, label: {

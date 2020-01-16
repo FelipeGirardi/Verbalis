@@ -13,14 +13,12 @@ struct Language: Hashable, Codable, Identifiable {
     var name: String
     var flag: String
     var isChosen: Bool
-    var wordList: [Word]
     
-    init(name: String, flag: String, isChosen: Bool, wordList: [Word]) {
+    init(name: String, flag: String, isChosen: Bool) {
         self.id = name
         self.name = name
         self.flag = flag
         self.isChosen = isChosen
-        self.wordList = wordList
     }
 }
 
@@ -28,10 +26,12 @@ struct LanguageChoice: Hashable, Codable, Identifiable {
     var id: String
     var name: String
     var flag: String
+    var wordsList: [Word]
     
-    init(name: String, flag: String) {
+    init(name: String, flag: String, wordsList: [Word]) {
         self.id = name
         self.name = name
         self.flag = flag
+        self.wordsList = wordsList
     }
 }
