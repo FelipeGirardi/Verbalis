@@ -10,9 +10,13 @@ import SwiftUI
 
 struct AddWordView: View {
     @EnvironmentObject var userData: UserData
-    @Binding var showingAddWord: Bool
+    @Binding var isWordConfirmed: Bool
     
     @State var newWord: String = ""
+    
+//    var currentLanguage: LanguageChoice {
+//        self.userData.chosenLanguages.first(where: { $0.id == self.userData.currentLanguageId })!
+//    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -32,7 +36,8 @@ struct AddWordView: View {
     //                .frame(minWidth: 0, maxWidth: geometry.size.width/2, minHeight: 0, maxHeight: 100)
                 
                 Button(action: {
-                    //self.showingChosenLanguages.toggle()
+//                    self.userData.languages[self.userData.currentLanguageId].wordsList.append(Word(id: self.userData.languages[self.userData.currentLanguageId].wordsList[-1].id+1, wordString: self.newWord, translations: [], synonyms: [], sentences: [] ))
+                    self.isWordConfirmed.toggle()
                 }, label: {
                     Text("Confirmar")
                         .fontWeight(.semibold)
@@ -50,7 +55,7 @@ struct AddWordView: View {
 
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWordView(showingAddWord: .constant(true))
+        AddWordView(isWordConfirmed: .constant(true))
             .environmentObject(UserData())
     }
 }

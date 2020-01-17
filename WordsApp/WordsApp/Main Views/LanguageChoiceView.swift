@@ -71,13 +71,7 @@ struct LanguageChoiceView: View {
                 
                 Button(action: {
                     self.choiceMade = true
-                    for lang in self.userData.languages {
-                        if(lang.isChosen) {
-                            self.userData.chosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag, wordsList: [Word(wordString: "lalala", translations: [], synonyms: [], sentences: []), Word(wordString: "lilili", translations: [], synonyms: [], sentences: []), Word(wordString: "lololo", translations: [], synonyms: [], sentences: [])]))
-                        } else {
-                            self.userData.notChosenLanguages.append(LanguageChoice(name: lang.name, flag: lang.flag, wordsList: []))
-                        }
-                    }
+                    //self.userData.languages[0].wordsList.append(contentsOf: [Word(id: 0, wordString: "hahaha", translations: [], synonyms: [], sentences: []), Word(id: 0, wordString: "hehehe", translations: [], synonyms: [], sentences: []), Word(id: 0, wordString: "hihihi", translations: [], synonyms: [], sentences: [])])
                 }, label: {
                     Text("Começar")
                         .fontWeight(.semibold)

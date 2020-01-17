@@ -12,6 +12,10 @@ struct ChangeLanguageView: View {
     @EnvironmentObject var userData: UserData
     @Binding var showingChosenLanguages: Bool
     
+    var chosenLanguages: [Language] {
+        self.userData.languages.filter { $0.isChosen }
+    }
+    
     init(showingChosenLanguages: Binding<Bool>) {
         UITableView.appearance().separatorStyle = .none
         self._showingChosenLanguages = showingChosenLanguages
@@ -26,7 +30,7 @@ struct ChangeLanguageView: View {
                 .padding(.bottom, 100)
             
             List {
-                ForEach(self.userData.chosenLanguages, id: \.self) { chosenLang in
+                ForEach(self.chosenLanguages, id: \.self) { chosenLang in
                     Button(action: {
                         self.userData.currentLanguageId = chosenLang.id
                         print(self.userData.currentLanguageId)

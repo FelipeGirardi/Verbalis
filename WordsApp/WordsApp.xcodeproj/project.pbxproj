@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C001C82A23CF87DA00DF8CDA /* ChangeLanguageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001C82923CF87DA00DF8CDA /* ChangeLanguageButton.swift */; };
+		C007586823D1011C005295DC /* MainNewWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C007586723D1011C005295DC /* MainNewWordView.swift */; };
 		C02FC50023CA561F00D21C1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FC4FF23CA561F00D21C1C /* AppDelegate.swift */; };
 		C02FC50223CA561F00D21C1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FC50123CA561F00D21C1C /* SceneDelegate.swift */; };
 		C02FC50623CA562200D21C1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C02FC50523CA562200D21C1C /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		C001C82923CF87DA00DF8CDA /* ChangeLanguageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLanguageButton.swift; sourceTree = "<group>"; };
+		C007586723D1011C005295DC /* MainNewWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNewWordView.swift; sourceTree = "<group>"; };
 		C02FC4FC23CA561F00D21C1C /* WordsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02FC4FF23CA561F00D21C1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C02FC50123CA561F00D21C1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				C04E9CE023CD3923004D8105 /* GroupsTab.swift */,
 				C03AC46723CE5194009B400B /* ChangeLanguageView.swift */,
 				C001C82923CF87DA00DF8CDA /* ChangeLanguageButton.swift */,
+				C007586723D1011C005295DC /* MainNewWordView.swift */,
 				C0A298AC23CFDF1600355A92 /* AddWordView.swift */,
 				C038974F23D0E47C001F930C /* TranslationScrollView.swift */,
 			);
@@ -221,6 +224,7 @@
 				C04E9CDD23CCF88F004D8105 /* MainWordsView.swift in Sources */,
 				C001C82A23CF87DA00DF8CDA /* ChangeLanguageButton.swift in Sources */,
 				C0694BD823CD538400B983B8 /* MainView.swift in Sources */,
+				C007586823D1011C005295DC /* MainNewWordView.swift in Sources */,
 				C02FC50223CA561F00D21C1C /* SceneDelegate.swift in Sources */,
 				C03887BD23CB9E1C008ED0A2 /* LanguageModel.swift in Sources */,
 				C04E9CDF23CD390D004D8105 /* WordsTab.swift in Sources */,
@@ -362,6 +366,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WordsApp/Preview Content\"";
+				DEVELOPMENT_TEAM = QU2M8UTH92;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WordsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -381,6 +386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"WordsApp/Preview Content\"";
+				DEVELOPMENT_TEAM = QU2M8UTH92;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = WordsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

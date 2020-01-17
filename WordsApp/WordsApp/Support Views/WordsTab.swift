@@ -9,21 +9,53 @@
 import SwiftUI
 
 struct WordsTab: View {
-    @State private var showingChosenLanguages: Bool = false
-    @State private var showingAddWord: Bool = false
+    @State private var showingChosenLanguages = false
+    @State private var showingAddWord = false
     @EnvironmentObject var userData: UserData
     
-    var currentLanguage: LanguageChoice {
-        self.userData.chosenLanguages.first(where: { $0.id == self.userData.currentLanguageId})!
+    var currentLanguage: Language {
+        self.userData.languages[self.userData.currentLanguageId]
     }
+    
     var langName: String {
         self.currentLanguage.name
+    }
+    
+    var languageButton: some View {
+        Button(action: {
+            self.showingChosenLanguages.toggle()
+        }, label: {
+            Text("Línguas")
+                .font(.system(size: 20))
+        })
+        .sheet(isPresented: $showingChosenLanguages, onDismiss: {
+            
+        }, content: {
+            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages)
+                .environmentObject(self.userData)
+            }
+        )
+    }
+    
+    var newWordButton: some View {
+        Button(action: {
+            self.showingAddWord.toggle()
+        }, label: {
+            Image(systemName: "plus")
+                .font(.system(size: 20))
+        })
+        .sheet(isPresented: $showingAddWord, onDismiss: {
+            
+        }, content: {
+            MainNewWordView()
+                .environmentObject(self.userData)
+            }
+        )
     }
     
     init() {
         UINavigationBar.appearance().backgroundColor = .clear
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 30) ?? UIFont()]
-            //.foregroundColor: UIColor(red: 50/255, green: 50/255, blue: 255/255, alpha: 255/255)]
         UITableView.appearance().tableFooterView = UIView()
     }
     
@@ -34,41 +66,13 @@ struct WordsTab: View {
                     Text(word.wordString)
                 }
             }
-            //.padding(.top, 20)
                 .navigationBarTitle(Text(currentLanguage.flag + " " + currentLanguage.name)
                     .font(Font.custom("Georgia-Bold", size: 25))
                     , displayMode: .large)
                 .navigationBarItems(
-                    leading: Button(action: {
-                        self.showingChosenLanguages.toggle()
-                    }, label: { Text("Línguas")
-                        .font(.system(size: 20))
-                        //.foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
-                    }),
-
-                    trailing: Button(action: {
-                        self.showingAddWord.toggle()
-                    }, label: { Image(systemName: "plus")
-                        .font(.system(size: 20))
-                        //.foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
-                    })
+                    leading: languageButton,
+                    trailing: newWordButton
                 )
-                .sheet(isPresented: $showingChosenLanguages, onDismiss: {
-                    
-                }, content: {
-                    ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages)
-                        .environmentObject(self.userData)
-                    }
-                )
-            
-                .sheet(isPresented: $showingAddWord, onDismiss: {
-                    
-                }, content: {
-                    AddWordView(showingAddWord: self.$showingAddWord)
-                        .environmentObject(self.userData)
-                    }
-                )
-            
         }
     }
 }
