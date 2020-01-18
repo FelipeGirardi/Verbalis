@@ -11,13 +11,14 @@ import SwiftUI
 struct MainNewWordView: View {
     
     @State private var isWordConfirmed = false
+    @Binding var showingAddWord: Bool
     
     var body: some View {
         return Group {
             if(isWordConfirmed) {
                 TranslationScrollView()
             } else {
-                AddWordView(isWordConfirmed: $isWordConfirmed)
+                AddWordView(isWordConfirmed: $isWordConfirmed, showingAddWord: self.$showingAddWord)
             }
         }
     }
@@ -26,6 +27,6 @@ struct MainNewWordView: View {
 
 struct MainNewWordView_Previews: PreviewProvider {
     static var previews: some View {
-        MainNewWordView()
+        MainNewWordView(showingAddWord: .constant(true))
     }
 }

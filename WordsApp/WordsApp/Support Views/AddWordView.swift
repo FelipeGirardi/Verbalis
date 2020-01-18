@@ -11,22 +11,33 @@ import SwiftUI
 struct AddWordView: View {
     @EnvironmentObject var userData: UserData
     @Binding var isWordConfirmed: Bool
+    @Binding var showingAddWord: Bool
     
     @State var newWord: String = ""
+    
+    var cancelButton: some View {
+        Button(action: {
+            self.showingAddWord.toggle()
+        }, label: {
+            Text("Sair")
+                .font(.system(size: 20))
+        })
+    }
     
 //    var currentLanguage: LanguageChoice {
 //        self.userData.chosenLanguages.first(where: { $0.id == self.userData.currentLanguageId })!
 //    }
     
     var body: some View {
-        GeometryReader { geometry in
+        NavigationView {
             VStack {
-                Text("Adicionar palavra")
-                .font(Font.custom("Georgia", size: 25))
-                .fontWeight(.medium)
-                .padding()
+                Text("Qual palavra ou expressão deseja adicionar?")
+                    .font(Font.custom("Georgia", size: 25))
+                    .fontWeight(.medium)
+                    .multilineTextAlignment(.center)
+                    .padding()
                 
-                TextField("Digite palavra ", text: self.$newWord)
+                TextField("Digite aqui", text: self.$newWord)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
@@ -36,7 +47,14 @@ struct AddWordView: View {
     //                .frame(minWidth: 0, maxWidth: geometry.size.width/2, minHeight: 0, maxHeight: 100)
                 
                 Button(action: {
-//                    self.userData.languages[self.userData.currentLanguageId].wordsList.append(Word(id: self.userData.languages[self.userData.currentLanguageId].wordsList[-1].id+1, wordString: self.newWord, translations: [], synonyms: [], sentences: [] ))
+                    let langId = self.userData.currentLanguageId
+                    
+                    if(self.userData.languages[langId].wordsList.isEmpty) {
+                        self.userData.languages[langId].wordsList.append(Word(id: 0, wordString: self.newWord, translations: [], synonyms: [], sentences: [] ))
+                    } else {
+                    self.userData.languages[langId].wordsList.append(Word(id: self.userData.languages[langId].wordsList[-1].id+1, wordString: self.newWord, translations: [], synonyms: [], sentences: [] ))
+                    }
+                    
                     self.isWordConfirmed.toggle()
                 }, label: {
                     Text("Confirmar")
@@ -49,13 +67,17 @@ struct AddWordView: View {
                     .cornerRadius(40)
                     .padding()
             }
+            .navigationBarTitle(Text("Nova palavra"), displayMode: .inline)
+            .navigationBarItems(
+                trailing: cancelButton
+            )
         }
     }
 }
 
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWordView(isWordConfirmed: .constant(true))
+        AddWordView(isWordConfirmed: .constant(true), showingAddWord: .constant(true))
             .environmentObject(UserData())
     }
 }

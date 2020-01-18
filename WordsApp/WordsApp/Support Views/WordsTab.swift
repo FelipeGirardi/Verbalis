@@ -31,7 +31,7 @@ struct WordsTab: View {
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
             
         }, content: {
-            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages)
+            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: self.userData.currentLanguageId))
                 .environmentObject(self.userData)
             }
         )
@@ -47,7 +47,7 @@ struct WordsTab: View {
         .sheet(isPresented: $showingAddWord, onDismiss: {
             
         }, content: {
-            MainNewWordView()
+            MainNewWordView(showingAddWord: self.$showingAddWord)
                 .environmentObject(self.userData)
             }
         )
