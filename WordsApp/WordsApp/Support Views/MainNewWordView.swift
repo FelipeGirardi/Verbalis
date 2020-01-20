@@ -9,16 +9,15 @@
 import SwiftUI
 
 struct MainNewWordView: View {
-    
     @State private var isWordConfirmed = false
     @Binding var showingAddWord: Bool
     
     var body: some View {
         return Group {
             if(isWordConfirmed) {
-                TranslationScrollView()
+                TranslationView(showingAddWord: self.$showingAddWord)
             } else {
-                AddWordView(isWordConfirmed: $isWordConfirmed, showingAddWord: self.$showingAddWord)
+                AddWordView(isWordConfirmed: self.$isWordConfirmed, showingAddWord: self.$showingAddWord)
             }
         }
     }
