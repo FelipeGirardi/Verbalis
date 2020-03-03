@@ -39,6 +39,6 @@ struct ChangeLanguageButton: View {
 
 struct ChangeLanguageButton_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeLanguageButton(langName: "Inglês", langFlag: "🇪🇺", bgColor: Color(.yellow), borderColor: Color(.blue), borderWidth: 3)
+        ChangeLanguageButton(langName: "English", langFlag: "🇪🇺", bgColor: Color(.yellow), borderColor: Color(.blue), borderWidth: 3)
     }
 }

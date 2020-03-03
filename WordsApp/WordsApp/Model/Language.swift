@@ -7,33 +7,30 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct Language: Hashable, Codable, Identifiable {
+    static func == (lhs: Language, rhs: Language) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     var id: Int
     var name: String
+    var code: String
     var flag: String
     var isChosen: Bool
     var wordsList: [Word]
     
-    init(id: Int, name: String, flag: String, isChosen: Bool, wordsList: [Word]) {
+    init(id: Int, name: String, flag: String, code: String, isChosen: Bool, wordsList: [Word]) {
         self.id = id
         self.name = name
+        self.code = code
         self.flag = flag
         self.isChosen = isChosen
         self.wordsList = wordsList
     }
 }
-
-//struct LanguageChoice: Hashable, Codable, Identifiable {
-//    var id: Int
-//    var name: String
-//    var flag: String
-//    var wordsList: [Word]
-//    
-//    init(id: Int, name: String, flag: String, wordsList: [Word]) {
-//        self.id = id
-//        self.name = name
-//        self.flag = flag
-//        self.wordsList = wordsList
-//    }
-//}

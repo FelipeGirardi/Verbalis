@@ -7,18 +7,20 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddWordView: View {
     @EnvironmentObject var userData: UserData
-    @Binding var isWordConfirmed: Bool
     @Binding var showingAddWord: Bool
     @State var newWord: String = ""
+    @State var confirmButtonClicked: Bool = false
+//    @ObservedObject var addWordViewModel: AddWordViewModel = AddWordViewModel()
     
     var cancelButton: some View {
         Button(action: {
             self.showingAddWord.toggle()
         }, label: {
-            Text("Sair")
+            Text("Exit")
                 .font(.system(size: 20))
         })
     }
@@ -26,31 +28,41 @@ struct AddWordView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Qual palavra ou expressão deseja adicionar?")
+                Text("Which word would you like to add?")
                     .font(Font.custom("Georgia", size: 25))
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
+                    .lineLimit(nil)
                     .padding()
                 
-                TextField("Digite aqui", text: self.$newWord)
+                TextField("Type here", text: self.$newWord)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
                 
                 Button(action: {
-                    self.userData.currentWord = self.newWord
-                    self.isWordConfirmed.toggle()
+                    self.confirmButtonClicked = true
+                    self.userData.fetchWordData(word: self.newWord, langCode: self.userData.currentLanguageCode, completion: {  (result) -> (Void) in
+                        switch(result) {
+                        case .failure(let error):
+                            print("Error")
+                            print(error.localizedDescription)
+                        case .success(_):
+                            self.showingAddWord.toggle()
+                        }
+                    })
                 }, label: {
-                    Text("Próximo")
+                    Text(confirmButtonClicked ? "Saving..." : "Confirm")
                         .fontWeight(.semibold)
-                        .font(Font.custom("Georgia", size: 15))
-                        .foregroundColor(Color.white)
+                        .font(Font.custom("Georgia", size: 20))
+                        .foregroundColor(confirmButtonClicked ? Color.black : Color.white)
                 })
                     .padding()
-                    .background(Color(red: 50/255, green: 50/255, blue: 255/255))
+                    .background(confirmButtonClicked ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color(red: 50/255, green: 50/255, blue: 255/255))
                     .cornerRadius(40)
                     .padding()
+                    .disabled(confirmButtonClicked)
             }
-            .navigationBarTitle(Text("Nova palavra"), displayMode: .inline)
+            .navigationBarTitle(Text("New word"), displayMode: .inline)
             .navigationBarItems(
                 trailing: cancelButton
             )
@@ -60,7 +72,7 @@ struct AddWordView: View {
 
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWordView(isWordConfirmed: .constant(true), showingAddWord: .constant(true))
+        AddWordView(showingAddWord: .constant(true))
             .environmentObject(UserData())
     }
 }

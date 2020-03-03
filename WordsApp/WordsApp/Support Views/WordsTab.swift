@@ -7,31 +7,29 @@
 //
 
 import SwiftUI
+import Combine
 
 struct WordsTab: View {
     @State private var showingChosenLanguages = false
     @State private var showingAddWord = false
     @EnvironmentObject var userData: UserData
+//    @ObservedObject var addWordViewModel: AddWordViewModel = AddWordViewModel()
     
     var currentLanguage: Language {
         self.userData.languages[self.userData.currentLanguageId]
-    }
-    
-    var langName: String {
-        self.currentLanguage.name
     }
     
     var languageButton: some View {
         Button(action: {
             self.showingChosenLanguages.toggle()
         }, label: {
-            Text("Línguas")
+            Text("Languages")
                 .font(.system(size: 20))
         })
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
             
         }, content: {
-            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: self.userData.currentLanguageId))
+            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: self.userData.currentLanguageId), codeState: State<String>(initialValue: self.userData.currentLanguageCode))
                 .environmentObject(self.userData)
             }
         )
@@ -47,7 +45,7 @@ struct WordsTab: View {
         .sheet(isPresented: $showingAddWord, onDismiss: {
             
         }, content: {
-            MainNewWordView(showingAddWord: self.$showingAddWord)
+            AddWordView(showingAddWord: self.$showingAddWord)
                 .environmentObject(self.userData)
             }
         )
@@ -62,8 +60,14 @@ struct WordsTab: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(currentLanguage.wordsList, id: \.self) { word in
-                    Text(word.wordString)
+                ForEach(currentLanguage.wordsList, id: \.sourceWord) { wordInList in
+//                    Text("► ")
+//                        .font(.system(size: 30))
+//                        .fontWeight(.bold)
+//                        .foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
+                    Text(wordInList.sourceWord)
+                        .font(.system(size: 20))
+                        .fontWeight(.regular)
                 }
             }
                 .navigationBarTitle(Text(currentLanguage.flag + " " + currentLanguage.name)

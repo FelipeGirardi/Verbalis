@@ -27,7 +27,7 @@ struct LanguageChoiceView: View {
     var body: some View {
         
             VStack {
-                Text("Quais línguas você quer aprender?")
+                Text("Which language(s) are you learning?")
                     //.fontWeight(.bold)
                     .font(Font.custom("Georgia-Bold", size: 30))
                     .multilineTextAlignment(.center)
@@ -46,6 +46,7 @@ struct LanguageChoiceView: View {
                                             self.nSelected += 1
                                             if(self.nSelected == 1) {
                                                 self.userData.currentLanguageId = self.userData.languages[position].id
+                                                self.userData.currentLanguageCode = self.userData.languages[position].code
                                             }
                                         }
                                         else {
@@ -71,9 +72,8 @@ struct LanguageChoiceView: View {
                 
                 Button(action: {
                     self.choiceMade = true
-                    //self.userData.languages[0].wordsList.append(contentsOf: [Word(id: 0, wordString: "hahaha", translations: [], synonyms: [], sentences: []), Word(id: 0, wordString: "hehehe", translations: [], synonyms: [], sentences: []), Word(id: 0, wordString: "hihihi", translations: [], synonyms: [], sentences: [])])
                 }, label: {
-                    Text("Começar")
+                    Text("Start")
                         .fontWeight(.semibold)
                         .font(Font.custom("Georgia", size: 25))
                         .foregroundColor(Color.white)

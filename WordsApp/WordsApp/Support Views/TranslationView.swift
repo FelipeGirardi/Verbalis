@@ -10,6 +10,7 @@ import SwiftUI
 
 struct TranslationView: View {
     @Binding var showingAddWord: Bool
+    @Binding var isWordConfirmed: Int
     @State var translations: [String] = ["", "", "", "", ""]
     @State var nTranslations: Int = 1
     @EnvironmentObject var userData: UserData
@@ -43,7 +44,7 @@ struct TranslationView: View {
                         Button(action: {
                             self.nTranslations += 1
                         }, label: {
-                            Text("Inserir outra tradução")
+                            Text("Inserir nova tradução")
                                 .fontWeight(.semibold)
                                 .font(Font.custom("Georgia", size: 10))
                                 .foregroundColor(Color.white)
@@ -54,10 +55,8 @@ struct TranslationView: View {
                     }
                     
                     Button(action: {
-//                        while(self.translations.last == "") {
-//                            self.translations.removeLast()
-//                        }
-//                        print(self.translations)
+                        // MARK: Add translations to UserData
+                        self.isWordConfirmed = 2
                     }, label: {
                         Text("Próximo")
                             .fontWeight(.semibold)
@@ -85,7 +84,7 @@ struct TranslationView: View {
 
 struct TranslationView_Previews: PreviewProvider {
     static var previews: some View {
-        TranslationView(showingAddWord: .constant(true))
+        TranslationView(showingAddWord: .constant(true), isWordConfirmed: .constant(1))
     }
 }
 

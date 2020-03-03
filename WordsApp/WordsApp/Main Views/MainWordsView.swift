@@ -14,13 +14,13 @@ struct MainWordsView: View {
             WordsTab()
                 .tabItem {
                    Image(systemName: "a")
-                   Text("Palavras")
+                   Text("Words")
                 }
             
             GroupsTab()
                 .tabItem {
                    Image(systemName: "bookmark")
-                   Text("Grupos")
+                   Text("Groups")
                 }
         }
         .edgesIgnoringSafeArea(.top)

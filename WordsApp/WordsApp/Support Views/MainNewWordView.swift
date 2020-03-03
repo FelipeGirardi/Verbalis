@@ -9,16 +9,25 @@
 import SwiftUI
 
 struct MainNewWordView: View {
-    @State private var isWordConfirmed = false
+    @State private var isWordConfirmed = 0
     @Binding var showingAddWord: Bool
     
     var body: some View {
         return Group {
-            if(isWordConfirmed) {
-                TranslationView(showingAddWord: self.$showingAddWord)
-            } else {
-                AddWordView(isWordConfirmed: self.$isWordConfirmed, showingAddWord: self.$showingAddWord)
-            }
+            getNewWordView()
+        }
+    }
+    
+    func getNewWordView() -> AnyView {
+        switch (isWordConfirmed) {
+        case 0:
+            return AnyView(AddWordView(isWordConfirmed: self.$isWordConfirmed, showingAddWord: self.$showingAddWord))
+        case 1:
+            return AnyView(TranslationView(showingAddWord: self.$showingAddWord, isWordConfirmed: self.$isWordConfirmed))
+        case 2:
+            return AnyView(SynonymsView())
+        default:
+            return AnyView(EmptyView())
         }
     }
 
