@@ -65,9 +65,11 @@ struct WordsTab: View {
 //                        .font(.system(size: 30))
 //                        .fontWeight(.bold)
 //                        .foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
-                    Text(wordInList.sourceWord)
-                        .font(.system(size: 20))
-                        .fontWeight(.regular)
+                    NavigationLink(destination: WordInfoView()) {
+                        Text(wordInList.sourceWord)
+                            .font(.system(size: 20))
+                            .fontWeight(.regular)
+                    }
                 }
             }
                 .navigationBarTitle(Text(currentLanguage.flag + " " + currentLanguage.name)

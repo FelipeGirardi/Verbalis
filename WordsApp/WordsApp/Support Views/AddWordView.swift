@@ -46,8 +46,10 @@ struct AddWordView: View {
                         case .failure(let error):
                             print("Error")
                             print(error.localizedDescription)
-                        case .success(_):
+                        case .success(true):
                             self.showingAddWord.toggle()
+                        case .success(false):
+                            print("No word found in API")
                         }
                     })
                 }, label: {

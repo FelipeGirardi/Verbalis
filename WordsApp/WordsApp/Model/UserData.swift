@@ -45,46 +45,51 @@ final class UserData: ObservableObject {
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
                 print(error)
-            } else if let httpResponse = response as? HTTPURLResponse {
-            if httpResponse.statusCode == 200 {
-                  do {
-                    // MARK: create proper model from this
-                      if let data = data, let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                        let resp1 = json["outputs"] as? [[String : Any]],
-                        let resp2 = resp1[0]["output"] as? [String : Any],
-                        let resp3 = resp2["matches"] as? [[String: Any]] {
-                        do {
-                            let wordJSONData = try JSONSerialization.data(withJSONObject: resp3, options: [])
-                            let wordJSONDecoder = JSONDecoder()
+            }
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                      do {
+                         guard let data = data,
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
+                            let resp1 = json["outputs"] as? [[String : Any]],
+                            let resp2 = resp1[0]["output"] as? [String : Any],
+                            let resp3 = resp2["matches"] as? [[String: Any]] else {
+                                let resultFailure: Result<Bool, Error> = .success(false)
+                                completion(resultFailure)
+                                return
+                            }
                             do {
-                                let wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
-                                DispatchQueue.main.async {
-                                    var wordList = self.languages[self.currentLanguageId].wordsList
-                                    wordList.append(Word(sourceWord: word, wordData: wordData))
-                                    self.languages[self.currentLanguageId].wordsList = wordList.sorted { $0.sourceWord < $1.sourceWord }
-                                    print(wordData)
-                                    self.newWordQueryFinished = true
-                                    
-                                    let resultSucess: Result<Bool, Error> = .success(true)
-                                    completion(resultSucess)
+                                let wordJSONData = try JSONSerialization.data(withJSONObject: resp3, options: [])
+                                let wordJSONDecoder = JSONDecoder()
+                                do {
+                                    let wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
+                                    DispatchQueue.main.async {
+                                        var wordList = self.languages[self.currentLanguageId].wordsList
+                                        let newWord = Word(sourceWord: word, wordData: wordData)
+                                        wordList.append(newWord)
+                                        self.languages[self.currentLanguageId].wordsList = wordList.sorted { $0.sourceWord < $1.sourceWord }
+                                        print(wordData)
+                                        self.newWordQueryFinished = true
+                                        
+                                        let resultSucess: Result<Bool, Error> = .success(true)
+                                        completion(resultSucess)
+                                    }
+                                } catch {
+                                    print("JSON Decoding Fail")
+                                    let resultFailure: Result<Bool, Error> = .failure(error)
+                                    completion(resultFailure)
                                 }
                             } catch {
-                                print("JSON Decoding Fail")
+                                print("JSONSerialization data error")
                                 let resultFailure: Result<Bool, Error> = .failure(error)
                                 completion(resultFailure)
                             }
-                        } catch {
-                            print("JSONSerialization data error")
-                            let resultFailure: Result<Bool, Error> = .failure(error)
-                            completion(resultFailure)
-                        }
-                    }
-                  } catch {
-                      print("JSONSerialization jsonObject error:", error)
-                      let resultFailure: Result<Bool, Error> = .failure(error)
-                      completion(resultFailure)
-                  }
-            }
+                      } catch {
+                          print("JSONSerialization jsonObject error:", error)
+                          let resultFailure: Result<Bool, Error> = .failure(error)
+                          completion(resultFailure)
+                      }
+                }
             }
         })
         dataTask.resume()
