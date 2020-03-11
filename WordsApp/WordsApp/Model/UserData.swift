@@ -64,10 +64,10 @@ final class UserData: ObservableObject {
                                 do {
                                     let wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
                                     DispatchQueue.main.async {
-                                        var wordList = self.languages[self.currentLanguageId].wordsList
-                                        let newWord = Word(sourceWord: word, wordData: wordData)
-                                        wordList.append(newWord)
-                                        self.languages[self.currentLanguageId].wordsList = wordList.sorted { $0.sourceWord < $1.sourceWord }
+                                        //var wordList = self.languages[self.currentLanguageId].wordsList
+                                        //let newWord = Word(sourceWord: word, wordData: wordData)
+                                        self.languages[self.currentLanguageId].wordsList.append(Word(sourceWord: word, wordData: wordData))
+                                        self.languages[self.currentLanguageId].wordsList.sort(by: { $0.sourceWord < $1.sourceWord })
                                         print(wordData)
                                         self.newWordQueryFinished = true
                                         

@@ -12,11 +12,11 @@ import Foundation
 struct Word: Hashable, Codable {
     
     static func == (lhs: Word, rhs: Word) -> Bool {
-        return lhs.sourceWord.lowercased() == rhs.sourceWord.lowercased()
+        return lhs.sourceWord == rhs.sourceWord
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(sourceWord.lowercased())
+        hasher.combine(sourceWord)
     }
     
     let sourceWord: String
@@ -24,7 +24,15 @@ struct Word: Hashable, Codable {
 }
 
 // MARK: - Translation
-struct WordData: Codable {
+struct WordData: Hashable, Codable {
+    static func == (lhs: WordData, rhs: WordData) -> Bool {
+        return lhs.source == lhs.source
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(source)
+    }
+    
     let otherExamples: [OtherExample]?
     let source: Source?
     let targets: [Target]?
@@ -41,7 +49,15 @@ struct OtherExample: Codable {
 }
 
 // MARK: - Source
-struct Source: Codable {
+struct Source: Hashable, Codable {
+    static func == (lhs: Source, rhs: Source) -> Bool {
+        return lhs.lemma == lhs.lemma
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(lemma)
+    }
+    
     let inflection, info, lemma, phonetic, partOfSpeech, term: String?
     
     enum CodingKeys: String, CodingKey {
@@ -51,7 +67,15 @@ struct Source: Codable {
 }
 
 // MARK: - Target
-struct Target: Codable {
+struct Target: Hashable, Codable {
+    static func == (lhs: Target, rhs: Target) -> Bool {
+        return lhs.translationLemma == lhs.translationLemma
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(translationLemma)
+    }
+    
     let context: String?
     let entryID: Int?
     let examples: [Example]?

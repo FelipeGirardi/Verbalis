@@ -14,7 +14,38 @@ struct AddWordView: View {
     @Binding var showingAddWord: Bool
     @State var newWord: String = ""
     @State var confirmButtonClicked: Bool = false
-//    @ObservedObject var addWordViewModel: AddWordViewModel = AddWordViewModel()
+    @State var savingWordState: SavingWordState = .none
+    
+    enum SavingWordState {
+        case none
+        case saving
+        case saveSuccess
+        case saveFailure
+    }
+    
+    func getStateLabel() -> Text {
+        switch(savingWordState) {
+        case .none:
+            return Text("...")
+                .fontWeight(.semibold)
+                .font(Font.custom("Georgia", size: 20))
+                .foregroundColor(Color.white)
+        case .saving:
+            return Text("Saving...")
+                .fontWeight(.semibold)
+                .font(Font.custom("Georgia", size: 20))
+        case .saveSuccess:
+            return Text("Word saved!")
+                .fontWeight(.semibold)
+                .font(Font.custom("Georgia", size: 20))
+                .foregroundColor(Color.green)
+        case .saveFailure:
+            return Text("Word not found.")
+                .fontWeight(.semibold)
+                .font(Font.custom("Georgia", size: 20))
+                .foregroundColor(Color.red)
+        }
+    }
     
     var cancelButton: some View {
         Button(action: {
@@ -32,7 +63,6 @@ struct AddWordView: View {
                     .font(Font.custom("Georgia", size: 25))
                     .fontWeight(.medium)
                     .multilineTextAlignment(.center)
-                    .lineLimit(nil)
                     .padding()
                 
                 TextField("Type here", text: self.$newWord)
@@ -41,28 +71,46 @@ struct AddWordView: View {
                 
                 Button(action: {
                     self.confirmButtonClicked = true
-                    self.userData.fetchWordData(word: self.newWord, langCode: self.userData.currentLanguageCode, completion: {  (result) -> (Void) in
+                    self.savingWordState = .saving
+                    
+                    self.userData.fetchWordData(word: self.newWord, langCode: self.userData.currentLanguageCode, completion: { (result) -> (Void) in
                         switch(result) {
                         case .failure(let error):
+                            self.savingWordState = .saveFailure
+                            self.confirmButtonClicked = false
                             print("Error")
                             print(error.localizedDescription)
                         case .success(true):
-                            self.showingAddWord.toggle()
+                            self.savingWordState = .saveSuccess
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.showingAddWord.toggle()
+                            }
                         case .success(false):
+                            self.savingWordState = .saveFailure
+                            self.confirmButtonClicked = false
                             print("No word found in API")
                         }
                     })
                 }, label: {
-                    Text(confirmButtonClicked ? "Saving..." : "Confirm")
+                    Text("Confirm")
                         .fontWeight(.semibold)
                         .font(Font.custom("Georgia", size: 20))
-                        .foregroundColor(confirmButtonClicked ? Color.black : Color.white)
+                        .foregroundColor(Color.white)
                 })
                     .padding()
-                    .background(confirmButtonClicked ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color(red: 50/255, green: 50/255, blue: 255/255))
+                    .background(Color(red: 50/255, green: 50/255, blue: 255/255))
+                    .opacity(confirmButtonClicked ? 0.2 : 1.0)
                     .cornerRadius(40)
-                    .padding()
                     .disabled(confirmButtonClicked)
+                    .padding()
+                    //.padding()
+                    //.padding()
+                
+                // MARK: Label that marks the state of word being saved
+                getStateLabel()
+                    .padding()
+                    .padding()
+                
             }
             .navigationBarTitle(Text("New word"), displayMode: .inline)
             .navigationBarItems(
