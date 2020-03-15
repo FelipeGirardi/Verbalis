@@ -13,81 +13,145 @@ struct WordInfoView: View {
     var selectedWord: Word
     
     func termTitle(term: WordData) -> some View {
-        return HStack {
+        return VStack {
             Text(term.source?.lemma ?? "")
-                .font(Font.custom("Georgia-Bold", size: 20))
+                .font(Font.custom("Georgia-Bold", size: 30))
             
-            Text(term.source?.inflection ?? "")
-                .font(Font.custom("Georgia", size: 12))
+            Spacer()
             
-            Text(term.source?.partOfSpeech ?? "")
-                .font(Font.custom("Georgia", size: 12))
+            HStack {
+                Text(term.source?.inflection ?? "")
+                    .font(Font.custom("Georgia", size: 13))
+                
+                Text(term.source?.partOfSpeech ?? "")
+                    .font(Font.custom("Georgia", size: 13))
+            }
         }
     }
     
-    func termTranslations(translationData: Target) -> some View {
+    func prepareTranslations(translations: [Target]) -> some View {
         return
-            VStack {
+            ForEach(translations.indices, id: \.self) { index in
                 Group {
-                    Spacer()
-                    
-                    Text(translationData.translationLemma ?? "")
+                    self.termTranslations(index: index+1, translationData: translations[index])
+                }
+            }
+    }
+    
+    func termTranslations(index: Int, translationData: Target) -> some View {
+        return VStack {
+                Text("\(index). \(translationData.translationLemma ?? "")")
+                    .font(Font.custom("Georgia", size: 20))
+                    .fontWeight(.medium)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding()
+                
+                if(translationData.examples?.count ?? 0 > 0) {
+                    Text("Examples")
                         .font(Font.custom("Georgia", size: 16))
                     
-                    Spacer()
-                    
-                    Text(translationData.examples?.count ?? 0 > 0 ? "Examples: " : "")
-                        .font(Font.custom("Georgia-Bold", size: 12))
-                }
-                
-                    ForEach(translationData.examples ?? [], id: \.source) { example in
-                        Group {
+                    Group {
+                        ForEach(translationData.examples ?? [], id: \.source) { example in
                             HStack {
-                                Spacer()
                                 Text(example.source ?? "")
                                     .font(Font.custom("Georgia", size: 12))
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.center)
-                                Spacer()
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                
+                                Divider()
+                                    .padding(.leading)
+                                    .padding(.trailing)
+                                
                                 Text(example.target ?? "")
                                     .font(Font.custom("Georgia", size: 12))
                                     .fixedSize(horizontal: false, vertical: true)
                                     .multilineTextAlignment(.center)
-                                Spacer()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
                     }
-                    Spacer()
-                    Spacer()
-                
-                    Text("Synonyms: ")
-                        .font(Font.custom("Georgia-Bold", size: 12))
+                    .padding(.top, 8)
+                    .padding(.bottom, 8)
                     
+                    Spacer()
+                    Spacer()
+                }
+
+                    Text("Synonyms")
+                        .font(Font.custom("Georgia", size: 16))
+                        .padding(.bottom)
+            
                     ForEach(translationData.synonyms ?? [], id: \.self) { synonym in
                         Text(synonym)
                             .font(Font.custom("Georgia", size: 12))
+                            .padding(.top, 2)
+                            .padding(.bottom, 2)
                     }
-                    Spacer()
+                    
             }
     }
     
+    func otherExamples(example: OtherExample) -> some View {
+        return HStack {
+            Text(example.source ?? "")
+                .font(Font.custom("Georgia", size: 12))
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            
+            Divider()
+                .padding(.leading)
+                .padding(.trailing)
+            
+            Text(example.target ?? "")
+                .font(Font.custom("Georgia", size: 12))
+                .fixedSize(horizontal: false, vertical: true)
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+    
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             ForEach(selectedWord.wordData, id: \.source?.lemma) { term in
                 Group {
+                    Spacer()
+                    
                     self.termTitle(term: term)
                     
                     Spacer()
                     
-                    ForEach(term.targets ?? [], id: \.translationLemma) { translation in
-                        self.termTranslations(translationData: translation)
+                    self.prepareTranslations(translations: term.targets ?? [])
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.bottom)
+                    
+                    Group {
+                        if(term.otherExamples?.count ?? 0 > 0) {
+                            Text("— Other Examples —")
+                                .font(Font.custom("Georgia", size: 16))
+                                .padding(.top)
+                                .padding(.top)
+                                .padding(.bottom, 8)
+                        }
+                        
+                        ForEach(term.otherExamples ?? [], id: \.source) { example in
+                            self.otherExamples(example: example)
+                        }
                     }
                     
-                    Spacer()
+                    if(term != self.selectedWord.wordData.last) {
+                        Divider()
+                            .padding()
+                            .padding(.top)
+                    } else {
+                        Spacer()
+                    }
                 }
-                
             }
         }
+        .navigationBarTitle("", displayMode: .inline)
     }
 }
 

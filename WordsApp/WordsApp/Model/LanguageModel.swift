@@ -15,5 +15,7 @@ let languageData: [Language] = [
     Language(id: 2, name: "German", flag: "🇩🇪", code: "de", isChosen: false, wordsList: []),
     Language(id: 3, name: "Italian", flag: "🇮🇹", code: "it", isChosen: false, wordsList: []),
     Language(id: 4, name: "Portuguese", flag: "🇧🇷", code: "pt", isChosen: false, wordsList: []),
-    Language(id: 5, name: "Chinese (S)", flag: "🇨🇳", code: "zh", isChosen: false, wordsList: [])
+    Language(id: 5, name: "Russian", flag: "🇷🇺", code: "ru", isChosen: false, wordsList: []),
+    Language(id: 6, name: "Chinese (S)", flag: "🇨🇳", code: "zh", isChosen: false, wordsList: []),
+    Language(id: 7, name: "Japanese", flag: "🇯🇵", code: "ja", isChosen: false, wordsList: [])
 ]

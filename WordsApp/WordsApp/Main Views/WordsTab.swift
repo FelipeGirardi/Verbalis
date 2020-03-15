@@ -79,6 +79,7 @@ struct WordsTab: View {
                     leading: languageButton,
                     trailing: newWordButton
                 )
+                
         }
     }
 }

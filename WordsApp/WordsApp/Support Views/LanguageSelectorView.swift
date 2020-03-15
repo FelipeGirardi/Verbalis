@@ -16,17 +16,17 @@ struct LanguageSelectorView: View {
             VStack {
                 Text(language)
                     .fontWeight(.semibold)
-                    .font(Font.custom("Georgia", size: 20))
+                    .font(Font.custom("Georgia", size: 18))
                     //.font(.system(size: 24))
                     .padding(.top, 15)
                     .foregroundColor(.black)
 
                 Text(flag)
-                    .font(.system(size: 70))
+                    .font(.system(size: 60))
                 
             }
             .fixedSize()
-            .frame(width: 150, height: 150)
+            .frame(width: 130, height: 130)
             .overlay(
                 RoundedRectangle(cornerRadius: 40)
                     .stroke(Color(red: 30/255, green: 220/255, blue: 255/255), lineWidth: 10)

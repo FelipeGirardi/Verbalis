@@ -26,7 +26,7 @@ struct Word: Hashable, Codable {
 // MARK: - Translation
 struct WordData: Hashable, Codable {
     static func == (lhs: WordData, rhs: WordData) -> Bool {
-        return lhs.source == lhs.source
+        return lhs.source?.lemma == rhs.source?.lemma
     }
     
     func hash(into hasher: inout Hasher) {

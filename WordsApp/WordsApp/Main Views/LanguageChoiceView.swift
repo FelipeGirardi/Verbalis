@@ -31,11 +31,11 @@ struct LanguageChoiceView: View {
                     //.fontWeight(.bold)
                     .font(Font.custom("Georgia-Bold", size: 30))
                     .multilineTextAlignment(.center)
-                    .padding(EdgeInsets(top: 50, leading: 25, bottom: 0, trailing: 25))
+                    .padding()
                 
                 Spacer()
                 
-                    ForEach(0 ..< 3) { row in
+                    ForEach(0 ..< 4) { row in
                         HStack {
                             ForEach(0 ..< 2) { column in
                                 Button(action: {
