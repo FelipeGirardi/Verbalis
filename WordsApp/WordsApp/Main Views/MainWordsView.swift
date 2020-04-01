@@ -23,7 +23,7 @@ struct MainWordsView: View {
                    Text("Groups")
                 }
         }
-        .edgesIgnoringSafeArea(.top)
+        //.padding(.top, -10)
     }
 }
 

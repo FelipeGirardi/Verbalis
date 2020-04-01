@@ -13,7 +13,6 @@ struct WordsTab: View {
     @State private var showingChosenLanguages = false
     @State private var showingAddWord = false
     @EnvironmentObject var userData: UserData
-//    @ObservedObject var addWordViewModel: AddWordViewModel = AddWordViewModel()
     
     var currentLanguage: Language {
         self.userData.languages[self.userData.currentLanguageId]
@@ -79,13 +78,13 @@ struct WordsTab: View {
                     leading: languageButton,
                     trailing: newWordButton
                 )
-                
         }
     }
 }
 
 struct WordsTab_Previews: PreviewProvider {
     static var previews: some View {
-        WordsTab()
+        return WordsTab()
+            .environmentObject(UserData())
     }
 }
