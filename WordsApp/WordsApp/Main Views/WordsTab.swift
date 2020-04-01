@@ -79,6 +79,7 @@ struct WordsTab: View {
                     trailing: newWordButton
                 )
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

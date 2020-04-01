@@ -77,7 +77,7 @@ struct ChangeLanguageView: View {
                 trailing: cancelButton
             )
         }
-        
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

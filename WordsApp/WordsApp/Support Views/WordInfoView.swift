@@ -46,7 +46,7 @@ struct WordInfoView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 
-                if(translationData.examples?.count ?? 0 > 0) {
+            if(!(translationData.examples?.isEmpty ?? true)) {
                     Text("Examples")
                         .font(Font.custom("Georgia", size: 16))
                     
@@ -78,17 +78,20 @@ struct WordInfoView: View {
                     Spacer()
                 }
 
-                    Text("Synonyms")
-                        .font(Font.custom("Georgia", size: 16))
-                        .padding(.bottom)
-            
-                    ForEach(translationData.synonyms ?? [], id: \.self) { synonym in
-                        Text(synonym)
-                            .font(Font.custom("Georgia", size: 12))
-                            .padding(.top, 2)
-                            .padding(.bottom, 2)
+            if(!(translationData.synonyms?.isEmpty ?? true)) {
+                    if(translationData.synonyms?[0] != "") {
+                        Text("Synonyms")
+                            .font(Font.custom("Georgia", size: 16))
+                            .padding(.bottom)
+                
+                        ForEach(translationData.synonyms ?? [], id: \.self) { synonym in
+                            Text(synonym)
+                                .font(Font.custom("Georgia", size: 12))
+                                .padding(.top, 2)
+                                .padding(.bottom, 2)
+                        }
                     }
-                    
+                }
             }
     }
     
@@ -151,7 +154,7 @@ struct WordInfoView: View {
                 }
             }
         }
-        .navigationBarTitle("", displayMode: .inline)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -117,6 +117,7 @@ struct AddWordView: View {
                 trailing: cancelButton
             )
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
