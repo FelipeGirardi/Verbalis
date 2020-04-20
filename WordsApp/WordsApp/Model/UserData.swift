@@ -31,7 +31,7 @@ final class UserData: ObservableObject {
         components.host = "systran-systran-platform-for-language-processing-v1.p.rapidapi.com"
         components.path = "/resources/dictionary/lookup"
         components.queryItems = [URLQueryItem(name: "source", value: langCode),
-                                 URLQueryItem(name: "target", value: "en"),
+                                 URLQueryItem(name: "target", value: deviceLanguage),
                                  URLQueryItem(name: "input", value: word)
         ]
 
@@ -44,7 +44,7 @@ final class UserData: ObservableObject {
         let session = URLSession.shared
         let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
             if (error != nil) {
-                print(error)
+                print(error.debugDescription)
             }
             if let httpResponse = response as? HTTPURLResponse {
                 if httpResponse.statusCode == 200 {

@@ -27,15 +27,17 @@ struct LanguageChoiceView: View {
     var body: some View {
         
             VStack {
+                Spacer()
+                
                 Text("Which language(s) are you learning?")
                     //.fontWeight(.bold)
-                    .font(Font.custom("Georgia-Bold", size: 30))
+                    .font(Font.custom("Georgia-Bold", size: 25))
                     .multilineTextAlignment(.center)
-                    .padding()
+                    .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
                 
                 Spacer()
                 
-                    ForEach(0 ..< 4) { row in
+                    ForEach(0 ..< 3) { row in
                         HStack {
                             ForEach(0 ..< 2) { column in
                                 Button(action: {
@@ -54,7 +56,7 @@ struct LanguageChoiceView: View {
                                         }
                                     }
                                 }) {
-                                    LanguageSelectorView(language: languageData[self.calculateRowColumn(row: row, column: column)].name, flag: languageData[self.calculateRowColumn(row: row, column: column)].flag)
+                                    LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name, flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag)
                                         //.background(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(.cyan) : Color(.clear))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 40)
@@ -75,20 +77,21 @@ struct LanguageChoiceView: View {
                 }, label: {
                     Text("Start")
                         .fontWeight(.semibold)
-                        .font(Font.custom("Georgia", size: 25))
+                        .font(Font.custom("Georgia", size: 20))
                         .foregroundColor(Color.white)
-                        .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                        .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
                 })
-                .padding()
                 .background(Color(red: 50/255, green: 50/255, blue: 255/255))
                 .cornerRadius(40)
 //                    .overlay(
 //                        RoundedRectangle(cornerRadius: 40)
 //                            .stroke(Color(.black), lineWidth: 3)
 //                    )
-                .padding(.bottom, 20)
+                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .opacity(nSelected == 0 ? 0.25 : 1.0)
                 .animation(self.animation)
+                
+                Spacer()
         }
     }
 }

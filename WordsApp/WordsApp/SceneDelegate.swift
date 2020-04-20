@@ -34,6 +34,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        
+        print(Locale.preferredLanguages.first)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
