@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Word
-struct Word: Hashable, Codable, Identifiable {
+struct Word: Hashable, Codable {
     
     static func == (lhs: Word, rhs: Word) -> Bool {
         return lhs.sourceWord == rhs.sourceWord
@@ -19,9 +19,15 @@ struct Word: Hashable, Codable, Identifiable {
         hasher.combine(sourceWord)
     }
     
-    let id = UUID()
+    let id: UUID
     let sourceWord: String
     let wordData: [WordData]
+    
+    init(sourceWord: String, wordData: [WordData]) {
+        self.id = UUID()
+        self.sourceWord = sourceWord
+        self.wordData = wordData
+    }
 }
 
 // MARK: - Translation
@@ -95,5 +101,10 @@ struct Target: Hashable, Codable {
 
 // MARK: - Example
 struct Example: Codable {
-    let source, target: String?
+    let exampleSource, exampleTarget: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case exampleSource = "source"
+        case exampleTarget = "target"
+    }
 }

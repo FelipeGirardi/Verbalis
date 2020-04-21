@@ -43,6 +43,7 @@ struct LanguageChoiceView: View {
                                 Button(action: {
                                     withAnimation {
                                         let position = self.calculateRowColumn(row: row, column: column)
+                                        self.userData.languages[position].id = position
                                         self.userData.languages[position].isChosen.toggle()
                                         if(self.userData.languages[position].isChosen) {
                                             self.nSelected += 1
