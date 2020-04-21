@@ -13,13 +13,14 @@ final class UserData: ObservableObject {
     @Published var languages: [Language] = languageData
     @Published var currentLanguageId: Int = -1
     @Published var currentLanguageCode: String = ""
+    
 //    @Published var currentWord: String = ""
 //    @Published var chosenLanguages: [LanguageChoice] = []
 //    @Published var notChosenLanguages: [LanguageChoice] = []
     
-    @Published var newWordQueryFinished = false
+//    @Published var newWordQueryFinished = false
     
-    func fetchWordData(word: String, langCode: String, completion: @escaping (Result<Bool, Error>) -> (Void)) {
+    func fetchWordData(word: String, completion: @escaping (Result<Bool, Error>) -> (Void)) {
         
         let headers = [
             "x-rapidapi-host": "systran-systran-platform-for-language-processing-v1.p.rapidapi.com",
@@ -30,7 +31,7 @@ final class UserData: ObservableObject {
         components.scheme = "https"
         components.host = "systran-systran-platform-for-language-processing-v1.p.rapidapi.com"
         components.path = "/resources/dictionary/lookup"
-        components.queryItems = [URLQueryItem(name: "source", value: langCode),
+        components.queryItems = [URLQueryItem(name: "source", value: self.currentLanguageCode),
                                  URLQueryItem(name: "target", value: deviceLanguage),
                                  URLQueryItem(name: "input", value: word)
         ]
@@ -69,7 +70,7 @@ final class UserData: ObservableObject {
                                         self.languages[self.currentLanguageId].wordsList.append(Word(sourceWord: word, wordData: wordData))
                                         self.languages[self.currentLanguageId].wordsList.sort(by: { $0.sourceWord < $1.sourceWord })
                                         print(wordData)
-                                        self.newWordQueryFinished = true
+                                        //self.newWordQueryFinished = true
                                         
                                         let resultSucess: Result<Bool, Error> = .success(true)
                                         completion(resultSucess)

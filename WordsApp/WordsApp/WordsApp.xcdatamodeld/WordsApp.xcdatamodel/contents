@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Example" representedClassName="Example" syncable="YES">
+        <attribute name="source" optional="YES" attributeType="String"/>
+        <attribute name="target" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Language" representedClassName="Language" syncable="YES">
+        <attribute name="code" optional="YES" attributeType="String"/>
+        <attribute name="flag" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isChosen" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="wordsList" optional="YES" attributeType="Transformable"/>
+    </entity>
+    <entity name="OtherExample" representedClassName="OtherExample" syncable="YES">
+        <attribute name="context" optional="YES" attributeType="String"/>
+        <attribute name="source" optional="YES" attributeType="String"/>
+        <attribute name="target" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Source" representedClassName="Source" syncable="YES">
+        <attribute name="inflection" optional="YES" attributeType="String"/>
+        <attribute name="info" optional="YES" attributeType="String"/>
+        <attribute name="lemma" optional="YES" attributeType="String"/>
+        <attribute name="partOfSpeech" optional="YES" attributeType="String"/>
+        <attribute name="phonetic" optional="YES" attributeType="String"/>
+        <attribute name="term" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Target" representedClassName="Target" syncable="YES">
+        <attribute name="context" optional="YES" attributeType="String"/>
+        <attribute name="entryID" optional="YES" attributeType="String"/>
+        <attribute name="examples" optional="YES" attributeType="Transformable"/>
+        <attribute name="info" optional="YES" attributeType="String"/>
+        <attribute name="rank" optional="YES" attributeType="String"/>
+        <attribute name="synonyms" optional="YES" attributeType="Transformable"/>
+        <attribute name="translationLemma" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Word" representedClassName="Word" syncable="YES">
+        <attribute name="sourceWord" optional="YES" attributeType="String"/>
+        <attribute name="wordData" optional="YES" attributeType="Transformable"/>
+    </entity>
+    <entity name="WordData" representedClassName="WordData" syncable="YES">
+        <attribute name="otherExamples" optional="YES" attributeType="Transformable"/>
+        <attribute name="source" optional="YES" attributeType="Transformable"/>
+        <attribute name="targets" optional="YES" attributeType="Transformable"/>
+    </entity>
+    <elements>
+        <element name="Example" positionX="36" positionY="153" width="128" height="73"/>
+        <element name="Language" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="OtherExample" positionX="-18" positionY="45" width="128" height="88"/>
+        <element name="Source" positionX="0" positionY="72" width="128" height="133"/>
+        <element name="Target" positionX="18" positionY="117" width="128" height="148"/>
+        <element name="Word" positionX="-54" positionY="27" width="128" height="73"/>
+        <element name="WordData" positionX="-36" positionY="36" width="128" height="88"/>
+    </elements>
 </model>

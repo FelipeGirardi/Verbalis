@@ -73,7 +73,7 @@ struct AddWordView: View {
                     self.confirmButtonClicked = true
                     self.savingWordState = .saving
                     
-                    self.userData.fetchWordData(word: self.newWord, langCode: self.userData.currentLanguageCode, completion: { (result) -> (Void) in
+                    self.userData.fetchWordData(word: self.newWord, completion: { (result) -> (Void) in
                         switch(result) {
                         case .failure(let error):
                             self.savingWordState = .saveFailure

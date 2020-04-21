@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Word
-struct Word: Hashable, Codable {
+struct Word: Hashable, Codable, Identifiable {
     
     static func == (lhs: Word, rhs: Word) -> Bool {
         return lhs.sourceWord == rhs.sourceWord
@@ -19,6 +19,7 @@ struct Word: Hashable, Codable {
         hasher.combine(sourceWord)
     }
     
+    let id = UUID()
     let sourceWord: String
     let wordData: [WordData]
 }
