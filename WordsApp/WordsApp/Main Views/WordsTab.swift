@@ -28,7 +28,7 @@ struct WordsTab: View {
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
             
         }, content: {
-            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: self.userData.currentLanguageId), codeState: State<String>(initialValue: self.userData.currentLanguageCode))
+            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: self.userData.currentLanguageId))
                 .environmentObject(self.userData)
             }
         )

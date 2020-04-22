@@ -12,7 +12,6 @@ struct ChangeLanguageView: View {
     @EnvironmentObject var userData: UserData
     @Binding var showingChosenLanguages: Bool
     @State var langState: Int
-    @State var codeState: String
     
     var chosenLanguages: [Language] {
         self.userData.languages.filter { $0.isChosen }
@@ -27,11 +26,10 @@ struct ChangeLanguageView: View {
         })
     }
     
-    init(showingChosenLanguages: Binding<Bool>, langState: State<Int>, codeState: State<String>) {
+    init(showingChosenLanguages: Binding<Bool>, langState: State<Int>) {
         UITableView.appearance().separatorStyle = .none
         self._showingChosenLanguages = showingChosenLanguages
         self._langState = langState
-        self._codeState = codeState
     }
     
     var body: some View {
@@ -47,7 +45,6 @@ struct ChangeLanguageView: View {
                     ForEach(self.chosenLanguages, id: \.self) { chosenLang in
                         Button(action: {
                             self.langState = chosenLang.id
-                            self.codeState = chosenLang.code
                         }) {
                             chosenLang.id == self.langState ? ChangeLanguageButton(langName: chosenLang.name, langFlag: chosenLang.flag, bgColor: Color(red: 255/255, green: 215/255, blue: 0/255), borderColor: Color(red: 50/255, green: 50/255, blue: 255/255), borderWidth: 3) : ChangeLanguageButton(langName: chosenLang.name, langFlag: chosenLang.flag, bgColor: Color(.clear), borderColor: Color(.black), borderWidth: 1)
                         }
@@ -57,7 +54,6 @@ struct ChangeLanguageView: View {
                 
                 Button(action: {
                     self.userData.currentLanguageId = self.langState
-                    self.userData.currentLanguageCode = self.codeState
                     self.showingChosenLanguages.toggle()
                 }, label: {
                     Text("Confirm")
@@ -83,7 +79,7 @@ struct ChangeLanguageView: View {
 
 struct ChangeLanguageView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeLanguageView(showingChosenLanguages: .constant(true), langState: State<Int>(initialValue: 0), codeState: State<String>(initialValue: "es"))
+        ChangeLanguageView(showingChosenLanguages: .constant(true), langState: State<Int>(initialValue: 0))
             .environmentObject(UserData())
     }
 }

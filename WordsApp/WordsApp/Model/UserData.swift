@@ -11,8 +11,7 @@ import Combine
 
 final class UserData: ObservableObject {
     @Published var languages: [Language] = languageData
-    @Published var currentLanguageId: Int = -1
-    @Published var currentLanguageCode: String = ""
+    @Published var currentLanguageId: Int = 0
     
 //    @Published var currentWord: String = ""
 //    @Published var chosenLanguages: [LanguageChoice] = []
@@ -31,7 +30,7 @@ final class UserData: ObservableObject {
         components.scheme = "https"
         components.host = "systran-systran-platform-for-language-processing-v1.p.rapidapi.com"
         components.path = "/resources/dictionary/lookup"
-        components.queryItems = [URLQueryItem(name: "source", value: self.currentLanguageCode),
+        components.queryItems = [URLQueryItem(name: "source", value: self.languages[currentLanguageId].code),
                                  URLQueryItem(name: "target", value: deviceLanguage),
                                  URLQueryItem(name: "input", value: word)
         ]

@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LanguageChoiceView: View {
     
+    @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var userData: UserData
     @State private var nSelected = 0
     @Binding var choiceMade: Bool
@@ -43,13 +44,11 @@ struct LanguageChoiceView: View {
                                 Button(action: {
                                     withAnimation {
                                         let position = self.calculateRowColumn(row: row, column: column)
-                                        self.userData.languages[position].id = position
                                         self.userData.languages[position].isChosen.toggle()
                                         if(self.userData.languages[position].isChosen) {
                                             self.nSelected += 1
                                             if(self.nSelected == 1) {
                                                 self.userData.currentLanguageId = self.userData.languages[position].id
-                                                self.userData.currentLanguageCode = self.userData.languages[position].code
                                             }
                                         }
                                         else {
@@ -75,6 +74,21 @@ struct LanguageChoiceView: View {
                 
                 Button(action: {
                     self.choiceMade = true
+                    
+                    for language in self.userData.languages {
+                        let langCD = CDLanguage(context: self.managedObjectContext)
+                        langCD.id = Int16(language.id)
+                        langCD.name = language.name
+                        langCD.flag = language.flag
+                        langCD.code = language.code
+                        langCD.isChosen = language.isChosen
+                        
+//                        do {
+//                            try self.managedObjectContext.save()
+//                        } catch {
+//                            print("Could not save language info to CoreData")
+//                        }
+                    }
                 }, label: {
                     Text("Start")
                         .fontWeight(.semibold)
@@ -93,6 +107,14 @@ struct LanguageChoiceView: View {
                 .animation(self.animation)
                 
                 Spacer()
+        }
+        .onAppear() {
+            for row in (0 ..< 3) {
+                    for column in (0 ..< 2) {
+                        let position = self.calculateRowColumn(row: row, column: column)
+                        self.userData.languages[position].id = position
+                    }
+                }
         }
     }
 }
