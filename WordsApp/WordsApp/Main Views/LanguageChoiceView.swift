@@ -49,6 +49,7 @@ struct LanguageChoiceView: View {
                                             self.nSelected += 1
                                             if(self.nSelected == 1) {
                                                 self.userData.currentLanguageId = self.userData.languages[position].id
+                                                self.userData.languages[position].isCurrent = true
                                             }
                                         }
                                         else {
@@ -82,12 +83,14 @@ struct LanguageChoiceView: View {
                         langCD.flag = language.flag
                         langCD.code = language.code
                         langCD.isChosen = language.isChosen
+                        langCD.isCurrent = language.isCurrent
+                        langCD.wordsList = NSSet()
                         
-//                        do {
-//                            try self.managedObjectContext.save()
-//                        } catch {
-//                            print("Could not save language info to CoreData")
-//                        }
+                        do {
+                            try self.managedObjectContext.save()
+                        } catch {
+                            print("Could not save language info to CoreData")
+                        }
                     }
                 }, label: {
                     Text("Start")

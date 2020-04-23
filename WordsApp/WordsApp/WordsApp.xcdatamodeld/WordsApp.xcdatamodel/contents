@@ -10,6 +10,7 @@
         <attribute name="flag" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isChosen" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isCurrent" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="wordsList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWord" inverseName="language" inverseEntity="CDWord"/>
     </entity>
@@ -52,7 +53,7 @@
     </entity>
     <elements>
         <element name="CDExample" positionX="36" positionY="153" width="128" height="88"/>
-        <element name="CDLanguage" positionX="-63" positionY="-18" width="128" height="133"/>
+        <element name="CDLanguage" positionX="-63" positionY="-18" width="128" height="148"/>
         <element name="CDOtherExample" positionX="-18" positionY="45" width="128" height="103"/>
         <element name="CDSource" positionX="0" positionY="72" width="128" height="148"/>
         <element name="CDTarget" positionX="18" positionY="117" width="128" height="163"/>

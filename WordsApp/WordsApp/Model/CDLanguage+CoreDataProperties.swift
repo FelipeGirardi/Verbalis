@@ -2,7 +2,7 @@
 //  CDLanguage+CoreDataProperties.swift
 //  WordsApp
 //
-//  Created by Felipe Girardi on 21/04/20.
+//  Created by Felipe Girardi on 23/04/20.
 //  Copyright © 2020 Felipe Girardi. All rights reserved.
 //
 //
@@ -22,6 +22,7 @@ extension CDLanguage {
     @NSManaged public var id: Int16
     @NSManaged public var isChosen: Bool
     @NSManaged public var name: String?
+    @NSManaged public var isCurrent: Bool
     @NSManaged public var wordsList: NSSet?
 
 }

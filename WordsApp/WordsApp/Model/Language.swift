@@ -23,14 +23,16 @@ struct Language: Hashable, Codable, Identifiable {
     var code: String
     var flag: String
     var isChosen: Bool
+    var isCurrent: Bool
     var wordsList: [Word]
     
-    init(id: Int, name: String, flag: String, code: String, isChosen: Bool, wordsList: [Word]) {
+    init(id: Int, name: String, flag: String, code: String, isChosen: Bool, isCurrent: Bool, wordsList: [Word]) {
         self.id = id
         self.name = name
         self.code = code
         self.flag = flag
         self.isChosen = isChosen
+        self.isCurrent = isCurrent
         self.wordsList = wordsList
     }
 }
