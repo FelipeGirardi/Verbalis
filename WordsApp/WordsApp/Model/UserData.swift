@@ -66,21 +66,21 @@ final class UserData: ObservableObject {
                                     DispatchQueue.main.async {
                                         //var wordList = self.languages[self.currentLanguageId].wordsList
                                         //let newWord = Word(sourceWord: word, wordData: wordData)
-                                        self.languages[self.currentLanguageId].wordsList.append(Word(sourceWord: word, wordData: wordData))
-                                        self.languages[self.currentLanguageId].wordsList.sort(by: { $0.sourceWord < $1.sourceWord })
-                                        print(wordData)
+                                        self.languages[self.currentLanguageId].wordsList?.insert(Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext))
+                                        //self.languages[self.currentLanguageId].wordsList.sort(by: { $0.sourceWord < $1.sourceWord })
+                                        //print(wordData)
                                         //self.newWordQueryFinished = true
                                         
                                         let resultSucess: Result<Bool, Error> = .success(true)
                                         completion(resultSucess)
                                     }
                                 } catch {
-                                    print("JSON Decoding Fail")
+                                    print("JSON Decoding Fail:", error)
                                     let resultFailure: Result<Bool, Error> = .failure(error)
                                     completion(resultFailure)
                                 }
                             } catch {
-                                print("JSONSerialization data error")
+                                print("JSONSerialization data error:", error)
                                 let resultFailure: Result<Bool, Error> = .failure(error)
                                 completion(resultFailure)
                             }

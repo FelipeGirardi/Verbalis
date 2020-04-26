@@ -6,27 +6,30 @@
 //  Copyright © 2020 Felipe Girardi. All rights reserved.
 //
 
-import SwiftUI
 import Foundation
+import CoreData
 
-struct Language: Hashable, Codable, Identifiable {
+@objc(Language)
+class Language: NSManagedObject, Identifiable {
     static func == (lhs: Language, rhs: Language) -> Bool {
         return lhs.id == rhs.id
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Language> {
+        return NSFetchRequest<Language>(entityName: "Language")
     }
     
-    var id: Int
-    var name: String
-    var code: String
-    var flag: String
-    var isChosen: Bool
-    var isCurrent: Bool
-    var wordsList: [Word]
+    @NSManaged var id: Int16
+    @NSManaged var name: String?
+    @NSManaged var code: String?
+    @NSManaged var flag: String?
+    @NSManaged var isChosen: Bool
+    @NSManaged var isCurrent: Bool
+    @NSManaged var wordsList: Set<Word>?
     
-    init(id: Int, name: String, flag: String, code: String, isChosen: Bool, isCurrent: Bool, wordsList: [Word]) {
+    convenience init(id: Int16, name: String, flag: String, code: String, isChosen: Bool, isCurrent: Bool, wordsList: Set<Word>, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+        let entity = NSEntityDescription.entity(forEntityName: "Language", in: context)!
+        self.init(entity: entity, insertInto: context)
         self.id = id
         self.name = name
         self.code = code
@@ -35,4 +38,20 @@ struct Language: Hashable, Codable, Identifiable {
         self.isCurrent = isCurrent
         self.wordsList = wordsList
     }
+}
+
+extension Language {
+
+    @objc(addWordsListObject:)
+    @NSManaged public func addToWordsList(_ value: Word)
+
+    @objc(removeWordsListObject:)
+    @NSManaged public func removeFromWordsList(_ value: Word)
+
+    @objc(addWordsList:)
+    @NSManaged public func addToWordsList(_ values: Set<Word>)
+
+    @objc(removeWordsList:)
+    @NSManaged public func removeFromWordsList(_ values: Set<Word>)
+
 }

@@ -12,6 +12,14 @@ import Combine
 struct WordInfoView: View {
     var selectedWord: Word
     
+    var wordDataArray: [WordData] {
+        Array(selectedWord.wordData ?? Set())
+    }
+    
+    var lastWordData: WordData {
+        wordDataArray.last ?? WordData()
+    }
+    
     func termTitle(term: WordData) -> some View {
         return VStack {
             Text(term.source?.lemma ?? "")
@@ -29,16 +37,18 @@ struct WordInfoView: View {
         }
     }
     
-    func prepareTranslations(translations: [Target]) -> some View {
+    func prepareTranslations(translations: WordData) -> some View {
+        let targets: [TargetData] = Array(translations.targets ?? Set())
         return
-            ForEach(translations.indices, id: \.self) { index in
+            ForEach(targets.indices, id: \.self) { index in
                 Group {
-                    self.termTranslations(index: index+1, translationData: translations[index])
+                    self.termTranslations(index: index+1, translationData: targets[index])
                 }
             }
     }
     
-    func termTranslations(index: Int, translationData: Target) -> some View {
+    func termTranslations(index: Int, translationData: TargetData) -> some View {
+        let examples: [Example] = Array(translationData.examples ?? Set())
         return VStack {
                 Text("\(index). \(translationData.translationLemma ?? "")")
                     .font(Font.custom("Georgia", size: 20))
@@ -51,7 +61,7 @@ struct WordInfoView: View {
                         .font(Font.custom("Georgia", size: 16))
                     
                     Group {
-                        ForEach(translationData.examples ?? [], id: \.exampleSource) { example in
+                        ForEach(examples, id: \.exampleSource) { example in
                             HStack {
                                 Text(example.exampleSource ?? "")
                                     .font(Font.custom("Georgia", size: 12))
@@ -95,6 +105,23 @@ struct WordInfoView: View {
             }
     }
     
+    func prepareOtherExamples(wordData: WordData) -> some View {
+        let otherExamplesArray: [OtherExample] = Array(wordData.otherExamples ?? Set())
+        return Group {
+            if(otherExamplesArray.count > 0) {
+                Text("— Other Examples —")
+                    .font(Font.custom("Georgia", size: 16))
+                    .padding(.top)
+                    .padding(.top)
+                    .padding(.bottom, 8)
+            }
+            
+            ForEach(otherExamplesArray, id: \.source) { example in
+                self.otherExamples(example: example)
+            }
+        }
+    }
+    
     func otherExamples(example: OtherExample) -> some View {
         return HStack {
             Text(example.source ?? "")
@@ -117,7 +144,7 @@ struct WordInfoView: View {
     
     var body: some View {
         ScrollView(.vertical) {
-            ForEach(selectedWord.wordData, id: \.source?.lemma) { term in
+            ForEach(wordDataArray, id: \.source?.lemma) { term in
                 Group {
                     Spacer()
                     
@@ -125,26 +152,14 @@ struct WordInfoView: View {
                     
                     Spacer()
                     
-                    self.prepareTranslations(translations: term.targets ?? [])
+                    self.prepareTranslations(translations: term)
                         .padding(.leading)
                         .padding(.trailing)
                         .padding(.bottom)
                     
-                    Group {
-                        if(term.otherExamples?.count ?? 0 > 0) {
-                            Text("— Other Examples —")
-                                .font(Font.custom("Georgia", size: 16))
-                                .padding(.top)
-                                .padding(.top)
-                                .padding(.bottom, 8)
-                        }
-                        
-                        ForEach(term.otherExamples ?? [], id: \.source) { example in
-                            self.otherExamples(example: example)
-                        }
-                    }
+                    self.prepareOtherExamples(wordData: term)
                     
-                    if(term != self.selectedWord.wordData.last) {
+                    if(term != self.lastWordData) {
                         Divider()
                             .padding()
                             .padding(.top)
@@ -160,6 +175,7 @@ struct WordInfoView: View {
 
 struct WordInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        WordInfoView(selectedWord: Word(sourceWord: "sorgen", wordData: [WordsApp.WordData(otherExamples: Optional([WordsApp.OtherExample(context: Optional(""), source: Optional("für Schlagzeile sorgen"), target: Optional("to grab headlines")), WordsApp.OtherExample(context: Optional(""), source: Optional("für die Fluchtwege sorgen"), target: Optional("to look for the escape routes"))]), source: Optional(WordsApp.Source(inflection: Optional("(sorgt/sorgte/gesorgt)"), info: Optional(""), lemma: Optional("sorgen"), phonetic: Optional(""), partOfSpeech: Optional("verb"), term: Optional("sorgen"))), targets: Optional([WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([WordsApp.Example(exampleSource: Optional("für Transparenz sorgen"), exampleTarget: Optional("to ensure transparency"))]), info: Optional(""), synonyms: Optional(["sicherstellen", "gewährleisten", "sichern", "garantieren", "erreichen"]), translationLemma: Optional("to ensure"), rank: Optional("49")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["bieten", "vorsehen", "geben", "bereitstellen", "liefern", "leisten", "erbringen", "schaffen", "übermitteln"]), translationLemma: Optional("to provide"), rank: Optional("22")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["bringen", "führen", "kommen", "stellen", "einbringen", "holen", "mitbringen", "setzen"]), translationLemma: Optional("to bring"), rank: Optional("5")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["sicherstellen", "sichergehen", "achten", "sich vergewissern", "vergewissern"]), translationLemma: Optional("to make sure"), rank: Optional("3")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["liefern", "abgeben", "nehmen", "bringen", "leisten", "einhalten", "erbringen", "ab~geben"]), translationLemma: Optional("to deliver"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["sichern", "sicherstellen", "gewährleisten", "erzielen", "durchsetzen", "absichern"]), translationLemma: Optional("to secure"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["sich kümmern", "kümmern", "sich sorgen", "sich interessieren", "interessieren", "sich scheren", "betreuen", "pflegen"]), translationLemma: Optional("to care"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["besorgen", "beunruhigen", "sich sorgen", "befürchten", "fürchten", "Sorgen sich machen", "Besorgnis erregen", "Sorgen machen"]), translationLemma: Optional("to worry"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["erzeugen", "schaffen", "generieren", "erwirtschaften", "hervorrufen", "hervorbringen", "entstehen", "verursachen", "produzieren"]), translationLemma: Optional("to generate"), rank: Optional("1"))])), WordsApp.WordData(otherExamples: nil, source: Optional(WordsApp.Source(inflection: Optional("(sorgt/sorgte/gesorgt)"), info: Optional(""), lemma: Optional("sich sorgen"), phonetic: Optional(""), partOfSpeech: Optional("verb"), term: Optional("sorgen"))), targets: Optional([WordsApp.Target(context: Optional(""), entryID: Optional(49489), examples: Optional([WordsApp.Example(exampleSource: Optional("um den nationalen Niedergang sich sorgen"), exampleTarget: Optional("to worry about national decline"))]), info: Optional(""), synonyms: Optional(["besorgen", "beunruhigen", "befürchten", "fürchten", "Sorgen sich machen", "Besorgnis erregen", "sorgen", "Sorgen machen"]), translationLemma: Optional("to worry"), rank: Optional("7")), WordsApp.Target(context: Optional(""), entryID: Optional(49489), examples: Optional([WordsApp.Example(exampleSource: Optional("um das Falsche sich sorgen"), exampleTarget: Optional("to care about the wrong things"))]), info: Optional(""), synonyms: Optional(["sich kümmern", "kümmern", "sich interessieren", "sorgen", "interessieren", "sich scheren", "betreuen", "pflegen"]), translationLemma: Optional("to care"), rank: Optional("2"))]))]))
+        EmptyView()
+        //WordInfoView(selectedWord: Word(sourceWord: "sorgen", wordData: [WordsApp.WordData(otherExamples: Optional([WordsApp.OtherExample(context: Optional(""), source: Optional("für Schlagzeile sorgen"), target: Optional("to grab headlines")), WordsApp.OtherExample(context: Optional(""), source: Optional("für die Fluchtwege sorgen"), target: Optional("to look for the escape routes"))]), source: Optional(WordsApp.Source(inflection: Optional("(sorgt/sorgte/gesorgt)"), info: Optional(""), lemma: Optional("sorgen"), phonetic: Optional(""), partOfSpeech: Optional("verb"), term: Optional("sorgen"))), targets: Optional([WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([WordsApp.Example(exampleSource: Optional("für Transparenz sorgen"), exampleTarget: Optional("to ensure transparency"))]), info: Optional(""), synonyms: Optional(["sicherstellen", "gewährleisten", "sichern", "garantieren", "erreichen"]), translationLemma: Optional("to ensure"), rank: Optional("49")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["bieten", "vorsehen", "geben", "bereitstellen", "liefern", "leisten", "erbringen", "schaffen", "übermitteln"]), translationLemma: Optional("to provide"), rank: Optional("22")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["bringen", "führen", "kommen", "stellen", "einbringen", "holen", "mitbringen", "setzen"]), translationLemma: Optional("to bring"), rank: Optional("5")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["sicherstellen", "sichergehen", "achten", "sich vergewissern", "vergewissern"]), translationLemma: Optional("to make sure"), rank: Optional("3")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["liefern", "abgeben", "nehmen", "bringen", "leisten", "einhalten", "erbringen", "ab~geben"]), translationLemma: Optional("to deliver"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["sichern", "sicherstellen", "gewährleisten", "erzielen", "durchsetzen", "absichern"]), translationLemma: Optional("to secure"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["sich kümmern", "kümmern", "sich sorgen", "sich interessieren", "interessieren", "sich scheren", "betreuen", "pflegen"]), translationLemma: Optional("to care"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["besorgen", "beunruhigen", "sich sorgen", "befürchten", "fürchten", "Sorgen sich machen", "Besorgnis erregen", "Sorgen machen"]), translationLemma: Optional("to worry"), rank: Optional("1")), WordsApp.Target(context: Optional(""), entryID: Optional(49488), examples: Optional([]), info: Optional(""), synonyms: Optional(["erzeugen", "schaffen", "generieren", "erwirtschaften", "hervorrufen", "hervorbringen", "entstehen", "verursachen", "produzieren"]), translationLemma: Optional("to generate"), rank: Optional("1"))])), WordsApp.WordData(otherExamples: nil, source: Optional(WordsApp.Source(inflection: Optional("(sorgt/sorgte/gesorgt)"), info: Optional(""), lemma: Optional("sich sorgen"), phonetic: Optional(""), partOfSpeech: Optional("verb"), term: Optional("sorgen"))), targets: Optional([WordsApp.Target(context: Optional(""), entryID: Optional(49489), examples: Optional([WordsApp.Example(exampleSource: Optional("um den nationalen Niedergang sich sorgen"), exampleTarget: Optional("to worry about national decline"))]), info: Optional(""), synonyms: Optional(["besorgen", "beunruhigen", "befürchten", "fürchten", "Sorgen sich machen", "Besorgnis erregen", "sorgen", "Sorgen machen"]), translationLemma: Optional("to worry"), rank: Optional("7")), WordsApp.Target(context: Optional(""), entryID: Optional(49489), examples: Optional([WordsApp.Example(exampleSource: Optional("um das Falsche sich sorgen"), exampleTarget: Optional("to care about the wrong things"))]), info: Optional(""), synonyms: Optional(["sich kümmern", "kümmern", "sich interessieren", "sorgen", "interessieren", "sich scheren", "betreuen", "pflegen"]), translationLemma: Optional("to care"), rank: Optional("2"))]))]))
     }
 }

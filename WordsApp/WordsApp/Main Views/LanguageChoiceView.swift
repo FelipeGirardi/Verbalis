@@ -48,7 +48,7 @@ struct LanguageChoiceView: View {
                                         if(self.userData.languages[position].isChosen) {
                                             self.nSelected += 1
                                             if(self.nSelected == 1) {
-                                                self.userData.currentLanguageId = self.userData.languages[position].id
+                                                self.userData.currentLanguageId = Int(self.userData.languages[position].id)
                                                 self.userData.languages[position].isCurrent = true
                                             }
                                         }
@@ -57,7 +57,7 @@ struct LanguageChoiceView: View {
                                         }
                                     }
                                 }) {
-                                    LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name, flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag)
+                                    LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "")
                                         //.background(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(.cyan) : Color(.clear))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 40)
@@ -76,22 +76,23 @@ struct LanguageChoiceView: View {
                 Button(action: {
                     self.choiceMade = true
                     
-                    for language in self.userData.languages {
-                        let langCD = CDLanguage(context: self.managedObjectContext)
-                        langCD.id = Int16(language.id)
-                        langCD.name = language.name
-                        langCD.flag = language.flag
-                        langCD.code = language.code
-                        langCD.isChosen = language.isChosen
-                        langCD.isCurrent = language.isCurrent
-                        langCD.wordsList = NSSet()
-                        
-                        do {
-                            try self.managedObjectContext.save()
-                        } catch {
-                            print("Could not save language info to CoreData")
-                        }
-                    }
+//                    for language in self.userData.languages {
+//                        let langCD = CDLanguage(context: self.managedObjectContext)
+//                        langCD.id = Int16(language.id)
+//                        langCD.name = language.name
+//                        langCD.flag = language.flag
+//                        langCD.code = language.code
+//                        langCD.isChosen = language.isChosen
+//                        langCD.isCurrent = language.isCurrent
+//                        langCD.wordsList = NSSet()
+//                        
+//                        do {
+//                            try self.managedObjectContext.save()
+//                        } catch {
+//                            print("Could not save language info to CoreData")
+//                        }
+//                    }
+                    
                 }, label: {
                     Text("Start")
                         .fontWeight(.semibold)
@@ -115,7 +116,7 @@ struct LanguageChoiceView: View {
             for row in (0 ..< 3) {
                     for column in (0 ..< 2) {
                         let position = self.calculateRowColumn(row: row, column: column)
-                        self.userData.languages[position].id = position
+                        self.userData.languages[position].id = Int16(position)
                     }
                 }
         }

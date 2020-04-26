@@ -44,9 +44,9 @@ struct ChangeLanguageView: View {
                 List {
                     ForEach(self.chosenLanguages, id: \.self) { chosenLang in
                         Button(action: {
-                            self.langState = chosenLang.id
+                            self.langState = Int(chosenLang.id)
                         }) {
-                            chosenLang.id == self.langState ? ChangeLanguageButton(langName: chosenLang.name, langFlag: chosenLang.flag, bgColor: Color(red: 255/255, green: 215/255, blue: 0/255), borderColor: Color(red: 50/255, green: 50/255, blue: 255/255), borderWidth: 3) : ChangeLanguageButton(langName: chosenLang.name, langFlag: chosenLang.flag, bgColor: Color(.clear), borderColor: Color(.black), borderWidth: 1)
+                            chosenLang.id == self.langState ? ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(red: 255/255, green: 215/255, blue: 0/255), borderColor: Color(red: 50/255, green: 50/255, blue: 255/255), borderWidth: 3) : ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(.clear), borderColor: Color(.black), borderWidth: 1)
                         }
                         
                     }

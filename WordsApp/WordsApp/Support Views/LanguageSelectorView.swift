@@ -37,12 +37,12 @@ struct LanguageSelectorView: View {
 struct LanguageSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LanguageSelectorView(language: languageData[0].name, flag: languageData[0].flag)
-            LanguageSelectorView(language: languageData[1].name, flag: languageData[1].flag)
-            LanguageSelectorView(language: languageData[2].name, flag: languageData[2].flag)
-            LanguageSelectorView(language: languageData[3].name, flag: languageData[3].flag)
-            LanguageSelectorView(language: languageData[4].name, flag: languageData[4].flag)
-            LanguageSelectorView(language: languageData[5].name, flag: languageData[5].flag)
+            LanguageSelectorView(language: languageData[0].name ?? "", flag: languageData[0].flag ?? "")
+            LanguageSelectorView(language: languageData[1].name ?? "", flag: languageData[1].flag ?? "")
+            LanguageSelectorView(language: languageData[2].name ?? "", flag: languageData[2].flag ?? "")
+            LanguageSelectorView(language: languageData[3].name ?? "", flag: languageData[3].flag ?? "")
+            LanguageSelectorView(language: languageData[4].name ?? "", flag: languageData[4].flag ?? "")
+            LanguageSelectorView(language: languageData[5].name ?? "", flag: languageData[5].flag ?? "")
         }
         .previewLayout(.fixed(width: 160, height: 160))
     }

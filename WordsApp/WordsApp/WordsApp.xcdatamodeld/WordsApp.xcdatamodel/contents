@@ -1,63 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="CDExample" representedClassName="CDExample" syncable="YES">
+    <entity name="Example" representedClassName="Example" syncable="YES">
         <attribute name="exampleSource" optional="YES" attributeType="String"/>
         <attribute name="exampleTarget" optional="YES" attributeType="String"/>
-        <relationship name="target" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDTarget" inverseName="examples" inverseEntity="CDTarget"/>
+        <relationship name="target" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TargetData" inverseName="examples" inverseEntity="TargetData"/>
     </entity>
-    <entity name="CDLanguage" representedClassName="CDLanguage" syncable="YES">
+    <entity name="Language" representedClassName="Language" syncable="YES">
         <attribute name="code" optional="YES" attributeType="String"/>
         <attribute name="flag" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="isChosen" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isCurrent" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="wordsList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWord" inverseName="language" inverseEntity="CDWord"/>
+        <relationship name="wordsList" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Word" inverseName="language" inverseEntity="Word"/>
     </entity>
-    <entity name="CDOtherExample" representedClassName="CDOtherExample" syncable="YES">
-        <attribute name="context" optional="YES" attributeType="String"/>
+    <entity name="OtherExample" representedClassName="OtherExample" syncable="YES">
+        <attribute name="exampleContext" optional="YES" attributeType="String"/>
         <attribute name="source" optional="YES" attributeType="String"/>
         <attribute name="target" optional="YES" attributeType="String"/>
-        <relationship name="wordData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWordData" inverseName="otherExamples" inverseEntity="CDWordData"/>
+        <relationship name="wordData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordData" inverseName="otherExamples" inverseEntity="WordData"/>
     </entity>
-    <entity name="CDSource" representedClassName="CDSource" syncable="YES">
+    <entity name="Source" representedClassName="Source" syncable="YES">
         <attribute name="inflection" optional="YES" attributeType="String"/>
         <attribute name="info" optional="YES" attributeType="String"/>
         <attribute name="lemma" optional="YES" attributeType="String"/>
         <attribute name="partOfSpeech" optional="YES" attributeType="String"/>
         <attribute name="phonetic" optional="YES" attributeType="String"/>
         <attribute name="term" optional="YES" attributeType="String"/>
-        <relationship name="wordData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWordData" inverseName="source" inverseEntity="CDWordData"/>
+        <relationship name="wordData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordData" inverseName="source" inverseEntity="WordData"/>
     </entity>
-    <entity name="CDTarget" representedClassName="CDTarget" syncable="YES">
-        <attribute name="context" optional="YES" attributeType="String"/>
-        <attribute name="entryID" optional="YES" attributeType="String"/>
+    <entity name="TargetData" representedClassName="TargetData" syncable="YES">
         <attribute name="info" optional="YES" attributeType="String"/>
         <attribute name="rank" optional="YES" attributeType="String"/>
-        <attribute name="synonyms" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="synonyms" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData"/>
+        <attribute name="targetContext" optional="YES" attributeType="String"/>
         <attribute name="translationLemma" optional="YES" attributeType="String"/>
-        <relationship name="examples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDExample" inverseName="target" inverseEntity="CDExample"/>
-        <relationship name="wordData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWordData" inverseName="targets" inverseEntity="CDWordData"/>
+        <relationship name="examples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Example" inverseName="target" inverseEntity="Example"/>
+        <relationship name="wordData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordData" inverseName="targets" inverseEntity="WordData"/>
     </entity>
-    <entity name="CDWord" representedClassName="CDWord" syncable="YES">
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    <entity name="Word" representedClassName="Word" syncable="YES">
         <attribute name="sourceWord" optional="YES" attributeType="String"/>
-        <relationship name="language" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDLanguage" inverseName="wordsList" inverseEntity="CDLanguage"/>
-        <relationship name="wordData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDWordData" inverseName="word" inverseEntity="CDWordData"/>
+        <relationship name="language" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Language" inverseName="wordsList" inverseEntity="Language"/>
+        <relationship name="wordData" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WordData" inverseName="word" inverseEntity="WordData"/>
     </entity>
-    <entity name="CDWordData" representedClassName="CDWordData" syncable="YES">
-        <relationship name="otherExamples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDOtherExample" inverseName="wordData" inverseEntity="CDOtherExample"/>
-        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDSource" inverseName="wordData" inverseEntity="CDSource"/>
-        <relationship name="targets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CDTarget" inverseName="wordData" inverseEntity="CDTarget"/>
-        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CDWord" inverseName="wordData" inverseEntity="CDWord"/>
+    <entity name="WordData" representedClassName="WordData" syncable="YES">
+        <relationship name="otherExamples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OtherExample" inverseName="wordData" inverseEntity="OtherExample"/>
+        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Source" inverseName="wordData" inverseEntity="Source"/>
+        <relationship name="targets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TargetData" inverseName="wordData" inverseEntity="TargetData"/>
+        <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" inverseName="wordData" inverseEntity="Word"/>
     </entity>
     <elements>
-        <element name="CDExample" positionX="36" positionY="153" width="128" height="88"/>
-        <element name="CDLanguage" positionX="-63" positionY="-18" width="128" height="148"/>
-        <element name="CDOtherExample" positionX="-18" positionY="45" width="128" height="103"/>
-        <element name="CDSource" positionX="0" positionY="72" width="128" height="148"/>
-        <element name="CDTarget" positionX="18" positionY="117" width="128" height="163"/>
-        <element name="CDWord" positionX="-54" positionY="27" width="128" height="103"/>
-        <element name="CDWordData" positionX="-36" positionY="36" width="128" height="103"/>
+        <element name="Example" positionX="36" positionY="153" width="128" height="88"/>
+        <element name="Language" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="OtherExample" positionX="-18" positionY="45" width="128" height="103"/>
+        <element name="Source" positionX="0" positionY="72" width="128" height="148"/>
+        <element name="TargetData" positionX="18" positionY="117" width="128" height="148"/>
+        <element name="Word" positionX="-54" positionY="27" width="128" height="88"/>
+        <element name="WordData" positionX="-36" positionY="36" width="128" height="103"/>
     </elements>
 </model>

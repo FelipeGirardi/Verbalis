@@ -27,20 +27,6 @@
 		C07EF5C323CBBA63003FA014 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07EF5C223CBBA63003FA014 /* Language.swift */; };
 		C0A0A80E241EEDFB00A296F9 /* WordsApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0A0A80C241EEDFB00A296F9 /* WordsApp.xcdatamodeld */; };
 		C0A298AD23CFDF1600355A92 /* AddWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A298AC23CFDF1600355A92 /* AddWordView.swift */; };
-		C0B95353244F79B000195761 /* CDWordData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B95345244F79AF00195761 /* CDWordData+CoreDataClass.swift */; };
-		C0B95354244F79B000195761 /* CDWordData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B95346244F79AF00195761 /* CDWordData+CoreDataProperties.swift */; };
-		C0B95355244F79B000195761 /* CDSource+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B95347244F79AF00195761 /* CDSource+CoreDataClass.swift */; };
-		C0B95356244F79B000195761 /* CDSource+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B95348244F79AF00195761 /* CDSource+CoreDataProperties.swift */; };
-		C0B95359244F79B000195761 /* CDTarget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B9534B244F79B000195761 /* CDTarget+CoreDataClass.swift */; };
-		C0B9535A244F79B000195761 /* CDTarget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B9534C244F79B000195761 /* CDTarget+CoreDataProperties.swift */; };
-		C0B9535B244F79B000195761 /* CDExample+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B9534D244F79B000195761 /* CDExample+CoreDataClass.swift */; };
-		C0B9535C244F79B000195761 /* CDExample+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B9534E244F79B000195761 /* CDExample+CoreDataProperties.swift */; };
-		C0B9535D244F79B000195761 /* CDOtherExample+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B9534F244F79B000195761 /* CDOtherExample+CoreDataClass.swift */; };
-		C0B9535E244F79B000195761 /* CDOtherExample+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B95350244F79B000195761 /* CDOtherExample+CoreDataProperties.swift */; };
-		C0B9535F244F79B000195761 /* CDWord+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B95351244F79B000195761 /* CDWord+CoreDataClass.swift */; };
-		C0B95360244F79B000195761 /* CDWord+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B95352244F79B000195761 /* CDWord+CoreDataProperties.swift */; };
-		C0CEAAE624520821006A9947 /* CDLanguage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CEAAE424520821006A9947 /* CDLanguage+CoreDataClass.swift */; };
-		C0CEAAE724520821006A9947 /* CDLanguage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CEAAE524520821006A9947 /* CDLanguage+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,20 +52,6 @@
 		C07EF5C223CBBA63003FA014 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		C0A0A80D241EEDFB00A296F9 /* WordsApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordsApp.xcdatamodel; sourceTree = "<group>"; };
 		C0A298AC23CFDF1600355A92 /* AddWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordView.swift; sourceTree = "<group>"; };
-		C0B95345244F79AF00195761 /* CDWordData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWordData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C0B95346244F79AF00195761 /* CDWordData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWordData+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C0B95347244F79AF00195761 /* CDSource+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSource+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C0B95348244F79AF00195761 /* CDSource+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDSource+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C0B9534B244F79B000195761 /* CDTarget+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTarget+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C0B9534C244F79B000195761 /* CDTarget+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDTarget+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C0B9534D244F79B000195761 /* CDExample+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDExample+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C0B9534E244F79B000195761 /* CDExample+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDExample+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C0B9534F244F79B000195761 /* CDOtherExample+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDOtherExample+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C0B95350244F79B000195761 /* CDOtherExample+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDOtherExample+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C0B95351244F79B000195761 /* CDWord+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C0B95352244F79B000195761 /* CDWord+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDWord+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C0CEAAE424520821006A9947 /* CDLanguage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLanguage+CoreDataClass.swift"; sourceTree = "<group>"; };
-		C0CEAAE524520821006A9947 /* CDLanguage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CDLanguage+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,20 +109,6 @@
 		C03887BE23CB9E70008ED0A2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C0CEAAE424520821006A9947 /* CDLanguage+CoreDataClass.swift */,
-				C0CEAAE524520821006A9947 /* CDLanguage+CoreDataProperties.swift */,
-				C0B95345244F79AF00195761 /* CDWordData+CoreDataClass.swift */,
-				C0B95346244F79AF00195761 /* CDWordData+CoreDataProperties.swift */,
-				C0B95347244F79AF00195761 /* CDSource+CoreDataClass.swift */,
-				C0B95348244F79AF00195761 /* CDSource+CoreDataProperties.swift */,
-				C0B9534B244F79B000195761 /* CDTarget+CoreDataClass.swift */,
-				C0B9534C244F79B000195761 /* CDTarget+CoreDataProperties.swift */,
-				C0B9534D244F79B000195761 /* CDExample+CoreDataClass.swift */,
-				C0B9534E244F79B000195761 /* CDExample+CoreDataProperties.swift */,
-				C0B9534F244F79B000195761 /* CDOtherExample+CoreDataClass.swift */,
-				C0B95350244F79B000195761 /* CDOtherExample+CoreDataProperties.swift */,
-				C0B95351244F79B000195761 /* CDWord+CoreDataClass.swift */,
-				C0B95352244F79B000195761 /* CDWord+CoreDataProperties.swift */,
 				C03887BC23CB9E1C008ED0A2 /* LanguageModel.swift */,
 				C07EF5C223CBBA63003FA014 /* Language.swift */,
 				C03AC46523CE4110009B400B /* Word.swift */,
@@ -256,35 +214,21 @@
 			files = (
 				C00E75A5241166C000D0983C /* WordInfoView.swift in Sources */,
 				C0385A7F23CBB44D00F3749B /* UserData.swift in Sources */,
-				C0B95353244F79B000195761 /* CDWordData+CoreDataClass.swift in Sources */,
-				C0B95355244F79B000195761 /* CDSource+CoreDataClass.swift in Sources */,
 				C04E9CE123CD3923004D8105 /* GroupsTab.swift in Sources */,
-				C0B95360244F79B000195761 /* CDWord+CoreDataProperties.swift in Sources */,
-				C0CEAAE724520821006A9947 /* CDLanguage+CoreDataProperties.swift in Sources */,
 				C02FC50023CA561F00D21C1C /* AppDelegate.swift in Sources */,
-				C0B9535B244F79B000195761 /* CDExample+CoreDataClass.swift in Sources */,
 				C0A0A80E241EEDFB00A296F9 /* WordsApp.xcdatamodeld in Sources */,
-				C0B95359244F79B000195761 /* CDTarget+CoreDataClass.swift in Sources */,
 				C0A298AD23CFDF1600355A92 /* AddWordView.swift in Sources */,
 				C03887BB23CB8FB6008ED0A2 /* LanguageSelectorView.swift in Sources */,
 				C07EF5C323CBBA63003FA014 /* Language.swift in Sources */,
-				C0B9535E244F79B000195761 /* CDOtherExample+CoreDataProperties.swift in Sources */,
-				C0B9535D244F79B000195761 /* CDOtherExample+CoreDataClass.swift in Sources */,
 				C03AC46623CE4110009B400B /* Word.swift in Sources */,
-				C0B9535C244F79B000195761 /* CDExample+CoreDataProperties.swift in Sources */,
 				C02FC51623CA583500D21C1C /* LanguageChoiceView.swift in Sources */,
 				C03AC46823CE5194009B400B /* ChangeLanguageView.swift in Sources */,
-				C0B9535F244F79B000195761 /* CDWord+CoreDataClass.swift in Sources */,
-				C0CEAAE624520821006A9947 /* CDLanguage+CoreDataClass.swift in Sources */,
 				C04E9CDD23CCF88F004D8105 /* MainWordsView.swift in Sources */,
 				C001C82A23CF87DA00DF8CDA /* ChangeLanguageButton.swift in Sources */,
 				C0694BD823CD538400B983B8 /* MainView.swift in Sources */,
 				C02FC50223CA561F00D21C1C /* SceneDelegate.swift in Sources */,
-				C0B95356244F79B000195761 /* CDSource+CoreDataProperties.swift in Sources */,
 				C03887BD23CB9E1C008ED0A2 /* LanguageModel.swift in Sources */,
 				C04E9CDF23CD390D004D8105 /* WordsTab.swift in Sources */,
-				C0B95354244F79B000195761 /* CDWordData+CoreDataProperties.swift in Sources */,
-				C0B9535A244F79B000195761 /* CDTarget+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

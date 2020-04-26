@@ -12,10 +12,15 @@ import Combine
 struct WordsTab: View {
     @State private var showingChosenLanguages = false
     @State private var showingAddWord = false
+    @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var userData: UserData
     
     var currentLanguage: Language {
         self.userData.languages[self.userData.currentLanguageId]
+    }
+    
+    var wordsListArray: [Word] {
+        Array(currentLanguage.wordsList ?? Set())
     }
     
     var languageButton: some View {
@@ -59,19 +64,19 @@ struct WordsTab: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(currentLanguage.wordsList, id: \.sourceWord) { wordInList in
+                ForEach(wordsListArray, id: \.sourceWord) { wordInList in
 //                    Text("► ")
 //                        .font(.system(size: 30))
 //                        .fontWeight(.bold)
 //                        .foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
-                    NavigationLink(destination: WordInfoView(selectedWord: Word(sourceWord: wordInList.sourceWord, wordData: wordInList.wordData))) {
-                        Text(wordInList.sourceWord)
+                    NavigationLink(destination: WordInfoView(selectedWord: wordInList)) {
+                        Text(String(wordInList.sourceWord ?? ""))
                             .font(.system(size: 20))
                             .fontWeight(.regular)
                     }
                 }
             }
-                .navigationBarTitle(Text(currentLanguage.flag + " " + currentLanguage.name)
+                .navigationBarTitle(Text((currentLanguage.flag ?? "") + " " + (currentLanguage.name ?? ""))
                     .font(Font.custom("Georgia-Bold", size: 25))
                     , displayMode: .large)
                 .navigationBarItems(
