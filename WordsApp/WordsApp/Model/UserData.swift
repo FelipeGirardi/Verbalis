@@ -8,12 +8,12 @@
 
 import SwiftUI
 import Combine
+import CoreData
 
 final class UserData: ObservableObject {
     @Published var languages: [Language] = languageData
     @Published var currentLanguageId: Int = 0
-    
-//    @Published var currentWord: String = ""
+
 //    @Published var chosenLanguages: [LanguageChoice] = []
 //    @Published var notChosenLanguages: [LanguageChoice] = []
     
@@ -64,11 +64,30 @@ final class UserData: ObservableObject {
                                 do {
                                     let wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
                                     DispatchQueue.main.async {
-                                        //var wordList = self.languages[self.currentLanguageId].wordsList
-                                        //let newWord = Word(sourceWord: word, wordData: wordData)
-                                        self.languages[self.currentLanguageId].wordsList?.insert(Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext))
-                                        //self.languages[self.currentLanguageId].wordsList.sort(by: { $0.sourceWord < $1.sourceWord })
-                                        //print(wordData)
+                                        //self.languages[self.currentLanguageId].wordsList?.insert(Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext))
+                                        
+                                        let moc = appDelegate.persistentContainer.viewContext
+                                        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Language")
+                                        fetchRequest.predicate = NSPredicate(format: "isCurrent = %@", NSNumber(value: true))
+                                        do {
+                                            let fetchedLanguages = try moc.fetch(fetchRequest)
+                                            if(fetchedLanguages.count != 0) {
+                                                let fetchedLanguage = fetchedLanguages[0]
+                                                var fetchedWords = fetchedLanguage.value(forKey: "wordsList") as? Set<Word>
+                                                fetchedWords?.insert(Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext))
+                                                fetchedLanguage.setValue(fetchedWords, forKey: "wordsList")
+                                                try moc.save()
+                                            } else {
+                                                print("No language found")
+                                                let resultFailure: Result<Bool, Error> = .success(false)
+                                                completion(resultFailure)
+                                            }
+                                        } catch let error as NSError {
+                                            print("Could not fetch. \(error), \(error.userInfo)")
+                                            let resultFailure: Result<Bool, Error> = .failure(error)
+                                            completion(resultFailure)
+                                        }
+
                                         //self.newWordQueryFinished = true
                                         
                                         let resultSucess: Result<Bool, Error> = .success(true)

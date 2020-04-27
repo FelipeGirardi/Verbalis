@@ -20,7 +20,7 @@
         <attribute name="target" optional="YES" attributeType="String"/>
         <relationship name="wordData" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordData" inverseName="otherExamples" inverseEntity="WordData"/>
     </entity>
-    <entity name="Source" representedClassName="Source" syncable="YES">
+    <entity name="SourceData" representedClassName="SourceData" syncable="YES">
         <attribute name="inflection" optional="YES" attributeType="String"/>
         <attribute name="info" optional="YES" attributeType="String"/>
         <attribute name="lemma" optional="YES" attributeType="String"/>
@@ -45,7 +45,7 @@
     </entity>
     <entity name="WordData" representedClassName="WordData" syncable="YES">
         <relationship name="otherExamples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="OtherExample" inverseName="wordData" inverseEntity="OtherExample"/>
-        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Source" inverseName="wordData" inverseEntity="Source"/>
+        <relationship name="source" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SourceData" inverseName="wordData" inverseEntity="SourceData"/>
         <relationship name="targets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TargetData" inverseName="wordData" inverseEntity="TargetData"/>
         <relationship name="word" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" inverseName="wordData" inverseEntity="Word"/>
     </entity>
@@ -53,7 +53,7 @@
         <element name="Example" positionX="36" positionY="153" width="128" height="88"/>
         <element name="Language" positionX="-63" positionY="-18" width="128" height="148"/>
         <element name="OtherExample" positionX="-18" positionY="45" width="128" height="103"/>
-        <element name="Source" positionX="0" positionY="72" width="128" height="148"/>
+        <element name="SourceData" positionX="0" positionY="72" width="128" height="148"/>
         <element name="TargetData" positionX="18" positionY="117" width="128" height="148"/>
         <element name="Word" positionX="-54" positionY="27" width="128" height="88"/>
         <element name="WordData" positionX="-36" positionY="36" width="128" height="103"/>

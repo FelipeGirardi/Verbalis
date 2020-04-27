@@ -15,12 +15,21 @@ struct WordsTab: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var userData: UserData
     
-    var currentLanguage: Language {
-        self.userData.languages[self.userData.currentLanguageId]
+    @FetchRequest(entity: Language.entity(),
+                  sortDescriptors: [],
+                  predicate: NSPredicate(format: "isCurrent == %@", NSNumber(value: true)))
+    var langResults: FetchedResults<Language>
+    
+//    var currentLanguage: Language {
+//        self.userData.languages[self.userData.currentLanguageId]
+//    }
+    
+    var currentLang: Language {
+        self.langResults.count != 0 ? self.langResults[0] : Language(id: 0, name: "", flag: "", code: "", isChosen: true, isCurrent: true, wordsList: Set(), insertIntoManagedObjectContext: managedObjectContext)
     }
     
     var wordsListArray: [Word] {
-        Array(currentLanguage.wordsList ?? Set())
+        Array(currentLang.wordsList ?? Set())
     }
     
     var languageButton: some View {
@@ -33,7 +42,7 @@ struct WordsTab: View {
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
             
         }, content: {
-            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: self.userData.currentLanguageId))
+            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: Int(self.currentLang.id)))
                 .environmentObject(self.userData)
             }
         )
@@ -76,7 +85,7 @@ struct WordsTab: View {
                     }
                 }
             }
-                .navigationBarTitle(Text((currentLanguage.flag ?? "") + " " + (currentLanguage.name ?? ""))
+                .navigationBarTitle(Text((currentLang.flag ?? "") + " " + (currentLang.name ?? ""))
                     .font(Font.custom("Georgia-Bold", size: 25))
                     , displayMode: .large)
                 .navigationBarItems(

@@ -75,23 +75,12 @@ struct LanguageChoiceView: View {
                 
                 Button(action: {
                     self.choiceMade = true
-                    
-//                    for language in self.userData.languages {
-//                        let langCD = CDLanguage(context: self.managedObjectContext)
-//                        langCD.id = Int16(language.id)
-//                        langCD.name = language.name
-//                        langCD.flag = language.flag
-//                        langCD.code = language.code
-//                        langCD.isChosen = language.isChosen
-//                        langCD.isCurrent = language.isCurrent
-//                        langCD.wordsList = NSSet()
-//                        
-//                        do {
-//                            try self.managedObjectContext.save()
-//                        } catch {
-//                            print("Could not save language info to CoreData")
-//                        }
-//                    }
+                    do {
+                        try self.managedObjectContext.save()
+                    } catch {
+                        print("Could not save language info to CoreData")
+                        print(error)
+                    }
                     
                 }, label: {
                     Text("Start")

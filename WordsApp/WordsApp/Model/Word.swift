@@ -91,7 +91,7 @@ class WordData: NSManagedObject, Codable {
     }
     
     @NSManaged var otherExamples: Set<OtherExample>?
-    @NSManaged var source: Source?
+    @NSManaged var source: SourceData?
     @NSManaged var targets: Set<TargetData>?
 
     enum CodingKeys: String, CodingKey {
@@ -99,7 +99,7 @@ class WordData: NSManagedObject, Codable {
         case source, targets
     }
     
-    convenience init(otherExamples: Set<OtherExample>, source: Source, targets: Set<TargetData>, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+    convenience init(otherExamples: Set<OtherExample>, source: SourceData, targets: Set<TargetData>, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
         let entity = NSEntityDescription.entity(forEntityName: "WordData", in: context)!
         self.init(entity: entity, insertInto: context)
         self.otherExamples = otherExamples
@@ -120,7 +120,7 @@ class WordData: NSManagedObject, Codable {
         } else {
             otherExamples = Set()
         }
-        source = try values.decode(Source.self, forKey: .source)
+        source = try values.decode(SourceData.self, forKey: .source)
         let targetsArray = try values.decode([TargetData].self, forKey: .targets)
         targets = Set(targetsArray)
     }
@@ -220,13 +220,13 @@ class OtherExample: NSManagedObject, Codable {
 
 
 // MARK: - Source
-@objc(Source)
-class Source: NSManagedObject, Codable {
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Source> {
-        return NSFetchRequest<Source>(entityName: "Source")
+@objc(SourceData)
+class SourceData: NSManagedObject, Codable {
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<SourceData> {
+        return NSFetchRequest<SourceData>(entityName: "SourceData")
     }
     
-    static func == (lhs: Source, rhs: Source) -> Bool {
+    static func == (lhs: SourceData, rhs: SourceData) -> Bool {
         return lhs.lemma == lhs.lemma
     }
     
@@ -243,7 +243,7 @@ class Source: NSManagedObject, Codable {
     }
     
     convenience init(inflection: String, info: String, lemma: String, partOfSpeech: String, phonetic: String, term: String, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
-        let entity = NSEntityDescription.entity(forEntityName: "Source", in: context)!
+        let entity = NSEntityDescription.entity(forEntityName: "SourceData", in: context)!
         self.init(entity: entity, insertInto: context)
         self.inflection = inflection
         self.info = info
@@ -254,8 +254,8 @@ class Source: NSManagedObject, Codable {
     }
     
     required convenience init(from decoder: Decoder) throws {
-        guard let entity = NSEntityDescription.entity(forEntityName: "Source", in: appContext) else {
-            fatalError("Failed to decode Source")
+        guard let entity = NSEntityDescription.entity(forEntityName: "SourceData", in: appContext) else {
+            fatalError("Failed to decode SourceData")
         }
         self.init(entity: entity, insertInto: appContext)
         
