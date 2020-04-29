@@ -15,6 +15,7 @@ struct AddWordView: View {
     @State var newWord: String = ""
     @State var confirmButtonClicked: Bool = false
     @State var savingWordState: SavingWordState = .none
+    var currentLangCode: String
     
     enum SavingWordState {
         case none
@@ -73,7 +74,7 @@ struct AddWordView: View {
                     self.confirmButtonClicked = true
                     self.savingWordState = .saving
                     
-                    self.userData.fetchWordData(word: self.newWord, completion: { (result) -> (Void) in
+                    self.userData.fetchWordData(word: self.newWord, langCode: self.currentLangCode, completion: { (result) -> (Void) in
                         switch(result) {
                         case .failure(let error):
                             self.savingWordState = .saveFailure
@@ -123,7 +124,7 @@ struct AddWordView: View {
 
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWordView(showingAddWord: .constant(true))
+        AddWordView(showingAddWord: .constant(true), currentLangCode: "de")
             .environmentObject(UserData())
     }
 }

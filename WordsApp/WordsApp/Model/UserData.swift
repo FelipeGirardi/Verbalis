@@ -13,13 +13,10 @@ import CoreData
 final class UserData: ObservableObject {
     @Published var languages: [Language] = languageData
     @Published var currentLanguageId: Int = 0
-
-//    @Published var chosenLanguages: [LanguageChoice] = []
-//    @Published var notChosenLanguages: [LanguageChoice] = []
     
 //    @Published var newWordQueryFinished = false
     
-    func fetchWordData(word: String, completion: @escaping (Result<Bool, Error>) -> (Void)) {
+    func fetchWordData(word: String, langCode: String, completion: @escaping (Result<Bool, Error>) -> (Void)) {
         
         let headers = [
             "x-rapidapi-host": "systran-systran-platform-for-language-processing-v1.p.rapidapi.com",
@@ -30,7 +27,7 @@ final class UserData: ObservableObject {
         components.scheme = "https"
         components.host = "systran-systran-platform-for-language-processing-v1.p.rapidapi.com"
         components.path = "/resources/dictionary/lookup"
-        components.queryItems = [URLQueryItem(name: "source", value: self.languages[currentLanguageId].code),
+        components.queryItems = [URLQueryItem(name: "source", value: langCode),
                                  URLQueryItem(name: "target", value: deviceLanguage),
                                  URLQueryItem(name: "input", value: word)
         ]
@@ -64,8 +61,6 @@ final class UserData: ObservableObject {
                                 do {
                                     let wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
                                     DispatchQueue.main.async {
-                                        //self.languages[self.currentLanguageId].wordsList?.insert(Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext))
-                                        
                                         let moc = appDelegate.persistentContainer.viewContext
                                         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Language")
                                         fetchRequest.predicate = NSPredicate(format: "isCurrent = %@", NSNumber(value: true))
@@ -87,7 +82,6 @@ final class UserData: ObservableObject {
                                             let resultFailure: Result<Bool, Error> = .failure(error)
                                             completion(resultFailure)
                                         }
-
                                         //self.newWordQueryFinished = true
                                         
                                         let resultSucess: Result<Bool, Error> = .success(true)

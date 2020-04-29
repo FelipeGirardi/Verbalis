@@ -9,13 +9,15 @@
 import SwiftUI
 
 struct ChangeLanguageView: View {
-    @EnvironmentObject var userData: UserData
+    @Environment(\.managedObjectContext) var managedObjectContext
+    //@EnvironmentObject var userData: UserData
     @Binding var showingChosenLanguages: Bool
     @State var langState: Int
     
-    var chosenLanguages: [Language] {
-        self.userData.languages.filter { $0.isChosen }
-    }
+    @FetchRequest(entity: Language.entity(),
+                  sortDescriptors: [],
+                  predicate: NSPredicate(format: "isChosen == %@", NSNumber(value: true)))
+    var langResults: FetchedResults<Language>
     
     var cancelButton: some View {
         Button(action: {
@@ -42,18 +44,26 @@ struct ChangeLanguageView: View {
                     .padding(.bottom, 50)
                 
                 List {
-                    ForEach(self.chosenLanguages, id: \.self) { chosenLang in
+                    ForEach(self.langResults, id: \.self) { chosenLang in
                         Button(action: {
                             self.langState = Int(chosenLang.id)
                         }) {
                             chosenLang.id == self.langState ? ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(red: 255/255, green: 215/255, blue: 0/255), borderColor: Color(red: 50/255, green: 50/255, blue: 255/255), borderWidth: 3) : ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(.clear), borderColor: Color(.black), borderWidth: 1)
                         }
-                        
                     }
                 }
                 
                 Button(action: {
-                    self.userData.currentLanguageId = self.langState
+                    for lang in self.langResults {
+                        lang.isCurrent = (lang.id == self.langState) ? true : false
+                    }
+                    do {
+                        try self.managedObjectContext.save()
+                    } catch {
+                        print("Could not save language info to CoreData")
+                        print(error)
+                    }
+                    //self.userData.currentLanguageId = self.langState
                     self.showingChosenLanguages.toggle()
                 }, label: {
                     Text("Confirm")
@@ -79,7 +89,9 @@ struct ChangeLanguageView: View {
 
 struct ChangeLanguageView_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeLanguageView(showingChosenLanguages: .constant(true), langState: State<Int>(initialValue: 0))
-            .environmentObject(UserData())
+        EmptyView()
+//        ChangeLanguageView(showingChosenLanguages: .constant(true), langState: State<Int>(initialValue: 0))
+//            //.environmentObject(UserData())
+//        .environment(\.managedObjectContext, managedObjectContext)
     }
 }

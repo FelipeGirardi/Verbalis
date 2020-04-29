@@ -14,7 +14,7 @@ struct MainView: View {
     
     var body: some View {
         return Group {
-            if(choiceMade) {
+            if(choiceMade || UserDefaults.standard.bool(forKey: "choiceMade")) {
                 MainWordsView()
             } else {
                 LanguageChoiceView(choiceMade: $choiceMade)

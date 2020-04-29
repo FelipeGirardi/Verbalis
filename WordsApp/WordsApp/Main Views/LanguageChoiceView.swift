@@ -75,6 +75,7 @@ struct LanguageChoiceView: View {
                 
                 Button(action: {
                     self.choiceMade = true
+                    UserDefaults.standard.set(true, forKey: "choiceMade")
                     do {
                         try self.managedObjectContext.save()
                     } catch {

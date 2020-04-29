@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct WordsTab: View {
     @State private var showingChosenLanguages = false
@@ -19,10 +18,6 @@ struct WordsTab: View {
                   sortDescriptors: [],
                   predicate: NSPredicate(format: "isCurrent == %@", NSNumber(value: true)))
     var langResults: FetchedResults<Language>
-    
-//    var currentLanguage: Language {
-//        self.userData.languages[self.userData.currentLanguageId]
-//    }
     
     var currentLang: Language {
         self.langResults.count != 0 ? self.langResults[0] : Language(id: 0, name: "", flag: "", code: "", isChosen: true, isCurrent: true, wordsList: Set(), insertIntoManagedObjectContext: managedObjectContext)
@@ -43,7 +38,8 @@ struct WordsTab: View {
             
         }, content: {
             ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: Int(self.currentLang.id)))
-                .environmentObject(self.userData)
+                //.environmentObject(self.userData)
+                .environment(\.managedObjectContext, self.managedObjectContext)
             }
         )
     }
@@ -58,7 +54,7 @@ struct WordsTab: View {
         .sheet(isPresented: $showingAddWord, onDismiss: {
             
         }, content: {
-            AddWordView(showingAddWord: self.$showingAddWord)
+            AddWordView(showingAddWord: self.$showingAddWord, currentLangCode: self.currentLang.code ?? "de")
                 .environmentObject(self.userData)
             }
         )
