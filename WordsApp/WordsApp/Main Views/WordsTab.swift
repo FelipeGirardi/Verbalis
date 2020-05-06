@@ -74,7 +74,9 @@ struct WordsTab: View {
 //                        .font(.system(size: 30))
 //                        .fontWeight(.bold)
 //                        .foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
-                    NavigationLink(destination: WordInfoView(selectedWord: wordInList)) {
+                    NavigationLink(destination:
+                    WordInfoView(selectedWord: wordInList)
+                        .offset(y: -30)) {
                         Text(String(wordInList.sourceWord ?? ""))
                             .font(.system(size: 20))
                             .fontWeight(.regular)

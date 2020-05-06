@@ -37,11 +37,15 @@ struct ChangeLanguageView: View {
     var body: some View {
         NavigationView {
             VStack {
+                Spacer()
+                
                 Text("Select a language:")
                     .font(Font.custom("Georgia", size: 25))
                     .fontWeight(.medium)
-                    .padding(.top, 100)
-                    .padding(.bottom, 50)
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
+                
+                Spacer()
                 
                 List {
                     ForEach(self.langResults, id: \.self) { chosenLang in
@@ -53,6 +57,8 @@ struct ChangeLanguageView: View {
                     }
                 }
                 
+                Spacer()
+                
                 Button(action: {
                     for lang in self.langResults {
                         lang.isCurrent = (lang.id == self.langState) ? true : false
@@ -63,7 +69,6 @@ struct ChangeLanguageView: View {
                         print("Could not save language info to CoreData")
                         print(error)
                     }
-                    //self.userData.currentLanguageId = self.langState
                     self.showingChosenLanguages.toggle()
                 }, label: {
                     Text("Confirm")
@@ -74,7 +79,9 @@ struct ChangeLanguageView: View {
                     .padding()
                     .background(Color(red: 50/255, green: 50/255, blue: 255/255))
                     .cornerRadius(40)
-                    .padding(.top, -120)
+                    //.padding(.top, -120)
+                
+                Spacer()
                         
             }
             .buttonStyle(PlainButtonStyle())
@@ -90,8 +97,5 @@ struct ChangeLanguageView: View {
 struct ChangeLanguageView_Previews: PreviewProvider {
     static var previews: some View {
         EmptyView()
-//        ChangeLanguageView(showingChosenLanguages: .constant(true), langState: State<Int>(initialValue: 0))
-//            //.environmentObject(UserData())
-//        .environment(\.managedObjectContext, managedObjectContext)
     }
 }
