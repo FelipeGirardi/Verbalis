@@ -17,13 +17,6 @@ struct AddWordView: View {
     @State var savingWordState: SavingWordState = .none
     var currentLangCode: String
     
-    enum SavingWordState {
-        case none
-        case saving
-        case saveSuccess
-        case saveFailure
-    }
-    
     func getStateLabel() -> Text {
         switch(savingWordState) {
         case .none:
@@ -42,6 +35,11 @@ struct AddWordView: View {
                 .foregroundColor(Color.green)
         case .saveFailure:
             return Text("Word not found.")
+                .fontWeight(.semibold)
+                .font(Font.custom("Georgia", size: 20))
+                .foregroundColor(Color.red)
+        case .duplicateSave:
+            return Text("Word already added.")
                 .fontWeight(.semibold)
                 .font(Font.custom("Georgia", size: 20))
                 .foregroundColor(Color.red)
@@ -76,20 +74,22 @@ struct AddWordView: View {
                     
                     self.userData.fetchWordData(word: self.newWord, langCode: self.currentLangCode, completion: { (result) -> (Void) in
                         switch(result) {
-                        case .failure(let error):
-                            self.savingWordState = .saveFailure
-                            self.confirmButtonClicked = false
-                            print("Error")
-                            print(error.localizedDescription)
-                        case .success(true):
+                        case .saveSuccess:
                             self.savingWordState = .saveSuccess
                             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                 self.showingAddWord.toggle()
                             }
-                        case .success(false):
+                        case .saveFailure:
                             self.savingWordState = .saveFailure
                             self.confirmButtonClicked = false
-                            print("No word found in API")
+                            
+                        case .duplicateSave:
+                            self.savingWordState = .duplicateSave
+                            self.confirmButtonClicked = false
+                            
+                        default:
+                            self.savingWordState = .saveFailure
+                            self.confirmButtonClicked = false
                         }
                     })
                 }, label: {
@@ -124,7 +124,8 @@ struct AddWordView: View {
 
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
-        AddWordView(showingAddWord: .constant(true), currentLangCode: "de")
-            .environmentObject(UserData())
+        EmptyView()
+//        AddWordView(showingAddWord: .constant(true), currentLangCode: "de")
+//            .environmentObject(UserData())
     }
 }

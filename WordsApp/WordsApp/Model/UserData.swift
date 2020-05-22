@@ -14,9 +14,7 @@ final class UserData: ObservableObject {
     @Published var languages: [Language] = languageData
     @Published var currentLanguageId: Int = 0
     
-//    @Published var newWordQueryFinished = false
-    
-    func fetchWordData(word: String, langCode: String, completion: @escaping (Result<Bool, Error>) -> (Void)) {
+    func fetchWordData(word: String, langCode: String, completion: @escaping (SavingWordState) -> (Void)) {
         
         let headers = [
             "x-rapidapi-host": "systran-systran-platform-for-language-processing-v1.p.rapidapi.com",
@@ -48,10 +46,10 @@ final class UserData: ObservableObject {
                       do {
                          guard let data = data,
                             let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any],
-                            let resp1 = json["outputs"] as? [[String : Any]],
-                            let resp2 = resp1[0]["output"] as? [String : Any],
+                            let resp1 = json["outputs"] as? [[String: Any]],
+                            let resp2 = resp1[0]["output"] as? [String: Any],
                             let resp3 = resp2["matches"] as? [[String: Any]] else {
-                                let resultFailure: Result<Bool, Error> = .success(false)
+                                let resultFailure: SavingWordState = .saveFailure
                                 completion(resultFailure)
                                 return
                             }
@@ -69,37 +67,52 @@ final class UserData: ObservableObject {
                                             if(fetchedLanguages.count != 0) {
                                                 let fetchedLanguage = fetchedLanguages[0]
                                                 var fetchedWords = fetchedLanguage.value(forKey: "wordsList") as? Set<Word>
-                                                fetchedWords?.insert(Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext))
-                                                fetchedLanguage.setValue(fetchedWords, forKey: "wordsList")
-                                                try moc.save()
+                                                let newWord = Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext)
+                                                var duplicateFlag: Bool = false
+                                                
+                                                for fetchedWord in Array(fetchedWords ?? Set()) {
+                                                    if(fetchedWord.sourceWord == newWord.sourceWord) {
+                                                        duplicateFlag = true
+                                                    }
+                                                }
+                                                
+                                                if(!duplicateFlag) {
+                                                    fetchedWords?.insert(newWord)
+                                                    fetchedLanguage.setValue(fetchedWords, forKey: "wordsList")
+                                                    try moc.save()
+                                                    
+                                                    let resultSucess: SavingWordState = .saveSuccess
+                                                    completion(resultSucess)
+                                                } else {
+                                                    print("Word already added")
+                                                    let resultFailure: SavingWordState = .duplicateSave
+                                                    completion(resultFailure)
+                                                }
+                                                
                                             } else {
                                                 print("No language found")
-                                                let resultFailure: Result<Bool, Error> = .success(false)
+                                                let resultFailure: SavingWordState = .saveFailure
                                                 completion(resultFailure)
                                             }
                                         } catch let error as NSError {
                                             print("Could not fetch. \(error), \(error.userInfo)")
-                                            let resultFailure: Result<Bool, Error> = .failure(error)
+                                            let resultFailure: SavingWordState = .saveFailure
                                             completion(resultFailure)
                                         }
-                                        //self.newWordQueryFinished = true
-                                        
-                                        let resultSucess: Result<Bool, Error> = .success(true)
-                                        completion(resultSucess)
                                     }
                                 } catch {
                                     print("JSON Decoding Fail:", error)
-                                    let resultFailure: Result<Bool, Error> = .failure(error)
+                                    let resultFailure: SavingWordState = .saveFailure
                                     completion(resultFailure)
                                 }
                             } catch {
                                 print("JSONSerialization data error:", error)
-                                let resultFailure: Result<Bool, Error> = .failure(error)
+                                let resultFailure: SavingWordState = .saveFailure
                                 completion(resultFailure)
                             }
                       } catch {
                           print("JSONSerialization jsonObject error:", error)
-                          let resultFailure: Result<Bool, Error> = .failure(error)
+                          let resultFailure: SavingWordState = .saveFailure
                           completion(resultFailure)
                       }
                 }

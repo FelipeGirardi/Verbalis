@@ -13,6 +13,14 @@ let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let appContext = appDelegate.persistentContainer.viewContext
 let deviceLanguage: String = String(Locale.preferredLanguages.first?.prefix(2) ?? "en")
 
+enum SavingWordState {
+    case none
+    case saving
+    case saveSuccess
+    case saveFailure
+    case duplicateSave
+}
+
 // - MARK: might change id from position to UUID later
 
 let languageData: [Language] = [
