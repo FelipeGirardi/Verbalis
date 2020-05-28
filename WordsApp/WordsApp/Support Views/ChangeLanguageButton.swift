@@ -23,7 +23,7 @@ struct ChangeLanguageButton: View {
     var body: some View {
         HStack {
             Spacer()
-            Text(langFlag + langName + langFlag)
+            Text(langFlag + " " + langName + " " + langFlag)
                 .fontWeight(.semibold)
                 .font(Font.custom("Georgia", size: 15))
                 .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))

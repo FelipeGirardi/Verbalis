@@ -24,7 +24,7 @@ struct WordsTab: View {
     }
     
     var wordsListArray: [Word] {
-        Array(currentLang.wordsList ?? Set())
+        Array(currentLang.wordsList ?? Set()).sorted { $0.sourceWord?.lowercased() ?? "" < $1.sourceWord?.lowercased() ?? "" }
     }
     
     var languageButton: some View {
@@ -38,8 +38,7 @@ struct WordsTab: View {
             
         }, content: {
             ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: Int(self.currentLang.id)))
-                //.environmentObject(self.userData)
-                .environment(\.managedObjectContext, self.managedObjectContext)
+                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
         )
     }
@@ -70,16 +69,10 @@ struct WordsTab: View {
         NavigationView {
             List {
                 ForEach(wordsListArray, id: \.sourceWord) { wordInList in
-//                    Text("► ")
-//                        .font(.system(size: 30))
-//                        .fontWeight(.bold)
-//                        .foregroundColor(Color(red: 50/255, green: 50/255, blue: 255/255))
                     NavigationLink(destination:
                     WordInfoView(selectedWord: wordInList)
                         .offset(y: -30)) {
-                        Text(String(wordInList.sourceWord ?? ""))
-                            .font(.system(size: 20))
-                            .fontWeight(.regular)
+                            WordListItem(word: wordInList)
                     }
                 }
             }
