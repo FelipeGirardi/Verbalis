@@ -29,7 +29,7 @@ struct ChangeLanguageButton: View {
                 .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
             Spacer()
         }
-        .background(bgColor)
+        //.background(bgColor)
         .cornerRadius(40)
         .overlay(
             rectangle

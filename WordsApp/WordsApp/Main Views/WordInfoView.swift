@@ -10,10 +10,9 @@ import SwiftUI
 import Combine
 
 struct WordInfoView: View {
-    var selectedWord: Word
-    var wordDataArray: [WordData] {
-        Array(selectedWord.wordData ?? Set()).sorted(by: { $0.source?.lemma ?? "" < $1.source?.lemma ?? "" } )
-    }
+    //var selectedWord: Word
+    var originalWord: String
+    @State var wordDataArray: [WordData]
     
     func termTitle(term: WordData) -> some View {
         return VStack {
@@ -181,22 +180,20 @@ struct WordInfoView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear() {
-            //self.sortWordDataArray()
+            self.sortWordDataArray()
         }
     }
     
-//    func sortWordDataArray() {
-//        self.wordDataArray = Array(self.selectedWord.wordData ?? Set())
-//        var indexFlag: Int = 0
-//        for (index, word) in self.wordDataArray.enumerated() {
-//            print(word.source?.lemma)
-//            if word.source?.lemma == self.selectedWord.sourceWord {
-//                indexFlag = index
-//            }
-//        }
-//        let element = self.wordDataArray.remove(at: indexFlag)
-//        self.wordDataArray.insert(element, at: 0)
-//    }
+    func sortWordDataArray() {
+        var indexFlag: Int = 0
+        for (index, word) in self.wordDataArray.enumerated() {
+            if word.source?.lemma == self.originalWord {
+                indexFlag = index
+            }
+        }
+        let element = self.wordDataArray.remove(at: indexFlag)
+        self.wordDataArray.insert(element, at: 0)
+    }
 }
 
 struct WordInfoView_Previews: PreviewProvider {

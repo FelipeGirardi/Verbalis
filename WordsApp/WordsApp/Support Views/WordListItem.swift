@@ -10,9 +10,6 @@ import SwiftUI
 
 struct WordListItem: View {
     var word: Word
-    var wordDataArray: [WordData] {
-        Array(word.wordData ?? Set()).sorted(by: { $0.source?.lemma ?? "" < $1.source?.lemma ?? "" } )
-    }
     
     var body: some View {
         HStack {

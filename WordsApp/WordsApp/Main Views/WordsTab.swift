@@ -70,7 +70,7 @@ struct WordsTab: View {
             List {
                 ForEach(wordsListArray, id: \.sourceWord) { wordInList in
                     NavigationLink(destination:
-                    WordInfoView(selectedWord: wordInList)
+                        WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataArray: Array(wordInList.wordData ?? Set()).sorted(by: { $0.source?.lemma ?? "" < $1.source?.lemma ?? "" } ))
                         .offset(y: -30)) {
                             WordListItem(word: wordInList)
                     }
