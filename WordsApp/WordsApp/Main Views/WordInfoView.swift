@@ -10,7 +10,6 @@ import SwiftUI
 import Combine
 
 struct WordInfoView: View {
-    //var selectedWord: Word
     var originalWord: String
     @State var wordDataArray: [WordData]
     
@@ -179,21 +178,22 @@ struct WordInfoView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear() {
-            self.sortWordDataArray()
-        }
+//        .onAppear() {
+//            self.sortWordDataArray()
+//        }
     }
     
-    func sortWordDataArray() {
-        var indexFlag: Int = 0
-        for (index, word) in self.wordDataArray.enumerated() {
-            if word.source?.lemma == self.originalWord {
-                indexFlag = index
-            }
-        }
-        let element = self.wordDataArray.remove(at: indexFlag)
-        self.wordDataArray.insert(element, at: 0)
-    }
+//    func sortWordDataArray() {
+//        var indexFlag: Int = 0
+//        for (index, word) in self.wordDataArray.enumerated() {
+//            if(word.source?.lemma == self.originalWord || word.source?.lemma?.count == self.originalWord.count) {
+//                indexFlag = index
+//            }
+//        }
+//        let element = self.wordDataArray.remove(at: indexFlag)
+//        self.wordDataArray.insert(element, at: 0)
+//    }
+    
 }
 
 struct WordInfoView_Previews: PreviewProvider {

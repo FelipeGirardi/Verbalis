@@ -57,7 +57,12 @@ final class UserData: ObservableObject {
                                 let wordJSONData = try JSONSerialization.data(withJSONObject: resp3, options: [])
                                 let wordJSONDecoder = JSONDecoder()
                                 do {
-                                    let wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
+                                    var wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
+                                    var baseWord: String = ""
+                                    if(!wordData.isEmpty) {
+                                        baseWord = self.sortWordDataArray(array: &wordData)
+                                    }
+                                    
                                     DispatchQueue.main.async {
                                         let moc = appDelegate.persistentContainer.viewContext
                                         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Language")
@@ -67,11 +72,11 @@ final class UserData: ObservableObject {
                                             if(fetchedLanguages.count != 0) {
                                                 let fetchedLanguage = fetchedLanguages[0]
                                                 var fetchedWords = fetchedLanguage.value(forKey: "wordsList") as? Set<Word>
-                                                let newWord = Word(sourceWord: word, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext)
+                                                let newWord = Word(sourceWord: baseWord, wordData: Set(wordData), insertIntoManagedObjectContext: appDelegate.persistentContainer.viewContext)
                                                 var duplicateFlag: Bool = false
                                                 
                                                 for fetchedWord in Array(fetchedWords ?? Set()) {
-                                                    if(fetchedWord.sourceWord == newWord.sourceWord) {
+                                                    if(fetchedWord.sourceWord?.lowercased() == newWord.sourceWord?.lowercased()) {
                                                         duplicateFlag = true
                                                     }
                                                 }
@@ -119,5 +124,19 @@ final class UserData: ObservableObject {
             }
         })
         dataTask.resume()
+    }
+    
+    func sortWordDataArray(array: inout [WordData]) -> String {
+        var baseWord: String = ""
+        for word in array {
+            if(word.source?.lemma == word.source?.term || word.source?.lemma?.count == word.source?.term?.count) {
+                baseWord = word.source?.lemma ?? ""
+            }
+        }
+        if(baseWord == "") {
+            baseWord = array.min(by: { $0.source?.lemma?.count ?? 0 < $1.source?.lemma?.count ?? 0 } )?.source?.lemma ?? ""
+        }
+        
+        return baseWord
     }
 }
