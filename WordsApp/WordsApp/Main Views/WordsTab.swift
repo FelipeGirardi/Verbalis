@@ -62,17 +62,24 @@ struct WordsTab: View {
     init() {
         UINavigationBar.appearance().backgroundColor = .clear
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 30) ?? UIFont()]
-        UITableView.appearance().tableFooterView = UIView()
+        UITableView.appearance().separatorStyle = .none
+        UITableViewCell.appearance().selectionStyle = .none
     }
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(wordsListArray, id: \.sourceWord) { wordInList in
-                    NavigationLink(destination:
-                        WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataArray: Array(wordInList.wordData ?? Set()).sorted(by: { $0.source?.lemma ?? "" < $1.source?.lemma ?? "" } ))
-                        .offset(y: -30)) {
+                    VStack {
+                        Spacer()
+                        ZStack {
                             WordListItem(word: wordInList)
+                            NavigationLink(destination:
+                                WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataArray: Array(wordInList.wordData ?? Set()).sorted(by: { $0.source?.lemma ?? "" < $1.source?.lemma ?? "" } ))
+                            ) {
+                                EmptyView()
+                            }.buttonStyle(PlainButtonStyle())
+                        }
                     }
                 }
             }
