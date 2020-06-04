@@ -11,8 +11,12 @@ import Combine
 
 struct WordInfoView: View {
     var originalWord: String
-    @State var wordDataArray: [WordData]
+    @State var wordDataSet: Set<WordData>
     
+    var wordDataArray: [WordData] {
+        Array(wordDataSet).sorted(by: { $0.isMainWord!.boolValue && !$1.isMainWord!.boolValue } )
+    }
+   
     func termTitle(term: WordData) -> some View {
         return VStack {
             Text(term.source?.lemma ?? "")

@@ -69,13 +69,13 @@ struct WordsTab: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(wordsListArray, id: \.sourceWord) { wordInList in
+                ForEach(wordsListArray, id: \.sourceWord) { (wordInList: Word) in
                     VStack {
                         Spacer()
                         ZStack {
                             WordListItem(word: wordInList)
                             NavigationLink(destination:
-                                WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataArray: Array(wordInList.wordData ?? Set()).sorted(by: { $0.source?.lemma ?? "" < $1.source?.lemma ?? "" } ))
+                                WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataSet: wordInList.wordData ?? Set())
                             ) {
                                 EmptyView()
                             }.buttonStyle(PlainButtonStyle())

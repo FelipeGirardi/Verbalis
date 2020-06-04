@@ -93,18 +93,20 @@ class WordData: NSManagedObject, Codable {
     @NSManaged var otherExamples: Set<OtherExample>?
     @NSManaged var source: SourceData?
     @NSManaged var targets: Set<TargetData>?
+    @NSManaged var isMainWord: NSNumber?
 
     enum CodingKeys: String, CodingKey {
         case otherExamples = "other_expressions"
-        case source, targets
+        case source, targets, isMainWord
     }
     
-    convenience init(otherExamples: Set<OtherExample>, source: SourceData, targets: Set<TargetData>, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
+    convenience init(otherExamples: Set<OtherExample>, source: SourceData, targets: Set<TargetData>, isMainWord: NSNumber, insertIntoManagedObjectContext context: NSManagedObjectContext!) {
         let entity = NSEntityDescription.entity(forEntityName: "WordData", in: context)!
         self.init(entity: entity, insertInto: context)
         self.otherExamples = otherExamples
         self.source = source
         self.targets = targets
+        self.isMainWord = isMainWord
     }
     
     required convenience init(from decoder: Decoder) throws {

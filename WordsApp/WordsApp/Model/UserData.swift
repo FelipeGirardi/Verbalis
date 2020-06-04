@@ -60,7 +60,7 @@ final class UserData: ObservableObject {
                                     var wordData = try wordJSONDecoder.decode([WordData].self, from: wordJSONData)
                                     var baseWord: String = ""
                                     if(!wordData.isEmpty) {
-                                        baseWord = self.sortWordDataArray(array: &wordData)
+                                        wordData = self.sortWordDataArray(array: &wordData, baseWord: &baseWord)
                                     }
                                     
                                     DispatchQueue.main.async {
@@ -126,17 +126,17 @@ final class UserData: ObservableObject {
         dataTask.resume()
     }
     
-    func sortWordDataArray(array: inout [WordData]) -> String {
-        var baseWord: String = ""
-        for word in array {
-            if(word.source?.lemma == word.source?.term || word.source?.lemma?.count == word.source?.term?.count) {
+    func sortWordDataArray(array: inout [WordData], baseWord: inout String) -> [WordData] {
+        for (index, word) in array.enumerated() {
+            if(word.source?.lemma?.count == word.source?.term?.count) {
                 baseWord = word.source?.lemma ?? ""
+                array[index].isMainWord = true
             }
         }
         if(baseWord == "") {
             baseWord = array.min(by: { $0.source?.lemma?.count ?? 0 < $1.source?.lemma?.count ?? 0 } )?.source?.lemma ?? ""
         }
         
-        return baseWord
+        return array
     }
 }
