@@ -52,7 +52,7 @@ struct ChangeLanguageView: View {
                         Button(action: {
                             self.langState = Int(chosenLang.id)
                         }) {
-                            chosenLang.id == self.langState ? ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(red: 255/255, green: 215/255, blue: 0/255), borderColor: Color(red: 50/255, green: 50/255, blue: 255/255), borderWidth: 3) : ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(.clear), borderColor: Color(.black), borderWidth: 1)
+                            chosenLang.id == self.langState ? ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(red: 64/255, green: 0/255, blue: 255/255), borderColor: Color(red: 64/255, green: 0/255, blue: 255/255), borderWidth: 3, textColor: Color.white) : ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(.clear), borderColor: Color(.black), borderWidth: 1, textColor: Color.black)
                         }
                     }
                 }
@@ -77,7 +77,7 @@ struct ChangeLanguageView: View {
                         .foregroundColor(Color.white)
                 })
                     .padding()
-                    .background(Color(red: 50/255, green: 50/255, blue: 255/255))
+                    .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                     .cornerRadius(40)
                     //.padding(.top, -120)
                 

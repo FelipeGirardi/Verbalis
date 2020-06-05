@@ -61,7 +61,7 @@ struct LanguageChoiceView: View {
                                         //.background(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(.cyan) : Color(.clear))
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 40)
-                                                .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 50/255, green: 50/255, blue: 255/255), lineWidth: 10)
+                                                .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
                                         )
                                         //.cornerRadius(40)
                                         .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
@@ -90,7 +90,7 @@ struct LanguageChoiceView: View {
                         .foregroundColor(Color.white)
                         .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
                 })
-                .background(Color(red: 50/255, green: 50/255, blue: 255/255))
+                .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                 .cornerRadius(40)
 //                    .overlay(
 //                        RoundedRectangle(cornerRadius: 40)

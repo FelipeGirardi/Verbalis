@@ -14,6 +14,7 @@ struct ChangeLanguageButton: View {
     var bgColor: Color
     var borderColor: Color
     var borderWidth: CGFloat
+    var textColor: Color
     
     var rectangle: some View {
         RoundedRectangle(cornerRadius: 40)
@@ -26,10 +27,11 @@ struct ChangeLanguageButton: View {
             Text(langFlag + " " + langName + " " + langFlag)
                 .fontWeight(.semibold)
                 .font(Font.custom("Georgia", size: 15))
+                .foregroundColor(textColor)
                 .padding(10)
             Spacer()
         }
-        //.background(bgColor)
+        .background(bgColor)
         .cornerRadius(40)
         .overlay(
             rectangle
@@ -39,6 +41,6 @@ struct ChangeLanguageButton: View {
 
 struct ChangeLanguageButton_Previews: PreviewProvider {
     static var previews: some View {
-        ChangeLanguageButton(langName: "English", langFlag: "🇪🇺", bgColor: Color(.yellow), borderColor: Color(.blue), borderWidth: 3)
+        ChangeLanguageButton(langName: "English", langFlag: "🇪🇺", bgColor: Color(.yellow), borderColor: Color(.blue), borderWidth: 3, textColor: Color.black)
     }
 }

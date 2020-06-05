@@ -99,7 +99,7 @@ struct AddWordView: View {
                         .foregroundColor(Color.white)
                 })
                     .padding()
-                    .background(Color(red: 50/255, green: 50/255, blue: 255/255))
+                    .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                     .opacity(confirmButtonClicked ? 0.2 : 1.0)
                     .cornerRadius(40)
                     .disabled(confirmButtonClicked)

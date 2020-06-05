@@ -29,7 +29,7 @@ struct LanguageSelectorView: View {
             .frame(width: 130, height: 130)
             .overlay(
                 RoundedRectangle(cornerRadius: 40)
-                    .stroke(Color(red: 30/255, green: 220/255, blue: 255/255), lineWidth: 10)
+                    .stroke(Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
             )
     }
 }
