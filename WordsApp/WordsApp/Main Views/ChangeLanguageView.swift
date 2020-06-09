@@ -49,10 +49,9 @@ struct ChangeLanguageView: View {
                 
                 List {
                     ForEach(self.langResults, id: \.self) { chosenLang in
-                        Button(action: {
-                            self.langState = Int(chosenLang.id)
-                        }) {
-                            chosenLang.id == self.langState ? ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(red: 64/255, green: 0/255, blue: 255/255), borderColor: Color(red: 64/255, green: 0/255, blue: 255/255), borderWidth: 3, textColor: Color.white) : ChangeLanguageButton(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", bgColor: Color(.clear), borderColor: Color(.black), borderWidth: 1, textColor: Color.black)
+                        VStack {
+                            ChangeLanguageButton(langState: self.$langState, chosenLang: chosenLang)
+                            Spacer()
                         }
                     }
                 }
@@ -79,9 +78,12 @@ struct ChangeLanguageView: View {
                     .padding()
                     .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                     .cornerRadius(40)
+                    .shadow(color: Color.black, radius: 3, x: 0, y: 2)
                     //.padding(.top, -120)
                 
-                Spacer()
+                ForEach(0..<3) { _ in
+                    Spacer()
+                }
                         
             }
             .buttonStyle(PlainButtonStyle())

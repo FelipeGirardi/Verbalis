@@ -32,7 +32,7 @@ struct WordListItem: View {
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color(red: 64/255, green: 0/255, blue: 255/255))
-                .shadow(color: Color.black, radius: 3)
+                .shadow(color: Color.black, radius: 3, x: 0, y: 2)
                 //.padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: -10))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)

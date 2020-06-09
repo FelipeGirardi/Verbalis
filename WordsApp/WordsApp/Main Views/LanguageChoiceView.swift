@@ -26,7 +26,6 @@ struct LanguageChoiceView: View {
     }
     
     var body: some View {
-        
             VStack {
                 Spacer()
                 
@@ -38,38 +37,38 @@ struct LanguageChoiceView: View {
                 
                 Spacer()
                 
-                    ForEach(0 ..< 3) { row in
-                        HStack {
-                            ForEach(0 ..< 2) { column in
-                                Button(action: {
-                                    withAnimation {
-                                        let position = self.calculateRowColumn(row: row, column: column)
-                                        self.userData.languages[position].isChosen.toggle()
-                                        if(self.userData.languages[position].isChosen) {
-                                            self.nSelected += 1
-                                            if(self.nSelected == 1) {
-                                                self.userData.currentLanguageId = Int(self.userData.languages[position].id)
-                                                self.userData.languages[position].isCurrent = true
-                                            }
-                                        }
-                                        else {
-                                            self.nSelected -= 1
+                ForEach(0 ..< 3) { row in
+                    HStack {
+                        ForEach(0 ..< 2) { column in
+                            Button(action: {
+                                withAnimation {
+                                    let position = self.calculateRowColumn(row: row, column: column)
+                                    self.userData.languages[position].isChosen.toggle()
+                                    if(self.userData.languages[position].isChosen) {
+                                        self.nSelected += 1
+                                        if(self.nSelected == 1) {
+                                            self.userData.currentLanguageId = Int(self.userData.languages[position].id)
+                                            self.userData.languages[position].isCurrent = true
                                         }
                                     }
-                                }) {
-                                    LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "")
-                                        //.background(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(.cyan) : Color(.clear))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 40)
-                                                .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
-                                        )
-                                        //.cornerRadius(40)
-                                        .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
+                                    else {
+                                        self.nSelected -= 1
+                                    }
                                 }
-                                .animation(self.animation)
+                            }) {
+                                LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "")
+                                    //.background(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(.cyan) : Color(.clear))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 40)
+                                            .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
+                                    )
+                                    //.cornerRadius(40)
+                                    .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
                             }
+                            .animation(self.animation)
                         }
                     }
+                }
                 
                 Spacer()
                 
@@ -92,10 +91,10 @@ struct LanguageChoiceView: View {
                 })
                 .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                 .cornerRadius(40)
-//                    .overlay(
-//                        RoundedRectangle(cornerRadius: 40)
-//                            .stroke(Color(.black), lineWidth: 3)
-//                    )
+    //                    .overlay(
+    //                        RoundedRectangle(cornerRadius: 40)
+    //                            .stroke(Color(.black), lineWidth: 3)
+    //                    )
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .opacity(nSelected == 0 ? 0.25 : 1.0)
                 .animation(self.animation)
