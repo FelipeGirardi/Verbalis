@@ -128,13 +128,17 @@ final class UserData: ObservableObject {
     
     func sortWordDataArray(array: inout [WordData], baseWord: inout String) -> [WordData] {
         for (index, word) in array.enumerated() {
-            if(word.source?.lemma?.count == word.source?.term?.count) {
+            if(word.source?.lemma?.lowercased() == word.source?.term?.lowercased()) {
                 baseWord = word.source?.lemma ?? ""
                 array[index].isMainWord = true
+                break
             }
         }
         if(baseWord == "") {
-            baseWord = array.min(by: { $0.source?.lemma?.count ?? 0 < $1.source?.lemma?.count ?? 0 } )?.source?.lemma ?? ""
+            let mainWord = array.min(by: { $0.source?.lemma?.count ?? 0 < $1.source?.lemma?.count ?? 0 } ) ?? WordData()
+            baseWord = mainWord.source?.lemma ?? ""
+            let index = array.firstIndex(of: mainWord) ?? 0
+            array[index].isMainWord = true
         }
         
         return array

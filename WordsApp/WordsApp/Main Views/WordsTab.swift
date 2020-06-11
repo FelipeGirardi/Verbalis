@@ -23,9 +23,7 @@ struct WordsTab: View {
         self.langResults.count != 0 ? self.langResults[0] : Language(id: 0, name: "", flag: "", code: "", isChosen: true, isCurrent: true, wordsList: Set(), insertIntoManagedObjectContext: managedObjectContext)
     }
     
-    var wordsListArray: [Word] {
-        Array(currentLang.wordsList ?? Set()).sorted { $0.sourceWord?.lowercased() ?? "" < $1.sourceWord?.lowercased() ?? "" }
-    }
+    @State var wordsListArray: [Word] = []
     
     var languageButton: some View {
         Button(action: {
@@ -35,7 +33,7 @@ struct WordsTab: View {
                 .font(.system(size: 20))
         })
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
-            
+            self.updateWordsListArray()
         }, content: {
             ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: Int(self.currentLang.id)))
                     .environment(\.managedObjectContext, self.managedObjectContext)
@@ -51,7 +49,9 @@ struct WordsTab: View {
                 .font(.system(size: 20))
         })
         .sheet(isPresented: $showingAddWord, onDismiss: {
-            
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.updateWordsListArray()
+            }
         }, content: {
             AddWordView(showingAddWord: self.$showingAddWord, currentLangCode: self.currentLang.code ?? "de")
                 .environmentObject(self.userData)
@@ -82,16 +82,40 @@ struct WordsTab: View {
                         }
                     }
                 }
+                .onDelete(perform: deleteWord)
             }
-                .navigationBarTitle(Text((currentLang.flag ?? "") + " " + (currentLang.name ?? ""))
-                    .font(Font.custom("Georgia-Bold", size: 25))
-                    , displayMode: .large)
-                .navigationBarItems(
-                    leading: languageButton,
-                    trailing: newWordButton
-                )
+            .navigationBarTitle(Text((currentLang.flag ?? "") + " " + (currentLang.name ?? ""))
+                .font(Font.custom("Georgia-Bold", size: 25))
+                , displayMode: .large)
+            .navigationBarItems(
+                leading: languageButton,
+                trailing: newWordButton
+            )
         }
         .navigationViewStyle(DefaultNavigationViewStyle())
+        .onAppear() {
+            self.updateWordsListArray()
+        }
+    }
+    
+    func updateWordsListArray() {
+        self.wordsListArray = Array(self.currentLang.wordsList ?? Set()).sorted { $0.sourceWord?.lowercased() ?? "" < $1.sourceWord?.lowercased() ?? "" }
+    }
+    
+    func deleteWord(at offsets: IndexSet) {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            for index in offsets {
+                let word = wordsListArray[index]
+                managedObjectContext.delete(word)
+            }
+            do {
+                try managedObjectContext.save()
+                self.updateWordsListArray()
+            } catch {
+                print("Could not save to CoreData")
+                print(error)
+            }
+        }
     }
 }
 
