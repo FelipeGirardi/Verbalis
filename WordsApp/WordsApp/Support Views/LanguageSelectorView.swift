@@ -31,7 +31,6 @@ struct LanguageSelectorView: View {
                 RoundedRectangle(cornerRadius: 40)
                     .stroke(Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
             )
-            .shadow(color: Color.black, radius: 3, x: 0, y: 2)
     }
 }
 

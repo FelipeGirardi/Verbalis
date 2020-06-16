@@ -182,21 +182,8 @@ struct WordInfoView: View {
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
-//        .onAppear() {
-//            self.sortWordDataArray()
-//        }
+        .offset(x: 0, y: -30)
     }
-    
-//    func sortWordDataArray() {
-//        var indexFlag: Int = 0
-//        for (index, word) in self.wordDataArray.enumerated() {
-//            if(word.source?.lemma == self.originalWord || word.source?.lemma?.count == self.originalWord.count) {
-//                indexFlag = index
-//            }
-//        }
-//        let element = self.wordDataArray.remove(at: indexFlag)
-//        self.wordDataArray.insert(element, at: 0)
-//    }
     
 }
 

@@ -30,7 +30,6 @@ struct LanguageChoiceView: View {
                 Spacer()
                 
                 Text("Which language(s) are you learning?")
-                    //.fontWeight(.bold)
                     .font(Font.custom("Georgia-Bold", size: 25))
                     .multilineTextAlignment(.center)
                     .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
@@ -57,12 +56,10 @@ struct LanguageChoiceView: View {
                                 }
                             }) {
                                 LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "")
-                                    //.background(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(.cyan) : Color(.clear))
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 40)
                                             .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
                                     )
-                                    //.cornerRadius(40)
                                     .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
                             }
                             .animation(self.animation)
@@ -85,18 +82,15 @@ struct LanguageChoiceView: View {
                 }, label: {
                     Text("Start")
                         .fontWeight(.semibold)
-                        .font(Font.custom("Georgia", size: 20))
+                        .font(Font.custom("Georgia", size: 25))
                         .foregroundColor(Color.white)
-                        .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
+                        .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
                 })
                 .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                 .cornerRadius(40)
-    //                    .overlay(
-    //                        RoundedRectangle(cornerRadius: 40)
-    //                            .stroke(Color(.black), lineWidth: 3)
-    //                    )
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .opacity(nSelected == 0 ? 0.25 : 1.0)
+                .shadow(color: Color.black, radius: 3, x: 0, y: 2)
                 .animation(self.animation)
                 
                 Spacer()

@@ -35,7 +35,7 @@ struct WordsTab: View {
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
             self.updateWordsListArray()
         }, content: {
-            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: Int(self.currentLang.id)))
+            ChangeLanguageView(showingChosenLanguages: self.$showingChosenLanguages, langState: Int(self.currentLang.id))
                     .environment(\.managedObjectContext, self.managedObjectContext)
             }
         )
@@ -49,9 +49,7 @@ struct WordsTab: View {
                 .font(.system(size: 20))
         })
         .sheet(isPresented: $showingAddWord, onDismiss: {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.updateWordsListArray()
-            }
+            self.updateWordsListArray()
         }, content: {
             AddWordView(showingAddWord: self.$showingAddWord, currentLangCode: self.currentLang.code ?? "de")
                 .environmentObject(self.userData)

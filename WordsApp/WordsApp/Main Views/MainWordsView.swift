@@ -23,7 +23,6 @@ struct MainWordsView: View {
                    Text("Groups")
                 }
         }
-        //.padding(.top, -10)
     }
 }
 

@@ -10,14 +10,23 @@ import SwiftUI
 
 struct ChangeLanguageView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    //@EnvironmentObject var userData: UserData
+    @Binding var showingChosenLanguages: Bool
+    @State var langState: Int
+    
+    var body: some View {
+        ChangeLanguageView2(showingChosenLanguages: self.$showingChosenLanguages, langState: State<Int>(initialValue: self.langState))
+    }
+}
+
+struct ChangeLanguageView2: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
     @Binding var showingChosenLanguages: Bool
     @State var langState: Int
     
     @FetchRequest(entity: Language.entity(),
                   sortDescriptors: [],
                   predicate: NSPredicate(format: "isChosen == %@", NSNumber(value: true)))
-    var langResults: FetchedResults<Language>
+    var langsChosenResults: FetchedResults<Language>
     
     var cancelButton: some View {
         Button(action: {
@@ -48,7 +57,7 @@ struct ChangeLanguageView: View {
                 Spacer()
                 
                 List {
-                    ForEach(self.langResults, id: \.self) { chosenLang in
+                    ForEach(Array(self.langsChosenResults), id: \.self) { chosenLang in
                         VStack {
                             ChangeLanguageButton(langState: self.$langState, chosenLang: chosenLang)
                             Spacer()
@@ -56,10 +65,16 @@ struct ChangeLanguageView: View {
                     }
                 }
                 
-                Spacer()
+//                Divider()
+//
+//                List {
+//                    ForEach(Array(self.langsNotChosenResults), id: \.self) { notChosenLang in
+//                        Text(notChosenLang.name ?? "")
+//                    }
+//                }
                 
                 Button(action: {
-                    for lang in self.langResults {
+                    for lang in self.langsChosenResults {
                         lang.isCurrent = (lang.id == self.langState) ? true : false
                     }
                     do {
@@ -79,7 +94,6 @@ struct ChangeLanguageView: View {
                     .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                     .cornerRadius(40)
                     .shadow(color: Color.black, radius: 3, x: 0, y: 2)
-                    //.padding(.top, -120)
                 
                 ForEach(0..<3) { _ in
                     Spacer()
@@ -94,6 +108,7 @@ struct ChangeLanguageView: View {
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
+
 }
 
 struct ChangeLanguageView_Previews: PreviewProvider {
