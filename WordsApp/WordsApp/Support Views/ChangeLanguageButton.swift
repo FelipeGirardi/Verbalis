@@ -39,7 +39,9 @@ struct ChangeLanguageButton: View {
                 buttonLabel(langName: chosenLang.name ?? "", langFlag: chosenLang.flag ?? "", textColor: Color.black)
         }
         .onTapGesture {
-            self.langState = Int(self.chosenLang.id)
+            withAnimation(.easeInOut(duration: 0.1)) {
+                self.langState = Int(self.chosenLang.id)
+            }
         }
     }
 }

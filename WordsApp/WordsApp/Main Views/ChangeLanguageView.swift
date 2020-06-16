@@ -65,14 +65,6 @@ struct ChangeLanguageView2: View {
                     }
                 }
                 
-//                Divider()
-//
-//                List {
-//                    ForEach(Array(self.langsNotChosenResults), id: \.self) { notChosenLang in
-//                        Text(notChosenLang.name ?? "")
-//                    }
-//                }
-                
                 Button(action: {
                     for lang in self.langsChosenResults {
                         lang.isCurrent = (lang.id == self.langState) ? true : false
