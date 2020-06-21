@@ -12,8 +12,9 @@ struct LanguageChoiceView: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var userData: UserData
-    @State private var nSelected = 0
     @Binding var choiceMade: Bool
+    @State var currentLanguageId: Int = 0
+    @State var langWasChosen: Bool = false
     
     var animation: Animation {
         Animation.linear
@@ -41,24 +42,20 @@ struct LanguageChoiceView: View {
                         ForEach(0 ..< 2) { column in
                             Button(action: {
                                 withAnimation {
-                                    let position = self.calculateRowColumn(row: row, column: column)
-                                    self.userData.languages[position].isChosen.toggle()
-                                    if(self.userData.languages[position].isChosen) {
-                                        self.nSelected += 1
-                                        if(self.nSelected == 1) {
-                                            self.userData.currentLanguageId = Int(self.userData.languages[position].id)
-                                            self.userData.languages[position].isCurrent = true
-                                        }
+                                    if(!self.langWasChosen) {
+                                        self.langWasChosen = true
+                                    } else {
+                                        self.userData.languages[self.currentLanguageId].isCurrent = false
                                     }
-                                    else {
-                                        self.nSelected -= 1
-                                    }
+
+                                    self.currentLanguageId = self.calculateRowColumn(row: row, column: column)
+                                    self.userData.languages[self.currentLanguageId].isCurrent = true
                                 }
                             }) {
                                 LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "")
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 40)
-                                            .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].isChosen ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
+                                            .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].id == self.currentLanguageId ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
                                     )
                                     .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
                             }
@@ -70,8 +67,12 @@ struct LanguageChoiceView: View {
                 Spacer()
                 
                 Button(action: {
+                    // - MARK: TEMPORARY
+                    self.userData.languages[self.currentLanguageId].isChosen.toggle()
+                    
                     self.choiceMade = true
                     UserDefaults.standard.set(true, forKey: "choiceMade")
+                    UserDefaults.standard.set(self.currentLanguageId, forKey: "currentLanguageId")
                     do {
                         try self.managedObjectContext.save()
                     } catch {
@@ -86,10 +87,11 @@ struct LanguageChoiceView: View {
                         .foregroundColor(Color.white)
                         .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
                 })
+                .disabled(!self.langWasChosen)
                 .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                 .cornerRadius(40)
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-                .opacity(nSelected == 0 ? 0.25 : 1.0)
+                    .opacity(self.langWasChosen ? 1.0 : 0.25)
                 .shadow(color: Color.black, radius: 3, x: 0, y: 2)
                 .animation(self.animation)
                 

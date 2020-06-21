@@ -12,7 +12,6 @@ import CoreData
 
 final class UserData: ObservableObject {
     @Published var languages: [Language] = languageData
-    @Published var currentLanguageId: Int = 0
     
     func fetchWordData(word: String, langCode: String, completion: @escaping (SavingWordState) -> (Void)) {
         
