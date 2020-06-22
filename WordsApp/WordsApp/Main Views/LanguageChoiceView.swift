@@ -68,7 +68,11 @@ struct LanguageChoiceView: View {
                 
                 Button(action: {
                     // - MARK: TEMPORARY
-                    self.userData.languages[self.currentLanguageId].isChosen.toggle()
+                    //self.userData.languages[self.currentLanguageId].isChosen.toggle()
+                    
+                    for lang in self.userData.languages {
+                        lang.isChosen = true
+                    }
                     
                     self.choiceMade = true
                     UserDefaults.standard.set(true, forKey: "choiceMade")
@@ -91,7 +95,7 @@ struct LanguageChoiceView: View {
                 .background(Color(red: 64/255, green: 0/255, blue: 255/255))
                 .cornerRadius(40)
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-                    .opacity(self.langWasChosen ? 1.0 : 0.25)
+                .opacity(self.langWasChosen ? 1.0 : 0.25)
                 .shadow(color: Color.black, radius: 3, x: 0, y: 2)
                 .animation(self.animation)
                 

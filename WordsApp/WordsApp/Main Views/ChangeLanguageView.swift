@@ -24,7 +24,7 @@ struct ChangeLanguageView2: View {
     @State var langState: Int
     
     @FetchRequest(entity: Language.entity(),
-                  sortDescriptors: [],
+                  sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)],
                   predicate: NSPredicate(format: "isChosen == %@", NSNumber(value: true)))
     var langsChosenResults: FetchedResults<Language>
     

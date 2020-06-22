@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct MainView: View {
     
@@ -18,6 +19,17 @@ struct MainView: View {
                 MainWordsView()
             } else {
                 LanguageChoiceView(choiceMade: $choiceMade)
+            }
+        }
+        .onAppear() {
+            let moc = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Language")
+            fetchRequest.predicate = NSPredicate(format: "isChosen = %@", NSNumber(value: true))
+            
+            do {
+                try moc.save()
+            } catch _ {
+                fatalError()
             }
         }
     }
