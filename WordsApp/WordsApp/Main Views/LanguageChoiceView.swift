@@ -12,9 +12,20 @@ struct LanguageChoiceView: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var userData: UserData
+    @State var currentLanguageId: Int
+    @State var langWasChosen: Bool
     @Binding var choiceMade: Bool
-    @State var currentLanguageId: Int = 0
-    @State var langWasChosen: Bool = false
+    @Binding var showingChosenLanguages: Bool
+    var isInitialView: Bool
+    
+    @FetchRequest(entity: Language.entity(),
+                  sortDescriptors: [NSSortDescriptor(key: "id", ascending: true)],
+                  predicate: NSPredicate(format: "isChosen == %@", NSNumber(value: true)))
+    var langsChosenResults: FetchedResults<Language>
+    
+    var langsChosenResultsArray: [Language] {
+        Array(self.langsChosenResults)
+    }
     
     var animation: Animation {
         Animation.linear
@@ -22,11 +33,21 @@ struct LanguageChoiceView: View {
             .delay(0.01)
     }
     
+    var cancelButton: some View {
+        Button(action: {
+            self.showingChosenLanguages.toggle()
+        }, label: {
+            Text("Exit")
+                .font(.system(size: 20))
+        })
+    }
+    
     func calculateRowColumn(row: Int, column: Int) -> Int {
         return row * 2 + column
     }
     
     var body: some View {
+        NavigationView {
             VStack {
                 Spacer()
                 
@@ -41,23 +62,42 @@ struct LanguageChoiceView: View {
                     HStack {
                         ForEach(0 ..< 2) { column in
                             Button(action: {
-                                withAnimation {
+                                withAnimation(.easeInOut(duration: 0.1)) {
                                     if(!self.langWasChosen) {
                                         self.langWasChosen = true
                                     } else {
-                                        self.userData.languages[self.currentLanguageId].isCurrent = false
+                                        if(self.isInitialView) {
+                                            self.userData.languages[self.currentLanguageId].isCurrent = false
+                                        } else {
+                                            self.langsChosenResultsArray[self.currentLanguageId].isCurrent = false
+                                        }
                                     }
 
                                     self.currentLanguageId = self.calculateRowColumn(row: row, column: column)
-                                    self.userData.languages[self.currentLanguageId].isCurrent = true
+                                    if(self.isInitialView) {
+                                        self.userData.languages[self.currentLanguageId].isCurrent = true
+                                    } else {
+                                        self.langsChosenResultsArray[self.currentLanguageId].isCurrent = true
+                                    }
                                 }
                             }) {
+                                self.isInitialView ?
+                                
                                 LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "")
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 40)
                                             .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].id == self.currentLanguageId ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
                                     )
                                     .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
+                                
+                                :
+                                
+                                LanguageSelectorView(language: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].flag ?? "")
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 40)
+                                        .stroke(self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].id == self.currentLanguageId ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
+                                )
+                                .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
                             }
                             .animation(self.animation)
                         }
@@ -67,15 +107,21 @@ struct LanguageChoiceView: View {
                 Spacer()
                 
                 Button(action: {
-                    // - MARK: TEMPORARY
-                    //self.userData.languages[self.currentLanguageId].isChosen.toggle()
                     
-                    for lang in self.userData.languages {
-                        lang.isChosen = true
+                    // Mark all languages as chosen to prevent duplication later
+                    if(self.isInitialView) {
+                        for lang in self.userData.languages {
+                            lang.isChosen = true
+                        }
+                        self.choiceMade.toggle()
+                        UserDefaults.standard.set(true, forKey: "choiceMade")
+                    } else {
+                        for lang in self.langsChosenResults {
+                            lang.isCurrent = (lang.id == self.currentLanguageId) ? true : false
+                        }
+                        self.showingChosenLanguages.toggle()
                     }
-                    
-                    self.choiceMade = true
-                    UserDefaults.standard.set(true, forKey: "choiceMade")
+
                     UserDefaults.standard.set(self.currentLanguageId, forKey: "currentLanguageId")
                     do {
                         try self.managedObjectContext.save()
@@ -100,22 +146,28 @@ struct LanguageChoiceView: View {
                 .animation(self.animation)
                 
                 Spacer()
-        }
-        .onAppear() {
-            for row in (0 ..< 3) {
-                    for column in (0 ..< 2) {
-                        let position = self.calculateRowColumn(row: row, column: column)
-                        self.userData.languages[position].id = Int16(position)
+            }
+            .navigationBarTitle(Text("Change language"), displayMode: .inline)
+            .navigationBarItems(
+                trailing: cancelButton
+            )
+            .navigationBarHidden(self.isInitialView)
+            .onAppear() {
+                if(self.isInitialView) {
+                    for row in (0 ..< 3) {
+                        for column in (0 ..< 2) {
+                            let position = self.calculateRowColumn(row: row, column: column)
+                            self.userData.languages[position].id = Int16(position)
+                        }
                     }
                 }
+            }
         }
     }
 }
 
 struct LanguageChoiceView_Previews: PreviewProvider {
     static var previews: some View {
-        let userData = UserData()
-        return LanguageChoiceView(choiceMade: .constant(false))
-            .environmentObject(userData)
+        EmptyView()
     }
 }

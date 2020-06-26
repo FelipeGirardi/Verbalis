@@ -38,13 +38,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
         
-        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        // Check if it's the first launch
+        let launchedBefore = UserDefaults.standard.bool(forKey: "choiceMade")
         if launchedBefore  {
             self.deleteLangsFromCoreData()
-        } else {
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
         }
-        //self.deleteLangsFromCoreData()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -52,16 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This occurs shortly after the scene enters the background, or when its session is discarded.
         // Release any resources associated with this scene that can be re-created the next time the scene connects.
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
-//        let moc = appDelegate.persistentContainer.viewContext
-//        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Language")
-//        fetchRequest.predicate = NSPredicate(format: "isChosen = %@", NSNumber(value: true))
-//        
-//        do {
-//            let languages = try moc.fetch(fetchRequest)
-//            try moc.save()
-//        } catch _ {
-//            fatalError()
-//        }
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -91,7 +79,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func deleteLangsFromCoreData() {
         let moc = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Language")
-        fetchRequest.predicate = NSPredicate(format: "isChosen = %@", NSNumber(value: false))
+        fetchRequest.predicate = NSPredicate(format: "isChosen == %@", NSNumber(value: false))
         
         do {
             let languages = try moc.fetch(fetchRequest)

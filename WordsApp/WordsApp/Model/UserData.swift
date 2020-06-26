@@ -65,7 +65,7 @@ final class UserData: ObservableObject {
                                     DispatchQueue.main.async {
                                         let moc = appDelegate.persistentContainer.viewContext
                                         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Language")
-                                        fetchRequest.predicate = NSPredicate(format: "isCurrent = %@", NSNumber(value: true))
+                                        fetchRequest.predicate = NSPredicate(format: "isCurrent == %@", NSNumber(value: true))
                                         do {
                                             let fetchedLanguages = try moc.fetch(fetchRequest)
                                             if(fetchedLanguages.count != 0) {
