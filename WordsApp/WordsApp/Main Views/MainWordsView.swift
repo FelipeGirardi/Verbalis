@@ -8,21 +8,23 @@
 
 import SwiftUI
 
+// View that might be used for a future Tabview
+
 struct MainWordsView: View {
     var body: some View {
-        TabView {
+        //TabView {
             WordsTab()
-                .tabItem {
-                   Image(systemName: "a")
-                   Text("Words")
-                }
+//                .tabItem {
+//                   Image(systemName: "a")
+//                   Text("Words")
+//                }
             
-            GroupsTab()
-                .tabItem {
-                   Image(systemName: "bookmark")
-                   Text("Groups")
-                }
-        }
+//            GroupsTab()
+//                .tabItem {
+//                   Image(systemName: "bookmark")
+//                   Text("Groups")
+//                }
+        //}
     }
 }
 
