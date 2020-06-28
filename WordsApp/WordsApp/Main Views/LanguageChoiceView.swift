@@ -55,42 +55,32 @@ struct LanguageChoiceView: View {
         }
         
         return Button(action: {
-            withAnimation(.easeInOut(duration: 0.1)) {
-                if(!self.langWasChosen) {
-                    self.langWasChosen = true
-                } else {
-                    if(self.isInitialView) {
-                        self.userData.languages[self.currentLanguageId].isCurrent = false
-                    } else {
-                        self.langsChosenResultsArray[self.currentLanguageId].isCurrent = false
-                    }
-                }
-                
-                self.currentLanguageId = self.calculateRowColumn(row: row, column: column)
+            if(!self.langWasChosen) {
+                self.langWasChosen = true
+            } else {
                 if(self.isInitialView) {
-                    self.userData.languages[self.currentLanguageId].isCurrent = true
+                    self.userData.languages[self.currentLanguageId].isCurrent = false
                 } else {
-                    self.langsChosenResultsArray[self.currentLanguageId].isCurrent = true
+                    self.langsChosenResultsArray[self.currentLanguageId].isCurrent = false
                 }
+            }
+            
+            self.currentLanguageId = self.calculateRowColumn(row: row, column: column)
+            if(self.isInitialView) {
+                self.userData.languages[self.currentLanguageId].isCurrent = true
+            } else {
+                self.langsChosenResultsArray[self.currentLanguageId].isCurrent = true
             }
         }) {
             self.isInitialView ?
                 
                 LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "", isButtonPressed: isCurrentlyPicked)
-                    //                                        .overlay(
-                    //                                            RoundedRectangle(cornerRadius: 40)
-                    //                                                .stroke(self.userData.languages[self.calculateRowColumn(row: row, column: column)].id == self.currentLanguageId ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
-                    //                                        )
-                    .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                 
                 :
                 
                 LanguageSelectorView(language: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].flag ?? "", isButtonPressed: isCurrentlyPicked)
-                    //                                    .overlay(
-                    //                                        RoundedRectangle(cornerRadius: 40)
-                    //                                            .stroke(self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].id == self.currentLanguageId ? Color(red: 255/255, green: 215/255, blue: 0/255) : Color(red: 64/255, green: 0/255, blue: 255/255), lineWidth: 10)
-                    //                                    )
-                    .padding(EdgeInsets(top: 10, leading: 6, bottom: 10, trailing: 6))
+                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
         }
         .foregroundColor(Color("BGElement"))
         .scaleEffect(isCurrentlyPicked ? 0.95 : 1.0)
@@ -148,18 +138,20 @@ struct LanguageChoiceView: View {
                         }
                         
                     }, label: {
-                        Text("Start")
+                        Text(self.isInitialView ? "Start" : "Confirm")
                             .fontWeight(.semibold)
                             .font(Font.custom("Georgia", size: 25))
-                            .foregroundColor(Color.white)
-                            .padding(EdgeInsets(top: 20, leading: 30, bottom: 20, trailing: 30))
+                            .foregroundColor(self.langWasChosen ? Color.white : Color.black)
+                            .opacity(self.langWasChosen ? 1.0 : 0.2)
+                            .padding(EdgeInsets(top: 10, leading: 110, bottom: 10, trailing: 110))
                     })
                     .disabled(!self.langWasChosen)
-                    .background(Color(red: 64/255, green: 0/255, blue: 255/255))
-                    .cornerRadius(40)
+                    .background(self.langWasChosen ? Color(red: 50/255, green: 82/255, blue: 123/255) : Color("BGElement"))
+                    .cornerRadius(20)
                     .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-                    .opacity(self.langWasChosen ? 1.0 : 0.25)
-                    .shadow(color: Color.black, radius: 3, x: 0, y: 2)
+                    .opacity(1.0)
+                    .shadow(color: Color("DarkShadow"), radius: 5, x: -5, y: -5)
+                    .shadow(color: Color("LightShadow"), radius: 5, x: 5, y: 5)
                     .animation(self.animation)
                     
                     Spacer()
