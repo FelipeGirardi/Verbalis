@@ -31,12 +31,12 @@ struct WordListItem: View {
     var body: some View {
         ZStack(alignment: .topLeading) {
             RoundedRectangle(cornerRadius: 20)
-                .fill(Color(red: 64/255, green: 0/255, blue: 255/255))
-                .shadow(color: Color.black, radius: 3, x: 0, y: 2)
-                //.padding(EdgeInsets(top: 0, leading: -10, bottom: 0, trailing: -10))
+                .fill(Color("MetallicBlue"))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.black, lineWidth: 2)
+                        .stroke(Color("Main"), lineWidth: 2)
+                        .blur(radius: 4)
+                        .offset(x: -1, y: -1)
                 )
             Text(word.sourceWord ?? "")
                 .font(.system(size: 32))

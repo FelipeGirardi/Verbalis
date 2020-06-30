@@ -13,6 +13,7 @@ struct WordsTab: View {
     @State private var showingAddWord = false
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var userData: UserData
+    @Environment(\.presentationMode) var presentation
     
     @FetchRequest(entity: Language.entity(),
                   sortDescriptors: [],

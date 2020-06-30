@@ -16,6 +16,13 @@ struct WordInfoView: View {
     var wordDataArray: [WordData] {
         Array(wordDataSet).sorted(by: { $0.isMainWord!.boolValue && !$1.isMainWord!.boolValue } )
     }
+    
+    init(originalWord: String, wordDataSet: Set<WordData>) {
+        self.originalWord = originalWord
+        self._wordDataSet = State(initialValue: wordDataSet)
+        UINavigationBar.appearance().barTintColor = UIColor(named: "BGElement")
+        //UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+    }
    
     func termTitle(term: WordData) -> some View {
         return VStack {
@@ -147,43 +154,48 @@ struct WordInfoView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical) {
-            ForEach(wordDataArray.indices, id: \.self) { index in
-                Group {
-                    if(index != 0) {
-                        ForEach(0..<3) { _ in
-                            Spacer()
-                        }
-                    }
-                    
-                    self.termTitle(term: self.wordDataArray[index])
-                    
-                    ForEach(0..<3) { _ in
-                        Spacer()
-                    }
-                    
-                    self.prepareTranslations(translations: self.wordDataArray[index])
-                        .padding(.leading)
-                        .padding(.trailing)
-                        .padding(.bottom)
-                    
-                    self.prepareOtherExamples(wordData: self.wordDataArray[index])
-                    
-                    if(index != self.wordDataArray.count - 1) {
-                        Divider()
-                            .padding()
-                            .padding(.top)
-                    } else {
-                        ForEach(0..<3) { _ in
-                            Spacer()
+            ZStack {
+                Color("BGElement")
+                    .edgesIgnoringSafeArea(.all)
+                
+                ScrollView(.vertical) {
+                    ForEach(wordDataArray.indices, id: \.self) { index in
+                        Group {
+                            if(index != 0) {
+                                ForEach(0..<3) { _ in
+                                    Spacer()
+                                }
+                            }
+                            
+                            self.termTitle(term: self.wordDataArray[index])
+                            
+                            ForEach(0..<3) { _ in
+                                Spacer()
+                            }
+                            
+                            self.prepareTranslations(translations: self.wordDataArray[index])
+                                .padding(.leading)
+                                .padding(.trailing)
+                                .padding(.bottom)
+                            
+                            self.prepareOtherExamples(wordData: self.wordDataArray[index])
+                            
+                            if(index != self.wordDataArray.count - 1) {
+                                Divider()
+                                    .padding()
+                                    .padding(.top)
+                            } else {
+                                ForEach(0..<3) { _ in
+                                    Spacer()
+                                }
+                            }
                         }
                     }
                 }
             }
+            .navigationBarTitle(Text(""), displayMode: .inline)
+            .navigationViewStyle(StackNavigationViewStyle())
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .offset(x: 0, y: -30)
-    }
     
 }
 
