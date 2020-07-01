@@ -60,7 +60,7 @@ struct WordsTab: View {
     }
     
     init() {
-        UINavigationBar.appearance().backgroundColor = UIColor(named: "BGElement")
+        UINavigationBar.appearance().barTintColor = UIColor(named: "BGElement")
         UITableView.appearance().backgroundColor = UIColor(named: "BGElement")
         UITableViewCell.appearance().backgroundColor = UIColor(named: "BGElement")
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 30) ?? UIFont()]
@@ -80,21 +80,22 @@ struct WordsTab: View {
                                 WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataSet: wordInList.wordData ?? Set())
                             ) {
                                 EmptyView()
-                            }.buttonStyle(PlainButtonStyle())
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }
                 .onDelete(perform: deleteWord)
             }
-            .navigationBarTitle(Text((currentLang.flag ?? "") + " " + (currentLang.name ?? ""))
+            .navigationBarTitle(Text(/* (currentLang.flag ?? "") + " " + */ (currentLang.name ?? ""))
                 .font(Font.custom("Georgia-Bold", size: 25))
                 , displayMode: .large)
             .navigationBarItems(
                 leading: languageButton,
                 trailing: newWordButton
             )
+            .navigationViewStyle(StackNavigationViewStyle())
         }
-        .navigationViewStyle(DefaultNavigationViewStyle())
         .onAppear() {
             self.updateWordsListArray()
         }

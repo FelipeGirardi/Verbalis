@@ -20,8 +20,7 @@ struct WordInfoView: View {
     init(originalWord: String, wordDataSet: Set<WordData>) {
         self.originalWord = originalWord
         self._wordDataSet = State(initialValue: wordDataSet)
-        UINavigationBar.appearance().barTintColor = UIColor(named: "BGElement")
-        //UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        //UINavigationBar.appearance().barTintColor = UIColor(named: "BGElement")
     }
    
     func termTitle(term: WordData) -> some View {
@@ -154,48 +153,51 @@ struct WordInfoView: View {
     }
     
     var body: some View {
-            ZStack {
-                Color("BGElement")
-                    .edgesIgnoringSafeArea(.all)
-                
-                ScrollView(.vertical) {
-                    ForEach(wordDataArray.indices, id: \.self) { index in
-                        Group {
-                            if(index != 0) {
-                                ForEach(0..<3) { _ in
-                                    Spacer()
-                                }
-                            }
-                            
-                            self.termTitle(term: self.wordDataArray[index])
-                            
+        ZStack {
+            Color("BGElement")
+                .edgesIgnoringSafeArea(.all)
+            
+            ScrollView(.vertical) {
+                ForEach(wordDataArray.indices, id: \.self) { index in
+                    Group {
+                        if(index == 0) {
                             ForEach(0..<3) { _ in
                                 Spacer()
                             }
-                            
-                            self.prepareTranslations(translations: self.wordDataArray[index])
-                                .padding(.leading)
-                                .padding(.trailing)
-                                .padding(.bottom)
-                            
-                            self.prepareOtherExamples(wordData: self.wordDataArray[index])
-                            
-                            if(index != self.wordDataArray.count - 1) {
-                                Divider()
-                                    .padding()
-                                    .padding(.top)
-                            } else {
-                                ForEach(0..<3) { _ in
-                                    Spacer()
-                                }
+                        }
+                        
+                        ForEach(0..<3) { _ in
+                            Spacer()
+                        }
+                        
+                        self.termTitle(term: self.wordDataArray[index])
+                        
+                        ForEach(0..<3) { _ in
+                            Spacer()
+                        }
+                        
+                        self.prepareTranslations(translations: self.wordDataArray[index])
+                            .padding(.leading)
+                            .padding(.trailing)
+                            .padding(.bottom)
+                        
+                        self.prepareOtherExamples(wordData: self.wordDataArray[index])
+                        
+                        if(index != self.wordDataArray.count - 1) {
+                            Divider()
+                                .padding()
+                                .padding(.top)
+                        } else {
+                            ForEach(0..<3) { _ in
+                                Spacer()
                             }
                         }
                     }
                 }
             }
-            .navigationBarTitle(Text(""), displayMode: .inline)
-            .navigationViewStyle(StackNavigationViewStyle())
         }
+        .navigationBarTitle(Text(""), displayMode: .inline)
+    }
     
 }
 
