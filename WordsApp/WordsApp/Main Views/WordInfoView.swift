@@ -20,7 +20,6 @@ struct WordInfoView: View {
     init(originalWord: String, wordDataSet: Set<WordData>) {
         self.originalWord = originalWord
         self._wordDataSet = State(initialValue: wordDataSet)
-        //UINavigationBar.appearance().barTintColor = UIColor(named: "BGElement")
     }
    
     func termTitle(term: WordData) -> some View {
@@ -196,7 +195,7 @@ struct WordInfoView: View {
                 }
             }
         }
-        .navigationBarTitle(Text(""), displayMode: .inline)
+        //.navigationBarTitle(Text(""), displayMode: .inline)
     }
     
 }

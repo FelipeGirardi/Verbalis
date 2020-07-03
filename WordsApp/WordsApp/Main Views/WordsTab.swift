@@ -24,6 +24,14 @@ struct WordsTab: View {
         self.langResults.count != 0 ? self.langResults[0] : Language(id: 0, name: "", flag: "", code: "", isChosen: true, isCurrent: true, wordsList: Set(), insertIntoManagedObjectContext: managedObjectContext)
     }
     
+    var currentLangFlag: String {
+        currentLang.flag ?? ""
+    }
+    
+    var currentLangName: String {
+        currentLang.name ?? ""
+    }
+    
     @State var wordsListArray: [Word] = []
     
     var languageButton: some View {
@@ -63,41 +71,73 @@ struct WordsTab: View {
         UINavigationBar.appearance().barTintColor = UIColor(named: "BGElement")
         UITableView.appearance().backgroundColor = UIColor(named: "BGElement")
         UITableViewCell.appearance().backgroundColor = UIColor(named: "BGElement")
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 30) ?? UIFont()]
+        UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20) ?? UIFont()]
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().selectionStyle = .none
     }
     
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(wordsListArray, id: \.sourceWord) { (wordInList: Word) in
-                    VStack {
+    var wordList: some View {
+        List {
+            HStack {
+                Spacer()
+                Text(currentLangFlag + " " + currentLangName + " " + currentLangFlag)
+                    .font(Font.custom("Georgia-Bold", size: 25))
+                Spacer()
+            }
+            .padding()
+            .padding(.top)
+            
+            if(wordsListArray.isEmpty) {
+                VStack(alignment: .center) {
+                    ForEach(0..<3) { _ in
                         Spacer()
-                        ZStack {
-                            WordListItem(word: wordInList)
-                            NavigationLink(destination:
-                                WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataSet: wordInList.wordData ?? Set())
-                            ) {
-                                EmptyView()
-                            }
-                            .buttonStyle(PlainButtonStyle())
+                    }
+                    Text("No words yet!\n\nAdd a new word by pressing the \"+\" button.")
+                        .font(Font.custom("Georgia", size: 15))
+                        .multilineTextAlignment(.center)
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                .padding()
+            }
+            
+            ForEach(wordsListArray, id: \.sourceWord) { (wordInList: Word) in
+                VStack {
+                    Spacer()
+                    ZStack {
+                        WordListItem(word: wordInList)
+                        NavigationLink(destination:
+                            WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataSet: wordInList.wordData ?? Set())
+                                .navigationBarTitle(Text(self.currentLangFlag + " " + self.currentLangName + " " + self.currentLangFlag)
+                            .font(Font.custom("Georgia-Bold", size: 25))
+                            , displayMode: .inline)
+                        ) {
+                            EmptyView()
                         }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
-                .onDelete(perform: deleteWord)
             }
-            .navigationBarTitle(Text(/* (currentLang.flag ?? "") + " " + */ (currentLang.name ?? ""))
-                .font(Font.custom("Georgia-Bold", size: 25))
-                , displayMode: .large)
+            .onDelete(perform: deleteWord)
+        }
+    }
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                Color("BGElement")
+                    .edgesIgnoringSafeArea(.all)
+                    
+                wordList
+            }
+            .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarItems(
                 leading: languageButton,
                 trailing: newWordButton
             )
             .navigationViewStyle(StackNavigationViewStyle())
-        }
-        .onAppear() {
-            self.updateWordsListArray()
+            .onAppear() {
+                self.updateWordsListArray()
+            }
         }
     }
     
