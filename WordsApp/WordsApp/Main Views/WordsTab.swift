@@ -71,7 +71,7 @@ struct WordsTab: View {
         UINavigationBar.appearance().barTintColor = UIColor(named: "BGElement")
         UITableView.appearance().backgroundColor = UIColor(named: "BGElement")
         UITableViewCell.appearance().backgroundColor = UIColor(named: "BGElement")
-        UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20) ?? UIFont()]
+        //UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20) ?? UIFont()]
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().selectionStyle = .none
     }

@@ -17,6 +17,10 @@ struct AddWordView: View {
     @State var savingWordState: SavingWordState = .none
     var currentLangCode: String
     
+    var isConfirmButtonDisabled: Bool {
+        confirmButtonClicked || self.newWord == ""
+    }
+    
     var animation: Animation {
         Animation.linear
             .speed(5)
@@ -70,15 +74,16 @@ struct AddWordView: View {
                     Text("Which word would you like to add?")
                         .font(Font.custom("Georgia", size: 25))
                         .fontWeight(.medium)
+                        .lineLimit(nil)
                         .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
                         .padding()
                         .padding(.bottom)
                     
                     TextField("Type here", text: self.$newWord)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
-                        .padding(.top)
-                        .padding(.bottom)
+                        .padding()
                     
                     Button(action: {
                         self.confirmButtonClicked = true
@@ -107,19 +112,18 @@ struct AddWordView: View {
                     }, label: {
                         Text("Confirm")
                             .fontWeight(.semibold)
-                            .font(Font.custom("Georgia", size: 20))
-                            .foregroundColor((confirmButtonClicked || self.newWord == "") ? Color.black : Color.white)
-                            .opacity((confirmButtonClicked || self.newWord == "") ? 0.5 : 1.0)
-                            .padding(EdgeInsets(top: 10, leading: 110, bottom: 10, trailing: 110))
+                            .customFont(name: "Georgia", style: .title2, weight: .semibold)
+                            .foregroundColor(isConfirmButtonDisabled ? Color.black : Color.white)
+                            .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 40)
                     })
-                        .disabled(confirmButtonClicked || self.newWord == "")
-                        .background(confirmButtonClicked || self.newWord == "" ? Color.gray : Color("MetallicBlue"))
-                        .opacity((confirmButtonClicked || self.newWord == "") ? 0.2 : 1.0)
+                        .disabled(isConfirmButtonDisabled)
+                        .background(isConfirmButtonDisabled ? Color.gray : Color("MetallicBlue"))
+                        .opacity(isConfirmButtonDisabled ? 0.25 : 1.0)
                         .cornerRadius(20)
                         .animation(self.animation)
                         .overlay(
                             RoundedRectangle(cornerRadius: 20)
-                                .stroke((confirmButtonClicked || self.newWord == "") ? Color("DarkShadow") : Color("Main"), lineWidth: 2)
+                                .stroke(isConfirmButtonDisabled ? Color("DarkShadow") : Color("Main"), lineWidth: 2)
                                 .blur(radius: 4)
                                 .offset(x: 0, y: 2)
                         )

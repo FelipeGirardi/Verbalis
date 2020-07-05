@@ -36,7 +36,7 @@ struct WordListItem: View {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color("Main"), lineWidth: 2)
                         .blur(radius: 4)
-                        .offset(x: -1, y: -1)
+                        //.offset(x: -1, y: -1)
                 )
             Text(word.sourceWord ?? "")
                 .font(.system(size: 32))
@@ -46,6 +46,8 @@ struct WordListItem: View {
             Text(translationsString)
                 .font(.system(size: 16))
                 .fontWeight(.regular)
+                .lineLimit(nil)
+                .multilineTextAlignment(.leading)
                 .foregroundColor(Color.white)
                 .padding(EdgeInsets(top: 50, leading: 10, bottom: 10, trailing: 10))
         }

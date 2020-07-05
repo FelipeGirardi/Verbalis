@@ -46,7 +46,7 @@ struct LanguageChoiceView: View {
         return row * 2 + column
     }
     
-    fileprivate func mainLanguageButton(row: Int, column: Int) -> some View {
+    fileprivate func mainLanguageButton(row: Int, column: Int, screenWidth: CGFloat, screenHeight: CGFloat) -> some View {
         let isCurrentlyPicked: Bool
         if(isInitialView) {
             isCurrentlyPicked = self.userData.languages[self.calculateRowColumn(row: row, column: column)].id == self.currentLanguageId
@@ -74,12 +74,12 @@ struct LanguageChoiceView: View {
         }) {
             self.isInitialView ?
                 
-                LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "", isButtonPressed: isCurrentlyPicked)
+                LanguageSelectorView(language: self.userData.languages[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.userData.languages[self.calculateRowColumn(row: row, column: column)].flag ?? "", isButtonPressed: isCurrentlyPicked, screenWidth: screenWidth, screenHeight: screenHeight)
                     .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
                 
                 :
                 
-                LanguageSelectorView(language: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].flag ?? "", isButtonPressed: isCurrentlyPicked)
+                LanguageSelectorView(language: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].name ?? "", flag: self.langsChosenResultsArray[self.calculateRowColumn(row: row, column: column)].flag ?? "", isButtonPressed: isCurrentlyPicked, screenWidth: screenWidth, screenHeight: screenHeight)
                     .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10))
         }
         .foregroundColor(Color("BGElement"))
@@ -88,6 +88,7 @@ struct LanguageChoiceView: View {
     }
     
     var body: some View {
+        GeometryReader { geometry in
         NavigationView {
             ZStack {
                 Color("BGElement")
@@ -97,16 +98,17 @@ struct LanguageChoiceView: View {
                     Spacer()
                     
                     Text(self.isInitialView ? "Hello!\n\nWhat language are you learning?" : "What language are you learning?")
-                        .font(Font.custom("Georgia-Bold", size: 25))
+                        .customFont(name: "Georgia", style: .title2, weight: .bold)
                         .multilineTextAlignment(.center)
-                        .padding(EdgeInsets(top: 20, leading: 20, bottom: 0, trailing: 20))
+                        .minimumScaleFactor(0.5)
+                        .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
                     
                     Spacer()
                     
                     ForEach(0 ..< 3) { row in
                         HStack {
                             ForEach(0 ..< 2) { column in
-                                self.mainLanguageButton(row: row, column: column)
+                                self.mainLanguageButton(row: row, column: column, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
                             }
                         }
                     }
@@ -140,15 +142,15 @@ struct LanguageChoiceView: View {
                     }, label: {
                         Text(self.isInitialView ? "Start" : "Confirm")
                             .fontWeight(.semibold)
-                            .font(Font.custom("Georgia", size: 25))
+                            .customFont(name: "Georgia", style: .title2, weight: .semibold)
                             .foregroundColor(self.langWasChosen ? Color.white : Color.black)
-                            .opacity(self.langWasChosen ? 1.0 : 0.5)
-                            .padding(EdgeInsets(top: 10, leading: 110, bottom: 10, trailing: 110))
+                            .frame(minWidth: 0, maxWidth: geometry.size.width/1.5, minHeight: 0, maxHeight: geometry.size.height/15)
+                            //.padding(EdgeInsets(top: 10, leading: 110, bottom: 10, trailing: 110))
                     })
                     .disabled(!self.langWasChosen)
                     .background(self.langWasChosen ? Color("MetallicBlue") : Color.gray)
                     .cornerRadius(20)
-                    .opacity(self.langWasChosen ? 1.0 : 0.2)
+                    .opacity(self.langWasChosen ? 1.0 : 0.25)
                     .animation(self.animation)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
@@ -162,7 +164,7 @@ struct LanguageChoiceView: View {
                 }
                 .navigationBarTitle(Text("Change language"), displayMode: .inline)
                 .navigationBarItems(
-                    trailing: cancelButton
+                    trailing: self.cancelButton
                 )
                 .navigationBarHidden(self.isInitialView)
                 .onAppear() {
@@ -178,10 +180,39 @@ struct LanguageChoiceView: View {
             }
         }
     }
+    }
 }
 
 struct LanguageChoiceView_Previews: PreviewProvider {
     static var previews: some View {
         EmptyView()
+    }
+}
+
+// - MARK: dynamic custom font extension
+
+@available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
+struct CustomFont: ViewModifier {
+    @Environment(\.sizeCategory) var sizeCategory
+
+    var name: String
+    var style: UIFont.TextStyle
+    var weight: Font.Weight = .regular
+
+    func body(content: Content) -> some View {
+        return content.font(Font.custom(
+            name,
+            size: UIFont.preferredFont(forTextStyle: style).pointSize)
+            .weight(weight))
+    }
+}
+
+@available(iOS 13, macCatalyst 13, tvOS 13, watchOS 6, *)
+extension View {
+    func customFont(
+        name: String,
+        style: UIFont.TextStyle,
+        weight: Font.Weight = .regular) -> some View {
+        return self.modifier(CustomFont(name: name, style: style, weight: weight))
     }
 }

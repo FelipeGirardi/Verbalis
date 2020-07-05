@@ -35,6 +35,7 @@ struct WordInfoView: View {
                 
                 Text(term.source?.inflection ?? "")
                     .font(Font.custom("Georgia", size: 16))
+                    .multilineTextAlignment(.center)
             }
         }
     }
