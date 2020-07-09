@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C009538F24B4062B00118231 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C009539124B4062B00118231 /* Localizable.strings */; };
 		C00E75A5241166C000D0983C /* WordInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00E75A4241166C000D0983C /* WordInfoView.swift */; };
 		C02FC50023CA561F00D21C1C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FC4FF23CA561F00D21C1C /* AppDelegate.swift */; };
 		C02FC50223CA561F00D21C1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02FC50123CA561F00D21C1C /* SceneDelegate.swift */; };
@@ -29,6 +30,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C009538924B4042500118231 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C009538A24B4043600118231 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C009538B24B4043B00118231 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C009538C24B4043F00118231 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C009538D24B4044600118231 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C009538E24B4044B00118231 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		C009539024B4062B00118231 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C009539224B4063000118231 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C009539324B4063100118231 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C009539424B4063100118231 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C009539524B4063200118231 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		C009539624B4063300118231 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C009539724B4063400118231 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C00E75A4241166C000D0983C /* WordInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInfoView.swift; sourceTree = "<group>"; };
 		C02FC4FC23CA561F00D21C1C /* WordsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02FC4FF23CA561F00D21C1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +105,7 @@
 				C02FC50A23CA562200D21C1C /* LaunchScreen.storyboard */,
 				C02FC50D23CA562200D21C1C /* Info.plist */,
 				C0A0A80C241EEDFB00A296F9 /* WordsApp.xcdatamodeld */,
+				C009539124B4062B00118231 /* Localizable.strings */,
 				C02FC50723CA562200D21C1C /* Preview Content */,
 			);
 			path = WordsApp;
@@ -180,6 +195,12 @@
 			knownRegions = (
 				en,
 				Base,
+				es,
+				fr,
+				it,
+				de,
+				ru,
+				"pt-BR",
 			);
 			mainGroup = C02FC4F323CA561E00D21C1C;
 			productRefGroup = C02FC4FD23CA561F00D21C1C /* Products */;
@@ -197,6 +218,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C02FC50C23CA562200D21C1C /* LaunchScreen.storyboard in Resources */,
+				C009538F24B4062B00118231 /* Localizable.strings in Resources */,
 				C02FC50923CA562200D21C1C /* Preview Assets.xcassets in Resources */,
 				C02FC50623CA562200D21C1C /* Assets.xcassets in Resources */,
 			);
@@ -231,10 +253,31 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		C009539124B4062B00118231 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C009539024B4062B00118231 /* en */,
+				C009539224B4063000118231 /* fr */,
+				C009539324B4063100118231 /* de */,
+				C009539424B4063100118231 /* it */,
+				C009539524B4063200118231 /* pt-BR */,
+				C009539624B4063300118231 /* ru */,
+				C009539724B4063400118231 /* es */,
+			);
+			name = Localizable.strings;
+			path = WordsApp;
+			sourceTree = SOURCE_ROOT;
+		};
 		C02FC50A23CA562200D21C1C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C02FC50B23CA562200D21C1C /* Base */,
+				C009538924B4042500118231 /* es */,
+				C009538A24B4043600118231 /* fr */,
+				C009538B24B4043B00118231 /* it */,
+				C009538C24B4043F00118231 /* de */,
+				C009538D24B4044600118231 /* ru */,
+				C009538E24B4044B00118231 /* pt-BR */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -246,6 +289,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -306,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

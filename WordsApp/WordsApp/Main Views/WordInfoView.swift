@@ -25,16 +25,16 @@ struct WordInfoView: View {
     func termTitle(term: WordData) -> some View {
         return VStack {
             Text(term.source?.lemma ?? "")
-                .font(Font.custom("Georgia-Bold", size: 30))
+                .font(Font.custom("Georgia-Bold", size: 32))
             
             Spacer()
             
             HStack {
                 Text(term.source?.partOfSpeech ?? "")
-                    .font(Font.custom("Georgia", size: 16))
+                    .font(Font.custom("Georgia", size: 20))
                 
                 Text(term.source?.inflection ?? "")
-                    .font(Font.custom("Georgia", size: 16))
+                    .font(Font.custom("Georgia", size: 20))
                     .multilineTextAlignment(.center)
             }
         }
@@ -56,22 +56,22 @@ struct WordInfoView: View {
             
             // Translation
             Text("\(index). \(translationData.translationLemma ?? "")")
-                    .font(Font.custom("Georgia", size: 20))
+                    .font(Font.custom("Georgia", size: 24))
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
                 
             // Examples
             if(!(translationData.examples?.isEmpty ?? true)) {
-                Text("Examples")
-                    .font(Font.custom("Georgia", size: 16))
+                Text(NSLocalizedString("Examples", comment: "Examples with given word"))
+                    .font(Font.custom("Georgia", size: 20))
                     .fontWeight(.medium)
                 
                 Group {
                     ForEach(examples, id: \.exampleSource) { example in
                         HStack {
                             Text(example.exampleSource ?? "")
-                                .font(Font.custom("Georgia", size: 12))
+                                .font(Font.custom("Georgia", size: 16))
                                 .fixedSize(horizontal: false, vertical: true)
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: .infinity, alignment: .trailing)
@@ -81,7 +81,7 @@ struct WordInfoView: View {
                                 .padding(.trailing)
                             
                             Text(example.exampleTarget ?? "")
-                                .font(Font.custom("Georgia", size: 12))
+                                .font(Font.custom("Georgia", size: 16))
                                 .fixedSize(horizontal: false, vertical: true)
                                 .multilineTextAlignment(.center)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,14 +98,14 @@ struct WordInfoView: View {
             // Synonyms
             if(!(translationData.synonyms?.isEmpty ?? true)) {
                 if(translationData.synonyms?[0] != "") {
-                    Text("Synonyms")
-                        .font(Font.custom("Georgia", size: 16))
+                    Text(NSLocalizedString("Synonyms", comment: "Synonyms for given word"))
+                        .font(Font.custom("Georgia", size: 20))
                         .fontWeight(.medium)
                         .padding(.bottom)
             
                     ForEach(translationData.synonyms ?? [], id: \.self) { synonym in
                         Text(synonym)
-                            .font(Font.custom("Georgia", size: 12))
+                            .font(Font.custom("Georgia", size: 16))
                             .padding(.top, 2)
                             .padding(.bottom, 2)
                     }
@@ -118,8 +118,8 @@ struct WordInfoView: View {
         let otherExamplesArray: [OtherExample] = Array(wordData.otherExamples ?? Set())
         return Group {
             if(otherExamplesArray.count > 0) {
-                Text("— Other Examples —")
-                    .font(Font.custom("Georgia", size: 16))
+                Text(NSLocalizedString("OtherExamples", comment: "Other examples with given word"))
+                    .font(Font.custom("Georgia", size: 20))
                     .fontWeight(.medium)
                     .padding(.top)
                     .padding(.top)
@@ -135,20 +135,22 @@ struct WordInfoView: View {
     func otherExamples(example: OtherExample) -> some View {
         return HStack {
             Text(example.source ?? "")
-                .font(Font.custom("Georgia", size: 12))
+                .font(Font.custom("Georgia", size: 16))
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.leading)
             
             Divider()
                 .padding(.leading)
                 .padding(.trailing)
             
             Text(example.target ?? "")
-                .font(Font.custom("Georgia", size: 12))
+                .font(Font.custom("Georgia", size: 16))
                 .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.trailing)
         }
     }
     
@@ -172,7 +174,7 @@ struct WordInfoView: View {
                         
                         self.termTitle(term: self.wordDataArray[index])
                         
-                        ForEach(0..<3) { _ in
+                        ForEach(0..<6) { _ in
                             Spacer()
                         }
                         
@@ -196,9 +198,7 @@ struct WordInfoView: View {
                 }
             }
         }
-        //.navigationBarTitle(Text(""), displayMode: .inline)
     }
-    
 }
 
 struct WordInfoView_Previews: PreviewProvider {

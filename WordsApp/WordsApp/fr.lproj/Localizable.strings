@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  WordsApp
+
+  Created by Felipe Girardi on 06/07/20.
+  Copyright © 2020 Felipe Girardi. All rights reserved.
+*/
+
+"English" = "Anglais";
+"Spanish" = "Espagnol";
+"French" = "Français";
+"German" = "Allemand";
+"Italian" = "Italien";
+"Portuguese" = "Portugais";
+"Russian" = "Russe";
+"Start" = "Start";
+"Confirm" = "Commencer";
+"FirstLanguageChoice" = "Bonjour!\n\nQuelle langue apprenez-vous?";
+"LanguageChoice" = "Quelle langue apprenez-vous?";
+"NoWordsYet" = "Pas encore de mots!\n\nAppuyez sur + pour ajouter un nouveau mot.";
+"Languages" = "Langues";
+"NewWord" = "Nouveau mot";
+"ChangeLanguage" = "Changer de langue";
+"Exit" = "Sortir";
+"AddWord" = "Quel mot aimeriez-vous ajouter?";
+"TypeHere" = "Écrivez ici";
+"Saving" = "Recherche de mot...";
+"Saved" = "Mot enregistré!";
+"NotFound" = "Mot introuvable.";
+"AlreadyAdded" = "Mot déjà ajouté.";
+"Examples" = "Exemples";
+"Synonyms" = "Synonymes";
+"OtherExamples" = "— Autres exemples —";

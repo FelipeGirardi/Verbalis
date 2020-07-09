@@ -39,18 +39,17 @@ struct LanguageSelectorView: View {
                     )
             }
                 VStack {
-                    //Spacer()
                     Text(self.language)
                         .fontWeight(.semibold)
-                        .font(Font.custom("Georgia", size: 18))
+                        .font(Font.custom("Georgia", size: 16))
+                        .lineLimit(1)
                         .minimumScaleFactor(0.5)
                         .foregroundColor(Color("Main"))
                         .padding(.top, 10)
 
                     Text(self.flag)
-                        .font(.system(size: 60))
+                        .font(.system(size: 55))
                         .minimumScaleFactor(0.5)
-                    //Spacer()
                 }
             }
     }

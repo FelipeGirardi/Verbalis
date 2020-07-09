@@ -37,7 +37,7 @@ struct LanguageChoiceView: View {
         Button(action: {
             self.showingChosenLanguages.toggle()
         }, label: {
-            Text("Exit")
+            Text(NSLocalizedString("Exit", comment: "Exit the screen"))
                 .font(.system(size: 20))
         })
     }
@@ -89,97 +89,97 @@ struct LanguageChoiceView: View {
     
     var body: some View {
         GeometryReader { geometry in
-        NavigationView {
-            ZStack {
-                Color("BGElement")
-                    .edgesIgnoringSafeArea(.all)
-                
-                VStack {
-                    Spacer()
+            NavigationView {
+                ZStack {
+                    Color("BGElement")
+                        .edgesIgnoringSafeArea(.all)
                     
-                    Text(self.isInitialView ? "Hello!\n\nWhat language are you learning?" : "What language are you learning?")
-                        .customFont(name: "Georgia", style: .title2, weight: .bold)
-                        .multilineTextAlignment(.center)
-                        .minimumScaleFactor(0.5)
-                        .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
-                    
-                    Spacer()
-                    
-                    ForEach(0 ..< 3) { row in
-                        HStack {
-                            ForEach(0 ..< 2) { column in
-                                self.mainLanguageButton(row: row, column: column, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
-                            }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
+                    VStack {
+                        Spacer()
                         
-                        // Mark all languages as chosen to prevent duplication later
-                        if(self.isInitialView) {
-                            for lang in self.userData.languages {
-                                lang.isChosen = true
+                        Text(self.isInitialView ? NSLocalizedString("FirstLanguageChoice", comment: "Choose a language when app opens for the first time") : NSLocalizedString("LanguageChoice", comment: "Choose a language when app opens again"))
+                            .customFont(name: "Georgia", style: .title2, weight: .bold)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.5)
+                            .padding(EdgeInsets(top: 0, leading: 30, bottom: 0, trailing: 30))
+                        
+                        Spacer()
+                        
+                        ForEach(0 ..< 3) { row in
+                            HStack {
+                                ForEach(0 ..< 2) { column in
+                                    self.mainLanguageButton(row: row, column: column, screenWidth: geometry.size.width, screenHeight: geometry.size.height)
+                                }
                             }
-                            self.choiceMade.toggle()
-                            UserDefaults.standard.set(true, forKey: "choiceMade")
-                        } else {
-                            for lang in self.langsChosenResults {
-                                lang.isCurrent = (lang.id == self.currentLanguageId) ? true : false
-                            }
-                            self.showingChosenLanguages.toggle()
                         }
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            
+                            // Mark all languages as chosen to prevent duplication later
+                            if(self.isInitialView) {
+                                for lang in self.userData.languages {
+                                    lang.isChosen = true
+                                }
+                                self.choiceMade.toggle()
+                                UserDefaults.standard.set(true, forKey: "choiceMade")
+                            } else {
+                                for lang in self.langsChosenResults {
+                                    lang.isCurrent = (lang.id == self.currentLanguageId) ? true : false
+                                }
+                                self.showingChosenLanguages.toggle()
+                            }
 
-                        UserDefaults.standard.set(self.currentLanguageId, forKey: "currentLanguageId")
-                        do {
-                            try self.managedObjectContext.save()
-                        } catch {
-                            print("Could not save language info to CoreData")
-                            print(error)
-                        }
+                            UserDefaults.standard.set(self.currentLanguageId, forKey: "currentLanguageId")
+                            do {
+                                try self.managedObjectContext.save()
+                            } catch {
+                                print("Could not save language info to CoreData")
+                                print(error)
+                            }
+                            
+                        }, label: {
+                            Text(self.isInitialView ? NSLocalizedString("Start", comment: "Start using the app") : NSLocalizedString("Confirm", comment: "Confirm language choice or word to be added"))
+                                .fontWeight(.semibold)
+                                .customFont(name: "Georgia", style: .title2, weight: .semibold)
+                                .foregroundColor(self.langWasChosen ? Color.white : Color.black)
+                                .frame(minWidth: 0, maxWidth: geometry.size.width/1.5, minHeight: 0, maxHeight: geometry.size.height/15)
+                                //.padding(EdgeInsets(top: 10, leading: 110, bottom: 10, trailing: 110))
+                        })
+                        .disabled(!self.langWasChosen)
+                        .background(self.langWasChosen ? Color("MetallicBlue") : Color.gray)
+                        .cornerRadius(20)
+                        .opacity(self.langWasChosen ? 1.0 : 0.25)
+                        .animation(self.animation)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 20)
+                                .stroke(self.langWasChosen ? Color("Main") : Color("DarkShadow"), lineWidth: 2)
+                                .blur(radius: 4)
+                                .offset(x: 0, y: 2)
+                        )
+                        .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                         
-                    }, label: {
-                        Text(self.isInitialView ? "Start" : "Confirm")
-                            .fontWeight(.semibold)
-                            .customFont(name: "Georgia", style: .title2, weight: .semibold)
-                            .foregroundColor(self.langWasChosen ? Color.white : Color.black)
-                            .frame(minWidth: 0, maxWidth: geometry.size.width/1.5, minHeight: 0, maxHeight: geometry.size.height/15)
-                            //.padding(EdgeInsets(top: 10, leading: 110, bottom: 10, trailing: 110))
-                    })
-                    .disabled(!self.langWasChosen)
-                    .background(self.langWasChosen ? Color("MetallicBlue") : Color.gray)
-                    .cornerRadius(20)
-                    .opacity(self.langWasChosen ? 1.0 : 0.25)
-                    .animation(self.animation)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 20)
-                            .stroke(self.langWasChosen ? Color("Main") : Color("DarkShadow"), lineWidth: 2)
-                            .blur(radius: 4)
-                            .offset(x: 0, y: 2)
+                        Spacer()
+                    }
+                    .navigationBarTitle(Text(NSLocalizedString("ChangeLanguage", comment: "Change language title for sheet")), displayMode: .inline)
+                    .navigationBarItems(
+                        trailing: self.cancelButton
                     )
-                    .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-                    
-                    Spacer()
-                }
-                .navigationBarTitle(Text("Change language"), displayMode: .inline)
-                .navigationBarItems(
-                    trailing: self.cancelButton
-                )
-                .navigationBarHidden(self.isInitialView)
-                .onAppear() {
-                    if(self.isInitialView) {
-                        for row in (0 ..< 3) {
-                            for column in (0 ..< 2) {
-                                let position = self.calculateRowColumn(row: row, column: column)
-                                self.userData.languages[position].id = Int16(position)
+                    .navigationBarHidden(self.isInitialView)
+                    .onAppear() {
+                        if(self.isInitialView) {
+                            for row in (0 ..< 3) {
+                                for column in (0 ..< 2) {
+                                    let position = self.calculateRowColumn(row: row, column: column)
+                                    self.userData.languages[position].id = Int16(position)
+                                }
                             }
                         }
                     }
                 }
             }
         }
-    }
     }
 }
 

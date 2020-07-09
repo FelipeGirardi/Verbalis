@@ -31,7 +31,7 @@ struct MainView: View {
             if(choiceMade || UserDefaults.standard.bool(forKey: "choiceMade")) {
                 MainWordsView()
             } else {
-                LanguageChoiceView(currentLanguageId: 0, langWasChosen: false, choiceMade: $choiceMade, showingChosenLanguages: Binding<Bool>.constant(false), isInitialView: true)
+                LanguageChoiceView(currentLanguageId: -1, langWasChosen: false, choiceMade: $choiceMade, showingChosenLanguages: Binding<Bool>.constant(false), isInitialView: true)
             }
         }
         .onAppear() {

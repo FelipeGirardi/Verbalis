@@ -38,7 +38,7 @@ struct WordsTab: View {
         Button(action: {
             self.showingChosenLanguages.toggle()
         }, label: {
-            Text("Languages")
+            Text(NSLocalizedString("Languages", comment: "Tap to choose a language"))
                 .font(.system(size: 20))
         })
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
@@ -92,7 +92,7 @@ struct WordsTab: View {
                     ForEach(0..<3) { _ in
                         Spacer()
                     }
-                    Text("No words yet!\n\nAdd a new word by pressing the \"+\" button.")
+                    Text(NSLocalizedString("NoWordsYet", comment: "Tell user that there are no words yet and to press + to add a new word"))
                         .font(Font.custom("Georgia", size: 15))
                         .multilineTextAlignment(.center)
                 }

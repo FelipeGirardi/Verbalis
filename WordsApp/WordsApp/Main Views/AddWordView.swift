@@ -27,7 +27,7 @@ struct AddWordView: View {
             .delay(0.01)
     }
     
-    func getStateLabel() -> Text {
+    func getStateLabel() -> some View {
         switch(savingWordState) {
         case .none:
             return Text("...")
@@ -35,21 +35,21 @@ struct AddWordView: View {
                 .font(Font.custom("Georgia", size: 20))
                 .foregroundColor(Color("BGElement"))
         case .saving:
-            return Text("Saving...")
+            return Text(NSLocalizedString("Saving", comment: "Saving the word"))
                 .fontWeight(.semibold)
                 .font(Font.custom("Georgia", size: 20))
         case .saveSuccess:
-            return Text("Word saved!")
+            return Text(NSLocalizedString("Saved", comment: "Word was saved"))
                 .fontWeight(.semibold)
                 .font(Font.custom("Georgia", size: 20))
                 .foregroundColor(Color.green)
         case .saveFailure:
-            return Text("Word not found.")
+            return Text(NSLocalizedString("NotFound", comment: "Word was not found"))
                 .fontWeight(.semibold)
                 .font(Font.custom("Georgia", size: 20))
                 .foregroundColor(Color.red)
         case .duplicateSave:
-            return Text("Word already added.")
+            return Text(NSLocalizedString("AlreadyAdded", comment: "Word has already been added"))
                 .fontWeight(.semibold)
                 .font(Font.custom("Georgia", size: 20))
                 .foregroundColor(Color.red)
@@ -60,7 +60,7 @@ struct AddWordView: View {
         Button(action: {
             self.showingAddWord.toggle()
         }, label: {
-            Text("Exit")
+            Text(NSLocalizedString("Exit", comment: "Exit the screen"))
                 .font(.system(size: 20))
         })
     }
@@ -71,7 +71,7 @@ struct AddWordView: View {
                 Color("BGElement")
                     .edgesIgnoringSafeArea(.all)
                 VStack {
-                    Text("Which word would you like to add?")
+                    Text(NSLocalizedString("AddWord", comment: "Ask user which word they would like to add"))
                         .font(Font.custom("Georgia", size: 25))
                         .fontWeight(.medium)
                         .lineLimit(nil)
@@ -80,7 +80,7 @@ struct AddWordView: View {
                         .padding()
                         .padding(.bottom)
                     
-                    TextField("Type here", text: self.$newWord)
+                    TextField(NSLocalizedString("TypeHere", comment: "Tell user to type here"), text: self.$newWord)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .padding()
                         .padding()
@@ -110,7 +110,7 @@ struct AddWordView: View {
                             }
                         })
                     }, label: {
-                        Text("Confirm")
+                        Text(NSLocalizedString("Confirm", comment: "Confirm word"))
                             .fontWeight(.semibold)
                             .customFont(name: "Georgia", style: .title2, weight: .semibold)
                             .foregroundColor(isConfirmButtonDisabled ? Color.black : Color.white)
@@ -132,17 +132,38 @@ struct AddWordView: View {
                         .padding(.bottom)
                     
                     // MARK: Label that marks the state of word being saved
-                    getStateLabel()
-                        .padding()
-                        .padding(.top)
+                    HStack {
+                        getStateLabel()
+
+                        ActivityIndicator(isAnimating: .constant(savingWordState == .saving), style: .medium)
+                            .opacity(savingWordState == .saving ? 1 : 0)
+                    }
+                    .padding()
+                    .padding(.top)
                 }
-                .navigationBarTitle(Text("New word"), displayMode: .inline)
+                .navigationBarTitle(Text(NSLocalizedString("NewWord", comment: "New word title for sheet")), displayMode: .inline)
                 .navigationBarItems(
                     trailing: cancelButton
                 )
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+// - MARK: loading indicator
+
+struct ActivityIndicator: UIViewRepresentable {
+
+    @Binding var isAnimating: Bool
+    let style: UIActivityIndicatorView.Style
+
+    func makeUIView(context: UIViewRepresentableContext<ActivityIndicator>) -> UIActivityIndicatorView {
+        return UIActivityIndicatorView(style: style)
+    }
+
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<ActivityIndicator>) {
+        isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
     }
 }
 
