@@ -15,7 +15,7 @@
 "Russian" = "Russian";
 "Start" = "Start";
 "Confirm" = "Confirm";
-"FirstLanguageChoice" = "Hello!\n\nWhat language are you learning?";
+"FirstLanguageChoice" = "Hello! Welcome to Verbis.\n\nWhat language are you learning?";
 "LanguageChoice" = "What language are you learning?";
 "NoWordsYet" = "No words yet!\n\nPress + to add a new word.";
 "Languages" = "Languages";
