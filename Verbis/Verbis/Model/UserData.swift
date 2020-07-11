@@ -16,7 +16,7 @@ final class UserData: ObservableObject {
         
         let headers = [
             "x-rapidapi-host": "systran-systran-platform-for-language-processing-v1.p.rapidapi.com",
-            "x-rapidapi-key": "f750d98c7fmsh081da5c9bb3897cp1123d4jsn8257e2380de2"
+            "x-rapidapi-key": appDelegate.apiKey ?? ""
         ]
         
         var components = URLComponents()
@@ -129,7 +129,7 @@ final class UserData: ObservableObject {
             if(word.source?.lemma?.lowercased() == word.source?.term?.lowercased()) {
                 baseWord = word.source?.lemma ?? ""
                 array[index].isMainWord = true
-                break
+                //break
             }
         }
         if(baseWord == "") {

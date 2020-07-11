@@ -14,7 +14,13 @@ struct WordInfoView: View {
     @State var wordDataSet: Set<WordData>
     
     var wordDataArray: [WordData] {
-        Array(wordDataSet).sorted(by: { $0.isMainWord!.boolValue && !$1.isMainWord!.boolValue } )
+        Array(wordDataSet).sorted(by: {
+            if $0.isMainWord?.boolValue ?? true && $1.isMainWord?.boolValue ?? true {
+                return $0.targets?.count ?? 1 > $1.targets?.count ?? 1
+            } else {
+                return $0.isMainWord?.boolValue ?? true && !($1.isMainWord?.boolValue ?? true)
+            }
+        } )
     }
     
     init(originalWord: String, wordDataSet: Set<WordData>) {
