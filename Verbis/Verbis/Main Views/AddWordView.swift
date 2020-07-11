@@ -65,89 +65,107 @@ struct AddWordView: View {
         })
     }
     
-    var body: some View {
-        NavigationView {
-            ZStack {
-                Color("BGElement")
-                    .edgesIgnoringSafeArea(.all)
-                VStack {
-                    Text(NSLocalizedString("AddWord", comment: "Ask user which word they would like to add"))
-                        .font(Font.custom("Georgia", size: 25))
-                        .fontWeight(.medium)
-                        .lineLimit(nil)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .padding()
-                        .padding(.bottom)
-                    
-                    TextField(NSLocalizedString("TypeHere", comment: "Tell user to type here"), text: self.$newWord)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding()
-                        .padding()
-                    
-                    Button(action: {
-                        self.confirmButtonClicked = true
-                        self.savingWordState = .saving
-                        
-                        self.userData.fetchWordData(word: self.newWord, langCode: self.currentLangCode, completion: { (result) -> (Void) in
-                            switch(result) {
-                            case .saveSuccess:
-                                self.savingWordState = .saveSuccess
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                    self.showingAddWord.toggle()
-                                }
-                            case .saveFailure:
-                                self.savingWordState = .saveFailure
-                                self.confirmButtonClicked = false
-                                
-                            case .duplicateSave:
-                                self.savingWordState = .duplicateSave
-                                self.confirmButtonClicked = false
-                                
-                            default:
-                                self.savingWordState = .saveFailure
-                                self.confirmButtonClicked = false
-                            }
-                        })
-                    }, label: {
-                        Text(NSLocalizedString("Confirm", comment: "Confirm word"))
-                            .fontWeight(.semibold)
-                            .customFont(name: "Georgia", style: .title2, weight: .semibold)
-                            .foregroundColor(isConfirmButtonDisabled ? Color.black : Color.white)
-                            .frame(minWidth: 0, maxWidth: 250, minHeight: 0, maxHeight: 40)
-                    })
-                        .disabled(isConfirmButtonDisabled)
-                        .background(isConfirmButtonDisabled ? Color.gray : Color("MetallicBlue"))
-                        .opacity(isConfirmButtonDisabled ? 0.25 : 1.0)
-                        .cornerRadius(20)
-                        .animation(self.animation)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(isConfirmButtonDisabled ? Color("DarkShadow") : Color("Main"), lineWidth: 2)
-                                .blur(radius: 4)
-                                .offset(x: 0, y: 2)
-                        )
-                        .padding()
-                        .padding(.top)
-                        .padding(.bottom)
-                    
-                    // MARK: Label that marks the state of word being saved
-                    HStack {
-                        getStateLabel()
-
-                        ActivityIndicator(isAnimating: .constant(savingWordState == .saving), style: .medium)
-                            .opacity(savingWordState == .saving ? 1 : 0)
-                    }
-                    .padding()
-                    .padding(.top)
-                }
-                .navigationBarTitle(Text(NSLocalizedString("NewWord", comment: "New word title for sheet")), displayMode: .inline)
-                .navigationBarItems(
-                    trailing: cancelButton
+    fileprivate func confirmButton(maxWidth: CGFloat, maxHeight: CGFloat) -> some View {
+        return
+            Text(NSLocalizedString("Confirm", comment: "Confirm word"))
+                .frame(minWidth: 0, maxWidth: maxWidth, minHeight: 0, maxHeight: maxHeight)
+                .customFont(name: "Georgia", style: .title2, weight: .semibold)
+                .foregroundColor(self.isConfirmButtonDisabled ? Color.black : Color.white)
+        
+                .buttonStyle(PlainButtonStyle())
+                .disabled(self.isConfirmButtonDisabled)
+                .background(self.isConfirmButtonDisabled ? Color.gray : Color("MetallicBlue"))
+                .opacity(self.isConfirmButtonDisabled ? 0.25 : 1.0)
+                .cornerRadius(20)
+                .animation(self.animation)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 20)
+                        .stroke(self.isConfirmButtonDisabled ? Color("DarkShadow") : Color("Main"), lineWidth: 2)
+                        .blur(radius: 4)
+                        .offset(x: 0, y: 2)
                 )
+                .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                .onTapGesture {
+                    self.confirmButtonClicked = true
+                    self.savingWordState = .saving
+                    
+                    self.userData.fetchWordData(word: self.newWord, langCode: self.currentLangCode, completion: { (result) -> (Void) in
+                        switch(result) {
+                        case .saveSuccess:
+                            self.savingWordState = .saveSuccess
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.showingAddWord.toggle()
+                            }
+                        case .saveFailure:
+                            self.savingWordState = .saveFailure
+                            self.confirmButtonClicked = false
+                            
+                        case .duplicateSave:
+                            self.savingWordState = .duplicateSave
+                            self.confirmButtonClicked = false
+                            
+                        default:
+                            self.savingWordState = .saveFailure
+                            self.confirmButtonClicked = false
+                        }
+                    })
+                }
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            NavigationView {
+                ZStack {
+                    Color("BGElement")
+                        .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        Spacer()
+                        Spacer()
+                        
+                        VStack {
+                            Text(NSLocalizedString("AddWord", comment: "Ask user which word they would like to add"))
+                                .font(Font.custom("Georgia", size: 25))
+                                .fontWeight(.medium)
+                                .lineLimit(nil)
+                                .multilineTextAlignment(.center)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .padding()
+                                .padding(.bottom)
+                            
+                            //Spacer()
+                            
+                            TextField(NSLocalizedString("TypeHere", comment: "Tell user to type here"), text: self.$newWord)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                                .padding()
+                                .padding()
+                            
+                            //Spacer()
+                            
+                            self.confirmButton(maxWidth: geometry.size.width/1.5, maxHeight: geometry.size.height/15)
+                            .padding(.top)
+                        }
+                        
+                        Spacer()
+                        
+                        // MARK: Label that marks the state of word being saved
+                        HStack {
+                            self.getStateLabel()
+
+                            ActivityIndicator(isAnimating: .constant(self.savingWordState == .saving), style: .medium)
+                                .opacity(self.savingWordState == .saving ? 1 : 0)
+                        }
+                        
+                        Spacer()
+                        Spacer()
+                    }
+                    .navigationBarTitle(Text(NSLocalizedString("NewWord", comment: "New word title for sheet")), displayMode: .inline)
+                    .navigationBarItems(
+                        trailing: self.cancelButton
+                    )
+                }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

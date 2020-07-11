@@ -12,7 +12,13 @@ struct WordListItem: View {
     var word: Word
     
     var wordDataArray: [WordData] {
-        Array(word.wordData ?? Set()).sorted(by: { $0.isMainWord!.boolValue && !$1.isMainWord!.boolValue } )
+        Array(word.wordData ?? Set()).sorted(by: {
+            if $0.isMainWord?.boolValue ?? true && $1.isMainWord?.boolValue ?? true {
+                return $0.targets?.count ?? 1 > $1.targets?.count ?? 1
+            } else {
+                return $0.isMainWord?.boolValue ?? true && !($1.isMainWord?.boolValue ?? true)
+            }
+        } )
     }
     
     var firstWordTargets: [TargetData] {

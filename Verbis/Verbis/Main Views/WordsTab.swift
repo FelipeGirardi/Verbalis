@@ -134,11 +134,11 @@ struct WordsTab: View {
                 leading: languageButton,
                 trailing: newWordButton
             )
-            .navigationViewStyle(StackNavigationViewStyle())
             .onAppear() {
                 self.updateWordsListArray()
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func updateWordsListArray() {

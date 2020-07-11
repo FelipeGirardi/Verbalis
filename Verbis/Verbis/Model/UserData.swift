@@ -87,13 +87,13 @@ final class UserData: ObservableObject {
                                                     let resultSucess: SavingWordState = .saveSuccess
                                                     completion(resultSucess)
                                                 } else {
-                                                    print("Word already added")
+                                                    // Word already added
                                                     let resultFailure: SavingWordState = .duplicateSave
                                                     completion(resultFailure)
                                                 }
                                                 
                                             } else {
-                                                print("No language found")
+                                                // No language found
                                                 let resultFailure: SavingWordState = .saveFailure
                                                 completion(resultFailure)
                                             }
