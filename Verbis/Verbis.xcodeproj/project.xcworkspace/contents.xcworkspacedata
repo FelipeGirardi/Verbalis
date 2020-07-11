@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:WordsApp.xcodeproj">
+      location = "self:/Users/felipegirardi/Documents/Apple_Academy/Verbis/Verbis/Verbis.xcodeproj">
    </FileRef>
 </Workspace>

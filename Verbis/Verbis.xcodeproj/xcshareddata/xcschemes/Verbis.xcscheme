@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C02FC4FB23CA561F00D21C1C"
-               BuildableName = "WordsApp.app"
-               BlueprintName = "WordsApp"
-               ReferencedContainer = "container:WordsApp.xcodeproj">
+               BuildableName = "Verbis.app"
+               BlueprintName = "Verbis"
+               ReferencedContainer = "container:Verbis.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C02FC4FB23CA561F00D21C1C"
-            BuildableName = "WordsApp.app"
-            BlueprintName = "WordsApp"
-            ReferencedContainer = "container:WordsApp.xcodeproj">
+            BuildableName = "Verbis.app"
+            BlueprintName = "Verbis"
+            ReferencedContainer = "container:Verbis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C02FC4FB23CA561F00D21C1C"
-            BuildableName = "WordsApp.app"
-            BlueprintName = "WordsApp"
-            ReferencedContainer = "container:WordsApp.xcodeproj">
+            BuildableName = "Verbis.app"
+            BlueprintName = "Verbis"
+            ReferencedContainer = "container:Verbis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

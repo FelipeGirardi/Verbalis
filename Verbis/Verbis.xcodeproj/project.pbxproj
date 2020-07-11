@@ -44,7 +44,7 @@
 		C009539624B4063300118231 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C009539724B4063400118231 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C00E75A4241166C000D0983C /* WordInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordInfoView.swift; sourceTree = "<group>"; };
-		C02FC4FC23CA561F00D21C1C /* WordsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C02FC4FC23CA561F00D21C1C /* Verbis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Verbis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02FC4FF23CA561F00D21C1C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C02FC50123CA561F00D21C1C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		C02FC50523CA562200D21C1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		C02FC4F323CA561E00D21C1C = {
 			isa = PBXGroup;
 			children = (
-				C02FC4FE23CA561F00D21C1C /* WordsApp */,
+				C02FC4FE23CA561F00D21C1C /* Verbis */,
 				C02FC4FD23CA561F00D21C1C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,12 +88,12 @@
 		C02FC4FD23CA561F00D21C1C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C02FC4FC23CA561F00D21C1C /* WordsApp.app */,
+				C02FC4FC23CA561F00D21C1C /* Verbis.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C02FC4FE23CA561F00D21C1C /* WordsApp */ = {
+		C02FC4FE23CA561F00D21C1C /* Verbis */ = {
 			isa = PBXGroup;
 			children = (
 				C03887BE23CB9E70008ED0A2 /* Model */,
@@ -108,7 +108,7 @@
 				C009539124B4062B00118231 /* Localizable.strings */,
 				C02FC50723CA562200D21C1C /* Preview Content */,
 			);
-			path = WordsApp;
+			path = Verbis;
 			sourceTree = "<group>";
 		};
 		C02FC50723CA562200D21C1C /* Preview Content */ = {
@@ -156,9 +156,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C02FC4FB23CA561F00D21C1C /* WordsApp */ = {
+		C02FC4FB23CA561F00D21C1C /* Verbis */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C02FC51023CA562200D21C1C /* Build configuration list for PBXNativeTarget "WordsApp" */;
+			buildConfigurationList = C02FC51023CA562200D21C1C /* Build configuration list for PBXNativeTarget "Verbis" */;
 			buildPhases = (
 				C02FC4F823CA561F00D21C1C /* Sources */,
 				C02FC4F923CA561F00D21C1C /* Frameworks */,
@@ -168,9 +168,9 @@
 			);
 			dependencies = (
 			);
-			name = WordsApp;
+			name = Verbis;
 			productName = WordsApp;
-			productReference = C02FC4FC23CA561F00D21C1C /* WordsApp.app */;
+			productReference = C02FC4FC23CA561F00D21C1C /* Verbis.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -188,7 +188,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C02FC4F723CA561F00D21C1C /* Build configuration list for PBXProject "WordsApp" */;
+			buildConfigurationList = C02FC4F723CA561F00D21C1C /* Build configuration list for PBXProject "Verbis" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -207,7 +207,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C02FC4FB23CA561F00D21C1C /* WordsApp */,
+				C02FC4FB23CA561F00D21C1C /* Verbis */,
 			);
 		};
 /* End PBXProject section */
@@ -265,7 +265,7 @@
 				C009539724B4063400118231 /* es */,
 			);
 			name = Localizable.strings;
-			path = WordsApp;
+			path = Verbis;
 			sourceTree = SOURCE_ROOT;
 		};
 		C02FC50A23CA562200D21C1C /* LaunchScreen.storyboard */ = {
@@ -406,15 +406,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"WordsApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Verbis/Preview Content\"";
 				DEVELOPMENT_TEAM = QU2M8UTH92;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = WordsApp/Info.plist;
+				INFOPLIST_FILE = Verbis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tableview.WordsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = tableview.Verbis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -426,15 +426,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"WordsApp/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Verbis/Preview Content\"";
 				DEVELOPMENT_TEAM = QU2M8UTH92;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = WordsApp/Info.plist;
+				INFOPLIST_FILE = Verbis/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = tableview.WordsApp;
+				PRODUCT_BUNDLE_IDENTIFIER = tableview.Verbis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -444,7 +444,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C02FC4F723CA561F00D21C1C /* Build configuration list for PBXProject "WordsApp" */ = {
+		C02FC4F723CA561F00D21C1C /* Build configuration list for PBXProject "Verbis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C02FC50E23CA562200D21C1C /* Debug */,
@@ -453,7 +453,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C02FC51023CA562200D21C1C /* Build configuration list for PBXNativeTarget "WordsApp" */ = {
+		C02FC51023CA562200D21C1C /* Build configuration list for PBXNativeTarget "Verbis" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C02FC51123CA562200D21C1C /* Debug */,
