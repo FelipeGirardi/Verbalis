@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C02FC4FB23CA561F00D21C1C"
-               BuildableName = "Verbis.app"
-               BlueprintName = "Verbis"
-               ReferencedContainer = "container:Verbis.xcodeproj">
+               BuildableName = "Verbalis.app"
+               BlueprintName = "Verbalis"
+               ReferencedContainer = "container:Verbalis.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C02FC4FB23CA561F00D21C1C"
-            BuildableName = "Verbis.app"
-            BlueprintName = "Verbis"
-            ReferencedContainer = "container:Verbis.xcodeproj">
+            BuildableName = "Verbalis.app"
+            BlueprintName = "Verbalis"
+            ReferencedContainer = "container:Verbalis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C02FC4FB23CA561F00D21C1C"
-            BuildableName = "Verbis.app"
-            BlueprintName = "Verbis"
-            ReferencedContainer = "container:Verbis.xcodeproj">
+            BuildableName = "Verbalis.app"
+            BlueprintName = "Verbalis"
+            ReferencedContainer = "container:Verbalis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
