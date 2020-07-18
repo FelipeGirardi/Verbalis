@@ -1,4 +1,4 @@
-# Verbis
+# Verbalis
 
 <p align="leading"> 
 <img src="Verbalis/Verbalis/Assets.xcassets/verbisLogo.imageset/verbisLogo.png">
