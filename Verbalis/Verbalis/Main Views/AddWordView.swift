@@ -80,9 +80,9 @@ struct AddWordView: View {
                 .animation(self.animation)
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(self.isConfirmButtonDisabled ? Color("DarkShadow") : Color("Main"), lineWidth: 2)
-                        .blur(radius: 4)
-                        .offset(x: 0, y: 2)
+                        .stroke(self.isConfirmButtonDisabled ? Color("DarkShadow") : Color("Main"), lineWidth: 1.5)
+                        .blur(radius: 3)
+                        .offset(x: 0, y: 1.5)
                 )
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .onTapGesture {

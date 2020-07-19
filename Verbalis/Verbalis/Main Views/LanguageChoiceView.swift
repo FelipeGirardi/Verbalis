@@ -93,7 +93,6 @@ struct LanguageChoiceView: View {
                 .frame(minWidth: 0, maxWidth: maxWidth, minHeight: 0, maxHeight: maxHeight)
                 .customFont(name: "Georgia", style: .title2, weight: .semibold)
                 .foregroundColor(self.langWasChosen ? Color.white : Color.black)
-                //.padding(EdgeInsets(top: 10, leading: 110, bottom: 10, trailing: 110))
                 .buttonStyle(PlainButtonStyle())
                 .disabled(!self.langWasChosen)
                 .background(self.langWasChosen ? Color("MetallicBlue") : Color.gray)
@@ -102,9 +101,9 @@ struct LanguageChoiceView: View {
                 .animation(self.animation)
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(self.langWasChosen ? Color("Main") : Color("DarkShadow"), lineWidth: 2)
-                        .blur(radius: 4)
-                        .offset(x: 0, y: 2)
+                        .stroke(self.langWasChosen ? Color("Main") : Color("DarkShadow"), lineWidth: 1.5)
+                        .blur(radius: 3)
+                        .offset(x: 0, y: 1.5)
                 )
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .onTapGesture {

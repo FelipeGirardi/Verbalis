@@ -21,8 +21,8 @@ struct LanguageSelectorView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color(("BGElement")))
                     .frame(minWidth: 0, maxWidth: screenWidth/3, minHeight: 0, maxHeight: screenHeight/6)
-                    .shadow(color: Color("DarkShadow"), radius: self.isButtonPressed ? 0 : 10, x: self.isButtonPressed ? 0 : -10, y: self.isButtonPressed ? 0 : -10)
-                    .shadow(color: Color("LightShadow"), radius: self.isButtonPressed ? 0 : 10, x: self.isButtonPressed ? 0 : 10, y: self.isButtonPressed ? 0 : 10)
+                    .shadow(color: Color("DarkShadow"), radius: self.isButtonPressed ? 0 : 5, x: self.isButtonPressed ? 0 : -5, y: self.isButtonPressed ? 0 : -5)
+                    .shadow(color: Color("LightShadow"), radius: self.isButtonPressed ? 0 : 5, x: self.isButtonPressed ? 0 : 5, y: self.isButtonPressed ? 0 : 5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(Color("DarkShadow"), lineWidth: self.isButtonPressed ? 10 : 0)
