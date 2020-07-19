@@ -82,10 +82,11 @@ struct AddWordView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(self.isConfirmButtonDisabled ? Color("DarkShadow") : Color("Main"), lineWidth: 1.5)
                         .blur(radius: 3)
-                        .offset(x: 0, y: 1.5)
+                        .offset(x: 0, y: 1)
                 )
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
                 .onTapGesture {
+                    self.endEditing()
                     self.confirmButtonClicked = true
                     self.savingWordState = .saving
                     
@@ -133,7 +134,6 @@ struct AddWordView: View {
                     Color("BGElement")
                         .edgesIgnoringSafeArea(.all)
                     VStack {
-                        Spacer()
                         Spacer()
                         
                         VStack {
