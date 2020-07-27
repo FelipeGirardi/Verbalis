@@ -27,6 +27,7 @@
 		C07EF5C323CBBA63003FA014 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07EF5C223CBBA63003FA014 /* Language.swift */; };
 		C0A0A80E241EEDFB00A296F9 /* WordsApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0A0A80C241EEDFB00A296F9 /* WordsApp.xcdatamodeld */; };
 		C0A298AD23CFDF1600355A92 /* AddWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A298AC23CFDF1600355A92 /* AddWordView.swift */; };
+		C0E756C124CCDDAC0093842C /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E756C024CCDDAC0093842C /* KeyboardResponder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		C07EF5C223CBBA63003FA014 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		C0A0A80D241EEDFB00A296F9 /* WordsApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordsApp.xcdatamodel; sourceTree = "<group>"; };
 		C0A298AC23CFDF1600355A92 /* AddWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordView.swift; sourceTree = "<group>"; };
+		C0E756C024CCDDAC0093842C /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				C03887BA23CB8FB6008ED0A2 /* LanguageSelectorView.swift */,
 				C0531C042480785700BE1EE9 /* WordListItem.swift */,
+				C0E756C024CCDDAC0093842C /* KeyboardResponder.swift */,
 			);
 			path = "Support Views";
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C00E75A5241166C000D0983C /* WordInfoView.swift in Sources */,
+				C0E756C124CCDDAC0093842C /* KeyboardResponder.swift in Sources */,
 				C0385A7F23CBB44D00F3749B /* UserData.swift in Sources */,
 				C04E9CE123CD3923004D8105 /* GroupsTab.swift in Sources */,
 				C02FC50023CA561F00D21C1C /* AppDelegate.swift in Sources */,
@@ -414,7 +418,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.02;
 				PRODUCT_BUNDLE_IDENTIFIER = tableview.Verbalis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -435,7 +439,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.01;
+				MARKETING_VERSION = 1.02;
 				PRODUCT_BUNDLE_IDENTIFIER = tableview.Verbalis;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

@@ -16,6 +16,7 @@ struct AddWordView: View {
     @State var confirmButtonClicked: Bool = false
     @State var savingWordState: SavingWordState = .none
     var currentLangCode: String
+    @ObservedObject private var keyboard = KeyboardResponder()
     
     var isConfirmButtonDisabled: Bool {
         confirmButtonClicked || self.newWord == ""
@@ -113,20 +114,6 @@ struct AddWordView: View {
                 }
     }
     
-    struct Background<Content: View>: View {
-        private var content: Content
-
-        init(@ViewBuilder content: @escaping () -> Content) {
-            self.content = content()
-        }
-
-        var body: some View {
-            Color.white
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-            .overlay(content)
-        }
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
@@ -134,17 +121,22 @@ struct AddWordView: View {
                     Color("BGElement")
                         .edgesIgnoringSafeArea(.all)
                     VStack {
-                        Spacer()
+                        ForEach(0..<3) { _ in
+                            Spacer()
+                        }
                         
-                        VStack {
+                        Group {
                             Text(NSLocalizedString("AddWord", comment: "Ask user which word they would like to add"))
                                 .font(Font.custom("Georgia", size: 25))
                                 .fontWeight(.medium)
                                 .lineLimit(nil)
                                 .multilineTextAlignment(.center)
                                 .fixedSize(horizontal: false, vertical: true)
-                                .padding()
+                                .padding(.leading)
+                                .padding(.trailing)
                                 .padding(.bottom)
+                                .padding(.bottom)
+                                .padding(.top)
                             
                             //Spacer()
                             
@@ -152,13 +144,17 @@ struct AddWordView: View {
                                 self.endEditing()
                             }
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .padding()
-                                .padding()
+                            .padding(.leading)
+                            .padding(.leading)
+                            .padding(.trailing)
+                            .padding(.trailing)
                             
                             //Spacer()
                             
                             self.confirmButton(maxWidth: geometry.size.width/1.5, maxHeight: geometry.size.height/15)
-                            .padding(.top)
+                                .padding(.top)
+                                .padding(.top)
+                                .padding(.bottom)
                         }
                         
                         Spacer()
@@ -171,14 +167,16 @@ struct AddWordView: View {
                                 .opacity(self.savingWordState == .saving ? 1 : 0)
                         }
                         
-                        Spacer()
-                        Spacer()
+                        ForEach(0..<3) { _ in
+                            Spacer()
+                        }
                     }
-                    .navigationBarTitle(Text(NSLocalizedString("NewWord", comment: "New word title for sheet")), displayMode: .inline)
-                    .navigationBarItems(
-                        trailing: self.cancelButton
-                    )
+                    //.padding(.bottom, self.keyboard.currentHeight)
                 }
+                .navigationBarTitle(Text(NSLocalizedString("NewWord", comment: "New word title for sheet")), displayMode: .inline)
+                .navigationBarItems(
+                    trailing: self.cancelButton
+                )
             }
             .navigationViewStyle(StackNavigationViewStyle())
         }
@@ -216,8 +214,6 @@ struct ActivityIndicator: UIViewRepresentable {
 
 struct AddWordView_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyView()
-//        AddWordView(showingAddWord: .constant(true), currentLangCode: "de")
-//            .environmentObject(UserData())
+        AddWordView(showingAddWord: .constant(true), currentLangCode: "en")
     }
 }

@@ -163,18 +163,18 @@ struct LanguageChoiceView: View {
                         
                         Spacer()
                     }
-                    .navigationBarTitle(Text(NSLocalizedString("ChangeLanguage", comment: "Change language title for sheet")), displayMode: .inline)
-                    .navigationBarItems(
-                        trailing: self.cancelButton
-                    )
-                    .navigationBarHidden(self.isInitialView)
-                    .onAppear() {
-                        if(self.isInitialView) {
-                            for row in (0 ..< 3) {
-                                for column in (0 ..< 2) {
-                                    let position = self.calculateRowColumn(row: row, column: column)
-                                    self.userData.languages[position].id = Int16(position)
-                                }
+                }
+                .navigationBarTitle(Text(NSLocalizedString("ChangeLanguage", comment: "Change language title for sheet")), displayMode: .inline)
+                .navigationBarItems(
+                    trailing: self.cancelButton
+                )
+                .navigationBarHidden(self.isInitialView)
+                .onAppear() {
+                    if(self.isInitialView) {
+                        for row in (0 ..< 3) {
+                            for column in (0 ..< 2) {
+                                let position = self.calculateRowColumn(row: row, column: column)
+                                self.userData.languages[position].id = Int16(position)
                             }
                         }
                     }
