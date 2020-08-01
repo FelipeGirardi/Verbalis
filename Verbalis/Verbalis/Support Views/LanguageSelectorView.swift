@@ -14,28 +14,29 @@ struct LanguageSelectorView: View {
     var isButtonPressed: Bool
     var screenWidth: CGFloat
     var screenHeight: CGFloat
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     var body: some View {
             ZStack {
             Group {
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color(("BGElement")))
+                    .fill(colorScheme == .dark ? (self.isButtonPressed ? Color("MetallicBlue") : Color("BGElement")) : Color("BGElement"))
                     .frame(minWidth: 0, maxWidth: screenWidth/3, minHeight: 0, maxHeight: screenHeight/6)
-                    .shadow(color: Color("DarkShadow"), radius: self.isButtonPressed ? 0 : 5, x: self.isButtonPressed ? 0 : -5, y: self.isButtonPressed ? 0 : -5)
-                    .shadow(color: Color("LightShadow"), radius: self.isButtonPressed ? 0 : 5, x: self.isButtonPressed ? 0 : 5, y: self.isButtonPressed ? 0 : 5)
+                    .shadow(color: colorScheme == .dark ? Color("DarkShadow") : (self.isButtonPressed ? Color("MetallicBlue") : Color("DarkShadow")), radius: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : 5, x: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : -0, y: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : -5)
+                    .shadow(color: colorScheme == .dark ? Color("LightShadow") : (self.isButtonPressed ? Color("MetallicBlue") : Color("LightShadow")), radius: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : 5, x: self.isButtonPressed ? (colorScheme == .dark ? 0 : -0) : 5, y: self.isButtonPressed ? (colorScheme == .dark ? 0 : -0) : 5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color("DarkShadow"), lineWidth: self.isButtonPressed ? 10 : 0)
-                            .blur(radius: 2)
-                            .offset(x: 1, y: 1)
-                            .mask(RoundedRectangle(cornerRadius: 20).fill(self.isButtonPressed ? LinearGradient(Color("DarkShadow"), Color.clear) : LinearGradient(Color.clear, Color.clear)))
+                            .stroke(colorScheme == .dark ? Color.black : Color("MetallicBlue"), lineWidth: self.isButtonPressed ? (colorScheme == .dark ? 5 : 12.5) : 0)
+                            .blur(radius: colorScheme == .dark ? 3 : 4.5)
+                            .offset(x: colorScheme == .dark ? 1 : 0, y: colorScheme == .dark ? 1 : 0)
+                            .mask(RoundedRectangle(cornerRadius: 20).fill(self.isButtonPressed ? LinearGradient(colorScheme == .dark ? Color.black : Color("MetallicBlue"), Color.clear) : LinearGradient(Color.clear, Color.clear)))
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color("LightShadow"), lineWidth: self.isButtonPressed ? 10 : 0)
-                            .blur(radius: 2)
-                            .offset(x: -1, y: -1)
-                            .mask(RoundedRectangle(cornerRadius: 20).fill(self.isButtonPressed ? LinearGradient(Color.clear, Color("DarkShadow")) : LinearGradient(Color.clear, Color.clear)))
+                            .stroke(colorScheme == .dark ? Color.black : Color("MetallicBlue"), lineWidth: self.isButtonPressed ? (colorScheme == .dark ? 5 : 12.5) : 0)
+                            .blur(radius: colorScheme == .dark ? 3 : 4.5)
+                            .offset(x: colorScheme == .dark ? -1 : -0, y: colorScheme == .dark ? -1 : -0)
+                            .mask(RoundedRectangle(cornerRadius: 20).fill(self.isButtonPressed ? LinearGradient(Color.clear, colorScheme == .dark ? Color.black : Color("MetallicBlue")) : LinearGradient(Color.clear, Color.clear)))
                     )
             }
                 VStack {
