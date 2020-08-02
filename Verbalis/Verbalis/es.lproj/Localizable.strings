@@ -31,3 +31,14 @@
 "Examples" = "Ejemplos";
 "Synonyms" = "Sinónimos";
 "OtherExamples" = "— Otros ejemplos —";
+
+// Accessibility labels
+
+"DisabledAddWord" = "Desactivado. Para activar, escriba una palabra en el campo de texto de arriba";
+"DisabledLangChoice" = "Desactivado. Para activar, seleccione un idioma arriba";
+"Enabled" = "Activado";
+"Selected" = "Seleccionado";
+"NotSelected" =  "No seleccionado";
+"PressWordListItem" = "Presione dos veces para encontrar más información sobre esta palabra. Deslize hacia la izquierda para eliminar esta palabra";
+"SwipeToDelete" = "Deslize hacia la izquierda para eliminar esta palabra";
+"PlusButton" = "Agregar una nueva palabra";

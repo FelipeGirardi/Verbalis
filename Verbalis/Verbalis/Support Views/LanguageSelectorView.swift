@@ -22,8 +22,10 @@ struct LanguageSelectorView: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(colorScheme == .dark ? (self.isButtonPressed ? Color("MetallicBlue") : Color("BGElement")) : Color("BGElement"))
                     .frame(minWidth: 0, maxWidth: screenWidth/3, minHeight: 0, maxHeight: screenHeight/6)
-                    .shadow(color: colorScheme == .dark ? Color("DarkShadow") : (self.isButtonPressed ? Color("MetallicBlue") : Color("DarkShadow")), radius: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : 5, x: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : -0, y: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : -5)
-                    .shadow(color: colorScheme == .dark ? Color("LightShadow") : (self.isButtonPressed ? Color("MetallicBlue") : Color("LightShadow")), radius: self.isButtonPressed ? (colorScheme == .dark ? 0 : 0) : 5, x: self.isButtonPressed ? (colorScheme == .dark ? 0 : -0) : 5, y: self.isButtonPressed ? (colorScheme == .dark ? 0 : -0) : 5)
+                    // Outer shadows
+                    .shadow(color: self.isButtonPressed ? (colorScheme == .dark ? Color.black : Color("MetallicBlue")) : Color("DarkShadow"), radius: self.isButtonPressed ? 1 : 5, x: self.isButtonPressed ? -1 : -5, y: self.isButtonPressed ? -1 : -5)
+                    .shadow(color: self.isButtonPressed ? (colorScheme == .dark ? Color.black : Color("MetallicBlue")) : Color("LightShadow"), radius: self.isButtonPressed ? 1 : 5, x: self.isButtonPressed ? 1 : 5, y: self.isButtonPressed ? 1 : 5)
+                    // Inner shadows
                     .overlay(
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(colorScheme == .dark ? Color.black : Color("MetallicBlue"), lineWidth: self.isButtonPressed ? (colorScheme == .dark ? 5 : 12.5) : 0)
@@ -35,9 +37,11 @@ struct LanguageSelectorView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(colorScheme == .dark ? Color.black : Color("MetallicBlue"), lineWidth: self.isButtonPressed ? (colorScheme == .dark ? 5 : 12.5) : 0)
                             .blur(radius: colorScheme == .dark ? 3 : 4.5)
-                            .offset(x: colorScheme == .dark ? -1 : -0, y: colorScheme == .dark ? -1 : -0)
+                            .offset(x: colorScheme == .dark ? -1 : 0, y: colorScheme == .dark ? -1 : 0)
                             .mask(RoundedRectangle(cornerRadius: 20).fill(self.isButtonPressed ? LinearGradient(Color.clear, colorScheme == .dark ? Color.black : Color("MetallicBlue")) : LinearGradient(Color.clear, Color.clear)))
                     )
+                    .accessibility(hint: self.isButtonPressed ? Text("Selected") : Text("NotSelected"))
+                    .accessibility(addTraits: .startsMediaSession)
             }
                 VStack {
                     Text(self.language)
@@ -47,10 +51,12 @@ struct LanguageSelectorView: View {
                         .minimumScaleFactor(0.5)
                         .foregroundColor(Color("Main"))
                         .padding(.top, 10)
+                        .accessibility(label: Text(self.language + ", "))
 
                     Text(self.flag)
                         .font(.system(size: 55))
                         .minimumScaleFactor(0.5)
+                        .accessibility(label: Text(self.flag))
                 }
             }
     }

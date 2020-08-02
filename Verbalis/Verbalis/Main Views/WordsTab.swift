@@ -40,6 +40,7 @@ struct WordsTab: View {
         }, label: {
             Text(NSLocalizedString("Languages", comment: "Tap to choose a language"))
                 .font(.system(size: 20))
+                .accessibility(hint: Text("ChangeLanguage"))
         })
         .sheet(isPresented: $showingChosenLanguages, onDismiss: {
             self.updateWordsListArray()
@@ -57,6 +58,7 @@ struct WordsTab: View {
         }, label: {
             Image(systemName: "plus")
                 .font(.system(size: 20))
+                .accessibility(hint: Text("PlusButton"))
         })
         .sheet(isPresented: $showingAddWord, onDismiss: {
             self.updateWordsListArray()
@@ -82,6 +84,7 @@ struct WordsTab: View {
                 Spacer()
                 Text(currentLangFlag + " " + currentLangName + " " + currentLangFlag)
                     .font(Font.custom("Georgia-Bold", size: 25))
+                    .accessibility(label: Text(currentLangFlag + ", " + currentLangName + ", " + currentLangFlag))
                 Spacer()
             }
             .padding()

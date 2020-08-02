@@ -44,6 +44,10 @@ struct WordListItem: View {
                         .blur(radius: 4)
                         //.offset(x: -1, y: -1)
                 )
+                .accessibility(label: Text(word.sourceWord ?? ""))
+                .accessibility(addTraits: .isButton)
+                .accessibility(hint: Text("PressWordListItem"))
+            
             HStack(spacing: 10) {
                 VStack(spacing: 5) {
                     Text(word.sourceWord ?? "")
@@ -70,6 +74,7 @@ struct WordListItem: View {
                     .scaledToFit()
                     .frame(width: 32.0, height: 32.0)
                     .padding(.trailing, 10)
+                    .accessibility(hidden: true)
             }
         }
     }

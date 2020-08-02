@@ -106,6 +106,9 @@ struct LanguageChoiceView: View {
                         .offset(x: 0, y: 1)
                 )
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                .accessibility(label: Text(NSLocalizedString("Confirm", comment: "Confirm word")))
+                .accessibility(addTraits: .isButton)
+                .accessibility(hint: self.langWasChosen ? Text("Enabled") : Text("DisabledLangChoice"))
                 .onTapGesture {
                     // Mark all languages as chosen to prevent duplication later
                     if(self.isInitialView) {

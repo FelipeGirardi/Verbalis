@@ -31,3 +31,14 @@
 "Examples" = "Examples";
 "Synonyms" = "Synonyms";
 "OtherExamples" = "— Other examples —";
+
+// Accessibility labels
+
+"DisabledAddWord" = "Disabled. To enable, type a word in the text field above";
+"DisabledLangChoice" = "Disabled. To enable, select a language above";
+"Enabled" = "Enabled";
+"Selected" = "Selected";
+"NotSelected" =  "Not selected";
+"PressWordListItem" = "Press twice to find more information about this word. Swipe left to delete this word";
+"SwipeToDelete" = "Swipe left to delete this word";
+"PlusButton" = "Add new word";

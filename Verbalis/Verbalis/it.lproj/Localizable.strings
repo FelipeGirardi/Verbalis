@@ -15,8 +15,8 @@
 "Russian" = "Russo";
 "Start" = "Cominciare";
 "Confirm" = "Confermare";
-"FirstLanguageChoice" = "Ciao! Benvenuto su Verbalis.\n\nChe lingua lei sta imparando?";
-"LanguageChoice" = "Che lingua lei sta imparando?";
+"FirstLanguageChoice" = "Ciao! Benvenuto su Verbalis.\n\nChe lingua sta imparando?";
+"LanguageChoice" = "Che lingua sta imparando?";
 "NoWordsYet" = "Ancora nessuna parola!\n\nPrema + per aggiungere una nuova parola.";
 "Languages" = "Lingue";
 "NewWord" = "Nuova parola";
@@ -31,3 +31,14 @@
 "Examples" = "Esempi";
 "Synonyms" = "Sinonimi";
 "OtherExamples" = "— Altri esempi —";
+
+// Accessibility labels
+
+"DisabledAddWord" = "Disattivato. Per attivare, digiti una parola nel campo di testo sopra";
+"DisabledLangChoice" = "Disattivato. Per attivare, selezione una lingua sopra";
+"Enabled" = "Attivato";
+"Selected" = "Selezionato";
+"NotSelected" =  "Non selezionato";
+"PressWordListItem" = "Prema due volte per trovare ulteriori informazioni su questa parola. Scorra verso sinistra per cancellare questa parola";
+"SwipeToDelete" = "Scorra verso sinistra per cancellare questa parola";
+"PlusButton" = "Aggiungere una nuova parola";

@@ -86,6 +86,9 @@ struct AddWordView: View {
                         .offset(x: 0, y: 1)
                 )
                 .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
+                .accessibility(label: Text("Confirm"))
+                .accessibility(addTraits: .isButton)
+                .accessibility(hint: self.isConfirmButtonDisabled ? Text("DisabledAddWord") : Text("Enabled"))
                 .onTapGesture {
                     self.endEditing()
                     self.confirmButtonClicked = true

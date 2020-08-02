@@ -17,7 +17,7 @@
 "Confirm" = "Bestätigen";
 "FirstLanguageChoice" = "Hallo! Willkommen bei Verbalis.\n\nWelche Sprache lernen Sie?";
 "LanguageChoice" = "Welche Sprache lernen Sie?";
-"NoWordsYet" = "Noch keine Wörter!\n\nDrücken Sie + , um ein neues Wort hinzuzufügen.";
+"NoWordsYet" = "Noch keine Wörter!\n\nTippen Sie + , um ein neues Wort hinzuzufügen.";
 "Languages" = "Sprachen";
 "NewWord" = "Neues Wort";
 "ChangeLanguage" = "Sprache wechseln";
@@ -31,3 +31,14 @@
 "Examples" = "Beispiele";
 "Synonyms" = "Synonyme";
 "OtherExamples" = "— Andere Beispiele —";
+
+// Accessibility labels
+
+"DisabledAddWord" = "Deaktiviert. Zum Aktivieren schreiben Sie ein Wort in das Textfeld oben";
+"DisabledLangChoice" = "Deaktiviert. Zum Aktivieren wählen Sie eine Sprache oben aus";
+"Enabled" = "Aktiviert";
+"Selected" = "Ausgewählt";
+"NotSelected" =  "Nicht ausgewählt";
+"PressWordListItem" = "Tippen Sie zweimal, um mehr Information über dieses Wort zu erfahren. Wischen Sie nach links, um dieses Wort zu löschen";
+"SwipeToDelete" = "Wischen Sie nach links, um dieses Wort zu löschen";
+"PlusButton" = "Neues Wort hinzufügen";
