@@ -47,7 +47,7 @@ struct WordInfoView: View {
     }
     
     func prepareTranslations(translations: WordData) -> some View {
-        let targets: [TargetData] = Array(translations.targets ?? Set()).sorted(by: { $0.rank ?? "" < $1.rank ?? "" } )
+        let targets: [TargetData] = Array(translations.targets ?? Set()).sorted(by: { $0.rank ?? "" > $1.rank ?? "" } )
         return
             ForEach(targets.indices, id: \.self) { index in
                 Group {

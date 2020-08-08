@@ -98,6 +98,7 @@
 		C02FC4FE23CA561F00D21C1C /* Verbalis */ = {
 			isa = PBXGroup;
 			children = (
+				C0EDD50624DF44AF00BF9289 /* Onboarding */,
 				C03887BE23CB9E70008ED0A2 /* Model */,
 				C03887C023CB9E85008ED0A2 /* Support Views */,
 				C03887BF23CB9E78008ED0A2 /* Main Views */,
@@ -154,6 +155,13 @@
 				C0E756C024CCDDAC0093842C /* KeyboardResponder.swift */,
 			);
 			path = "Support Views";
+			sourceTree = "<group>";
+		};
+		C0EDD50624DF44AF00BF9289 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

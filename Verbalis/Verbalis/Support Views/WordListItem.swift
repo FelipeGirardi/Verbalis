@@ -22,12 +22,12 @@ struct WordListItem: View {
     }
     
     var firstWordTargets: [TargetData] {
-        Array(wordDataArray[0].targets ?? Set()).sorted(by: { $0.rank ?? "" < $1.rank ?? "" } )
+        Array(wordDataArray[0].targets ?? Set()).sorted(by: { $0.rank ?? "" > $1.rank ?? "" } )
     }
     
     var translationsString: String {
         var tempString: String = ""
-        for target in firstWordTargets {
+        for target in firstWordTargets[0..<3] {
             tempString.append(contentsOf: (target.translationLemma ?? "") + ", ")
         }
         tempString = String(tempString.dropLast(2))
@@ -42,7 +42,6 @@ struct WordListItem: View {
                     RoundedRectangle(cornerRadius: 20)
                         .stroke(Color("Main"), lineWidth: 2)
                         .blur(radius: 4)
-                        //.offset(x: -1, y: -1)
                 )
                 .accessibility(label: Text(word.sourceWord ?? ""))
                 .accessibility(addTraits: .isButton)

@@ -111,8 +111,8 @@ struct WordsTab: View {
                         NavigationLink(destination:
                             WordInfoView(originalWord: wordInList.sourceWord ?? "", wordDataSet: wordInList.wordData ?? Set())
                                 .navigationBarTitle(Text(self.currentLangFlag + " " + self.currentLangName + " " + self.currentLangFlag)
-                            .font(Font.custom("Georgia-Bold", size: 25))
-                            , displayMode: .inline)
+                                .font(Font.custom("Georgia-Bold", size: 25))
+                                    , displayMode: .inline)
                         ) {
                             EmptyView()
                         }
