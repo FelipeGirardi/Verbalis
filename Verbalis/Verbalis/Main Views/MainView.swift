@@ -10,9 +10,9 @@ import SwiftUI
 import CoreData
 
 struct MainView: View {
-    
     @EnvironmentObject var userData: UserData
     @State private var choiceMade = false
+    @State private var isOnboardingOver = false
     
     func initialSaveToCoreData() {
         let moc = appDelegate.persistentContainer.viewContext
@@ -30,6 +30,8 @@ struct MainView: View {
         return Group {
             if(choiceMade || UserDefaults.standard.bool(forKey: "choiceMade")) {
                 MainWordsView()
+            } else if(!isOnboardingOver) {
+                OnboardingView(isOnboardingOver: $isOnboardingOver)
             } else {
                 LanguageChoiceView(currentLanguageId: -1, langWasChosen: false, choiceMade: $choiceMade, showingChosenLanguages: Binding<Bool>.constant(false), isInitialView: true)
             }
