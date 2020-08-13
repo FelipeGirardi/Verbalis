@@ -94,7 +94,6 @@ struct LanguageChoiceView: View {
                 .customFont(name: "Georgia", style: .title2, weight: .semibold)
                 .foregroundColor(self.langWasChosen ? Color.white : Color.black)
                 .buttonStyle(PlainButtonStyle())
-                .disabled(!self.langWasChosen)
                 .background(self.langWasChosen ? Color("MetallicBlue") : Color.gray)
                 .opacity(self.langWasChosen ? 1.0 : 0.25)
                 .cornerRadius(20)
@@ -111,25 +110,27 @@ struct LanguageChoiceView: View {
                 .accessibility(hint: self.langWasChosen ? Text("Enabled") : Text("DisabledLangChoice"))
                 .onTapGesture {
                     // Mark all languages as chosen to prevent duplication later
-                    if(self.isInitialView) {
-                        for lang in self.userData.languages {
-                            lang.isChosen = true
+                    if(self.langWasChosen) {
+                        if(self.isInitialView) {
+                            for lang in self.userData.languages {
+                                lang.isChosen = true
+                            }
+                            self.choiceMade.toggle()
+                            UserDefaults.standard.set(true, forKey: "choiceMade")
+                        } else {
+                            for lang in self.langsChosenResults {
+                                lang.isCurrent = (lang.id == self.currentLanguageId) ? true : false
+                            }
+                            self.showingChosenLanguages.toggle()
                         }
-                        self.choiceMade.toggle()
-                        UserDefaults.standard.set(true, forKey: "choiceMade")
-                    } else {
-                        for lang in self.langsChosenResults {
-                            lang.isCurrent = (lang.id == self.currentLanguageId) ? true : false
+                        
+                        UserDefaults.standard.set(self.currentLanguageId, forKey: "currentLanguageId")
+                        do {
+                            try self.managedObjectContext.save()
+                        } catch {
+                            print("Could not save language info to CoreData")
+                            print(error)
                         }
-                        self.showingChosenLanguages.toggle()
-                    }
-                    
-                    UserDefaults.standard.set(self.currentLanguageId, forKey: "currentLanguageId")
-                    do {
-                        try self.managedObjectContext.save()
-                    } catch {
-                        print("Could not save language info to CoreData")
-                        print(error)
                     }
                 }
     }

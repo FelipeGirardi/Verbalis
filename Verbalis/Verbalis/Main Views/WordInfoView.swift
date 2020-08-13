@@ -37,10 +37,11 @@ struct WordInfoView: View {
             
             HStack {
                 Text(term.source?.partOfSpeech ?? "")
-                    .font(Font.custom("Georgia", size: 20))
+                    .font(Font.custom("Georgia", size: 16))
                 
                 Text(term.source?.inflection ?? "")
-                    .font(Font.custom("Georgia", size: 20))
+                    .font(Font.custom("Georgia", size: 16))
+                    .lineLimit(nil)
                     .multilineTextAlignment(.center)
             }
         }
@@ -105,7 +106,7 @@ struct WordInfoView: View {
             if(!(translationData.synonyms?.isEmpty ?? true)) {
                 if(translationData.synonyms?[0] != "") {
                     Text(NSLocalizedString("Synonyms", comment: "Synonyms for given word"))
-                        .font(Font.custom("Georgia", size: 20))
+                        .font(Font.custom("Georgia", size: 18))
                         .fontWeight(.medium)
                         .padding(.bottom)
             

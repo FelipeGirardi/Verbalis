@@ -27,7 +27,8 @@ struct WordListItem: View {
     
     var translationsString: String {
         var tempString: String = ""
-        for target in firstWordTargets[0..<3] {
+        let numberOfPreviewTranslations: Int = firstWordTargets.count < 3 ? firstWordTargets.count : 3
+        for target in firstWordTargets[0 ..< numberOfPreviewTranslations] {
             tempString.append(contentsOf: (target.translationLemma ?? "") + ", ")
         }
         tempString = String(tempString.dropLast(2))
@@ -47,27 +48,23 @@ struct WordListItem: View {
                 .accessibility(addTraits: .isButton)
                 .accessibility(hint: Text("PressWordListItem"))
             
-            HStack(spacing: 10) {
-                VStack(spacing: 5) {
+            HStack(spacing: 5) {
+                VStack(spacing: 10) {
                     Text(word.sourceWord ?? "")
-                        .font(.system(size: 32))
-                        .fontWeight(.bold)
+                        .font(Font.custom("Georgia-Bold", size: 28))
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(nil)
                         .multilineTextAlignment(.leading)
-                        //.padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 10))
                     Text(translationsString)
-                        .font(.system(size: 16))
-                        .fontWeight(.regular)
+                        .font(Font.custom("Georgia", size: 16))
                         .foregroundColor(Color.white)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(nil)
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
-                        //.padding(EdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10))
                 }
-                .padding(10)
+                //.padding(EdgeInsets(top: 10, leading: 15, bottom: 15, trailing: 0))
                 Image("forward50")
                     .resizable()
                     .scaledToFit()
@@ -75,6 +72,7 @@ struct WordListItem: View {
                     .padding(.trailing, 10)
                     .accessibility(hidden: true)
             }
+            .padding(EdgeInsets(top: 15, leading: 15, bottom: 20, trailing: 5))
         }
     }
 }

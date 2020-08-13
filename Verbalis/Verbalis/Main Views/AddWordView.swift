@@ -74,7 +74,6 @@ struct AddWordView: View {
                 .foregroundColor(self.isConfirmButtonDisabled ? Color.black : Color.white)
         
                 .buttonStyle(PlainButtonStyle())
-                .disabled(self.isConfirmButtonDisabled)
                 .background(self.isConfirmButtonDisabled ? Color.gray : Color("MetallicBlue"))
                 .opacity(self.isConfirmButtonDisabled ? 0.25 : 1.0)
                 .cornerRadius(20)
@@ -90,30 +89,32 @@ struct AddWordView: View {
                 .accessibility(addTraits: .isButton)
                 .accessibility(hint: self.isConfirmButtonDisabled ? Text("DisabledAddWord") : Text("Enabled"))
                 .onTapGesture {
-                    self.endEditing()
-                    self.confirmButtonClicked = true
-                    self.savingWordState = .saving
-                    
-                    self.userData.fetchWordData(word: self.newWord, langCode: self.currentLangCode, completion: { (result) -> (Void) in
-                        switch(result) {
-                        case .saveSuccess:
-                            self.savingWordState = .saveSuccess
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                self.showingAddWord.toggle()
+                    if(!self.isConfirmButtonDisabled) {
+                        self.endEditing()
+                        self.confirmButtonClicked = true
+                        self.savingWordState = .saving
+                        
+                        self.userData.fetchWordData(word: self.newWord, langCode: self.currentLangCode, completion: { (result) -> (Void) in
+                            switch(result) {
+                            case .saveSuccess:
+                                self.savingWordState = .saveSuccess
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    self.showingAddWord.toggle()
+                                }
+                            case .saveFailure:
+                                self.savingWordState = .saveFailure
+                                self.confirmButtonClicked = false
+                                
+                            case .duplicateSave:
+                                self.savingWordState = .duplicateSave
+                                self.confirmButtonClicked = false
+                                
+                            default:
+                                self.savingWordState = .saveFailure
+                                self.confirmButtonClicked = false
                             }
-                        case .saveFailure:
-                            self.savingWordState = .saveFailure
-                            self.confirmButtonClicked = false
-                            
-                        case .duplicateSave:
-                            self.savingWordState = .duplicateSave
-                            self.confirmButtonClicked = false
-                            
-                        default:
-                            self.savingWordState = .saveFailure
-                            self.confirmButtonClicked = false
-                        }
-                    })
+                        })
+                    }
                 }
     }
     
@@ -147,10 +148,10 @@ struct AddWordView: View {
                                 self.endEditing()
                             }
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                            .padding(.leading)
-                            .padding(.leading)
-                            .padding(.trailing)
-                            .padding(.trailing)
+                                .padding(.leading)
+                                .padding(.leading)
+                                .padding(.trailing)
+                                .padding(.trailing)
                             
                             //Spacer()
                             

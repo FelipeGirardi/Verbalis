@@ -16,11 +16,12 @@ struct OnboardingSubview: View {
             .resizable()
             .aspectRatio(contentMode: .fill)
             .clipped()
+            //.border(Color("MetallicBlue"), width: 4)
     }
 }
 
 struct OnboardingSubview_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingSubview(imgString: "Onboarding1")
+        OnboardingSubview(imgString: "Onb1")
     }
 }
