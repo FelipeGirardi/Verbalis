@@ -16,7 +16,6 @@ struct OnboardingSubview: View {
             .resizable()
             .aspectRatio(contentMode: .fill)
             .clipped()
-            //.border(Color("MetallicBlue"), width: 4)
     }
 }
 
