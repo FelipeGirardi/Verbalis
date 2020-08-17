@@ -32,6 +32,15 @@
 "Synonyms" = "Synonyme";
 "OtherExamples" = "— Andere Beispiele —";
 
+// Onboarding
+
+"How to use Verbalis" = "Verwendung von Verbalis";
+"OnboardingStep1" = "Wählen Sie zunächst die Sprache aus, die Sie lernen möchten. Keine Sorgen, Sie können sie später wechseln falls Sie es wollen.";
+"OnboardingStep2" = "Oben auf dem Bildschirm, drücken Sie Sprachen, um die Sprache zu wechseln, oder + , um ein neues Wort hinzuzufügen.";
+"OnboardingStep3" = "Nach dem Hinzufügen eines Wortes können Sie es tippen, um mehr Information zu sehen, oder nach links wischen, um es zu löschen.";
+"Next" = "Weiter";
+"GotIt" = "Alles klar!";
+
 // Accessibility labels
 
 "DisabledAddWord" = "Deaktiviert. Zum Aktivieren schreiben Sie ein Wort in das Textfeld oben";

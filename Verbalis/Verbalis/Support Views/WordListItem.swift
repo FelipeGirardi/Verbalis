@@ -22,7 +22,9 @@ struct WordListItem: View {
     }
     
     var firstWordTargets: [TargetData] {
-        Array(wordDataArray[0].targets ?? Set()).sorted(by: { $0.rank ?? "" > $1.rank ?? "" } )
+        Array(wordDataArray[0].targets ?? Set()).sorted { (target1, target2) -> Bool in
+            return Int(target1.rank ?? "") ?? 0 > Int(target2.rank ?? "") ?? 0
+        }
     }
     
     var translationsString: String {
@@ -41,8 +43,8 @@ struct WordListItem: View {
                 .fill(Color("MetallicBlue"))
                 .overlay(
                     RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color("Main"), lineWidth: 2)
-                        .blur(radius: 4)
+                        .stroke(Color("Main"), lineWidth: 1)
+                        .blur(radius: 2)
                 )
                 .accessibility(label: Text(word.sourceWord ?? ""))
                 .accessibility(addTraits: .isButton)
@@ -56,6 +58,7 @@ struct WordListItem: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .lineLimit(nil)
                         .multilineTextAlignment(.leading)
+                    
                     Text(translationsString)
                         .font(Font.custom("Georgia", size: 16))
                         .foregroundColor(Color.white)
@@ -64,7 +67,7 @@ struct WordListItem: View {
                         .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                //.padding(EdgeInsets(top: 10, leading: 15, bottom: 15, trailing: 0))
+
                 Image("forward50")
                     .resizable()
                     .scaledToFit()

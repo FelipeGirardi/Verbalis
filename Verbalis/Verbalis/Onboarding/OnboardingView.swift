@@ -11,12 +11,17 @@ import SwiftUI
 struct OnboardingView: View {
     @State var currentPageIndex = 0
     @Binding var isOnboardingOver: Bool
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    var titles = ["How to use Verbalis (1)", "How to use Verbalis (2)", "How to use Verbalis (3)"]
-    var captions =  ["First, select the language you want to learn. Don't worry, You can change it later.", "On the top of the screen, tap \"Languages\" to change the current language, or \"+\" to add a new word.", "Once you've added a word, you can tap it to see more translations, or swipe left to delete it."]
+    var captions: [String] =  []
     var subviews = [UIHostingController(rootView: OnboardingSubview(imgString: "Onb1")),
     UIHostingController(rootView: OnboardingSubview(imgString: "Onb2")),
     UIHostingController(rootView: OnboardingSubview(imgString: "Onb3"))]
+    
+    init(isOnboardingOver: Binding<Bool>) {
+        self._isOnboardingOver = isOnboardingOver
+        self.captions = [String(format: NSLocalizedString("OnboardingStep1", comment: "How to select language")), String(format: NSLocalizedString("OnboardingStep2", comment: "How to use tab bar buttons")), String(format: NSLocalizedString("OnboardingStep3", comment: "How to deal with words on main screen"))]
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -48,15 +53,18 @@ struct OnboardingView: View {
                     }
 
                     Group {
-                        Text(self.titles[self.currentPageIndex])
+                        Text(NSLocalizedString("How to use Verbalis", comment: "How to use the app"))
                             .customFont(name: "Georgia", style: .title2)
+                        
                         Spacer()
+                        
                         Text(self.captions[self.currentPageIndex])
                             .customFont(name: "Georgia", style: .subheadline)
                             .foregroundColor(.secondary)
-                            .frame(width: 310, alignment: .leading)
+                            .frame(width: geometry.size.width/1.5)
                             .lineLimit(nil)
                             .multilineTextAlignment(.center)
+                            .lineSpacing(5)
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     
@@ -64,16 +72,21 @@ struct OnboardingView: View {
                         Spacer()
                     }
                     
-                    Text(self.currentPageIndex != 2 ? "Next" : "Got it!")
-                        .frame(width: self.currentPageIndex != 2 ? 50 : 75, height: geometry.size.height / 50)
+                    Text(self.currentPageIndex != 2 ? NSLocalizedString("Next", comment: "Next step") : NSLocalizedString("GotIt", comment: "Finish onboarding"))
+                        .frame(minHeight: 0, maxHeight: geometry.size.height/20)
+                        .padding([.leading, .trailing])
                         .font(Font.custom("Georgia-Bold", size: 18))
                         .foregroundColor(.white)
                         .background(Color("MetallicBlue"))
                         .buttonStyle(PlainButtonStyle())
-                        .padding()
-                        .background(Color("MetallicBlue"))
                         .cornerRadius(30)
                         .animation(self.animation)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 30)
+                                .stroke(Color("Main"), lineWidth: 0.5)
+                                .blur(radius: 3)
+                                .offset(x: 0, y: 2)
+                        )
                         .onTapGesture {
                             if self.currentPageIndex+1 == self.subviews.count {
                                 self.isOnboardingOver = true
@@ -107,10 +120,8 @@ struct ButtonContent: View {
             .background(Color("MetallicBlue"))
             .buttonStyle(PlainButtonStyle())
             .padding()
-            .background(Color("MetallicBlue"))
             .cornerRadius(30)
             .animation(self.animation)
-//            .buttonStyle(PlainButtonStyle())
     }
     
     var animation: Animation {

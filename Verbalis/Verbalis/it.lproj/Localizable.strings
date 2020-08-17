@@ -15,7 +15,7 @@
 "Russian" = "Russo";
 "Start" = "Cominciare";
 "Confirm" = "Confermare";
-"FirstLanguageChoice" = "Ciao! Benvenuto su Verbalis.\n\nChe lingua sta imparando?";
+"FirstLanguageChoice" = "Ciao! Benvenuto a Verbalis.\n\nChe lingua sta imparando?";
 "LanguageChoice" = "Che lingua sta imparando?";
 "NoWordsYet" = "Ancora nessuna parola!\n\nPrema + per aggiungere una nuova parola.";
 "Languages" = "Lingue";
@@ -32,6 +32,15 @@
 "Synonyms" = "Sinonimi";
 "OtherExamples" = "— Altri esempi —";
 
+// Onboarding
+
+"How to use Verbalis" = "Come usare Verbalis";
+"OnboardingStep1" = "In primo luogo, selezione la lingua che vorrebbe imparare. Non preoccuparsi, Lei può cambiarla in seguito, se lo desidera.";
+"OnboardingStep2" = "Nella parte superiore dello schermo, prema Lingue para cambiare lengua o + per aggiungere una nuova parola.";
+"OnboardingStep3" = "Dopo aver aggiunto una parola, può toccarlo per vedere maggiori informazioni o scorrere verso sinistra per eliminarla.";
+"Next" = "Prossimo";
+"GotIt" = "Capito!";
+
 // Accessibility labels
 
 "DisabledAddWord" = "Disattivato. Per attivare, digiti una parola nel campo di testo sopra";
@@ -39,6 +48,6 @@
 "Enabled" = "Attivato";
 "Selected" = "Selezionato";
 "NotSelected" =  "Non selezionato";
-"PressWordListItem" = "Prema due volte per trovare ulteriori informazioni su questa parola. Scorra verso sinistra per cancellare questa parola";
-"SwipeToDelete" = "Scorra verso sinistra per cancellare questa parola";
+"PressWordListItem" = "Prema due volte per trovare ulteriori informazioni su questa parola. Scorra verso sinistra per eliminare questa parola";
+"SwipeToDelete" = "Scorra verso sinistra per eliminare questa parola";
 "PlusButton" = "Aggiungere una nuova parola";

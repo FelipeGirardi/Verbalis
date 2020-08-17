@@ -32,6 +32,15 @@
 "Synonyms" = "Sinônimos";
 "OtherExamples" = "— Outros exemplos —";
 
+// Onboarding
+
+"How to use Verbalis" = "Como usar o Verbalis";
+"OnboardingStep1" = "Primeiro, selecione a língua que gostaria de aprender. Não se preocupe, você pode mudar depois se quiser.";
+"OnboardingStep2" = "No topo da tela, pressione Línguas para mudar de língua ou + para adicionar uma nova palavra.";
+"OnboardingStep3" = "Após adicionar uma palavra, você pode tocar nela para ver mais informações ou arrastá-la para a esquerda para deletá-la.";
+"Next" = "Próximo";
+"GotIt" = "Entendi!";
+
 // Accessibility labels
 
 "DisabledAddWord" = "Desativado. Para ativar, escreva uma palavra no campo de texto acima";
