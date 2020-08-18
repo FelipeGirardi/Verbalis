@@ -22,7 +22,7 @@ struct WordListItem: View {
     }
     
     var firstWordTargets: [TargetData] {
-        Array(wordDataArray[0].targets ?? Set()).sorted { (target1, target2) -> Bool in
+        Array(wordDataArray.first?.targets ?? Set()).sorted { (target1, target2) -> Bool in
             return Int(target1.rank ?? "") ?? 0 > Int(target2.rank ?? "") ?? 0
         }
     }
