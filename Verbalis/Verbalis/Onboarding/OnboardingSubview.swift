@@ -12,10 +12,13 @@ struct OnboardingSubview: View {
     var imgString: String
     
     var body: some View {
-        Image(imgString)
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .clipped()
+        GeometryReader { geometry in
+            Image(self.imgString)
+                .resizable()
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .aspectRatio(contentMode: .fill)
+                .clipped()
+        }
     }
 }
 

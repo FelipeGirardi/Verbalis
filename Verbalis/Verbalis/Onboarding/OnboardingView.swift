@@ -32,7 +32,7 @@ struct OnboardingView: View {
                 VStack {
                     Spacer()
                     PageVC(currentPageIndex: self.$currentPageIndex, viewControllers: self.subviews)
-                        .frame(width: 200, height: 400)
+                        .frame(width: geometry.size.width/2, height: geometry.size.height/2)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color("MetallicBlue"), lineWidth: 5)
@@ -52,15 +52,13 @@ struct OnboardingView: View {
                         Spacer()
                     }
 
-                    Group {
+                    VStack(spacing: 20) {
                         Text(NSLocalizedString("How to use Verbalis", comment: "How to use the app"))
-                            .customFont(name: "Georgia", style: .title2)
-                        
-                        Spacer()
+                            .font(Font.custom("Georgia", size: 24))
                         
                         Text(self.captions[self.currentPageIndex])
-                            .customFont(name: "Georgia", style: .subheadline)
-                            .foregroundColor(.secondary)
+                            .font(Font.custom("Georgia", size: 16))
+                            .foregroundColor(Color.secondary)
                             .frame(width: geometry.size.width/1.5)
                             .lineLimit(nil)
                             .multilineTextAlignment(.center)
@@ -134,5 +132,7 @@ struct ButtonContent: View {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         OnboardingView(isOnboardingOver: Binding<Bool>.constant(false))
+        //.previewDevice(PreviewDevice(stringLiteral: "iPhone SE (2nd generation)"))
+        .previewDevice(PreviewDevice(stringLiteral: "iPhone 11 Pro Max"))
     }
 }
