@@ -31,6 +31,8 @@
 "Examples" = "Beispiele";
 "Synonyms" = "Synonyme";
 "OtherExamples" = "— Andere Beispiele —";
+"DeleteLabel" = "Löschen";
+"DeleteMessage" = "Sind Sie sicher, dass Sie das Wort \"%@\" löschen möchten?";
 
 // Onboarding
 

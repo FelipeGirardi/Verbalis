@@ -11,6 +11,8 @@ import SwiftUI
 struct WordsTab: View {
     @State private var showingChosenLanguages = false
     @State private var showingAddWord = false
+    @State private var indexSetToDelete: IndexSet?
+    @State private var showingAlert = false
     @Environment(\.managedObjectContext) var managedObjectContext
     @EnvironmentObject var userData: UserData
     @Environment(\.presentationMode) var presentation
@@ -120,7 +122,21 @@ struct WordsTab: View {
                     }
                 }
             }
-            .onDelete(perform: deleteWord)
+            .onDelete(perform: { indexSet in
+                self.showingAlert = true
+                self.indexSetToDelete = indexSet
+            })
+            .alert(isPresented: self.$showingAlert) {
+                let indexSet = self.indexSetToDelete!
+                var sourceWordToDelete = ""
+                for index in indexSet {
+                    let wordToDelete = wordsListArray[index]
+                    sourceWordToDelete = wordToDelete.sourceWord ?? ""
+                }
+                return Alert(title: Text(String(format: NSLocalizedString("DeleteMessage", comment: "Delete message"), sourceWordToDelete)), primaryButton: .destructive(Text(NSLocalizedString("DeleteLabel", comment: "Delete button"))) {
+                    self.deleteWord(at: indexSet)
+                    }, secondaryButton: .cancel())
+            }
         }
     }
     
