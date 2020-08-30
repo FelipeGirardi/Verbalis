@@ -35,8 +35,9 @@
 // Onboarding
 
 "How to use Verbalis" = "Como usar o Verbalis";
+"OnboardingStep0" = "Bem-vindo! Aqui estão algumas dicas úteis antes de você começar. Apenas leia-as e pressione Próximo!";
 "OnboardingStep1" = "Primeiro, selecione a língua que gostaria de aprender. Não se preocupe, você pode mudar depois se quiser.";
-"OnboardingStep2" = "No topo da tela, pressione Línguas para mudar de língua ou + para adicionar uma nova palavra.";
+"OnboardingStep2" = "No topo da tela, pressione\nLínguas para mudar de idioma, ou\n+ para adicionar uma nova palavra.";
 "OnboardingStep3" = "Após adicionar uma palavra, você pode tocar nela para ver mais informações ou arrastá-la para a esquerda para deletá-la.";
 "Next" = "Próximo";
 "GotIt" = "Entendi!";
@@ -47,7 +48,7 @@
 "DisabledLangChoice" = "Desativado. Para ativar, escolha uma língua acima";
 "Enabled" = "Ativado";
 "Selected" = "Selecionado";
-"NotSelected" =  "Não selecionado";
+"NotSelected" = "Não selecionado";
 "PressWordListItem" = "Pressione duas vezes para encontrar mais informação sobre esta palavra. Arraste para a direita para deletar esta palavra";
 "SwipeToDelete" = "Arraste para a direita para deletar esta palavra";
 "PlusButton" = "Adicionar nova palavra";

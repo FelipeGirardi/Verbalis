@@ -14,13 +14,13 @@ struct OnboardingView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     var captions: [String] =  []
-    var subviews = [UIHostingController(rootView: OnboardingSubview(imgString: "Onb1")),
+    var subviews = [UIHostingController(rootView: OnboardingSubview0()), UIHostingController(rootView: OnboardingSubview(imgString: "Onb1")),
     UIHostingController(rootView: OnboardingSubview(imgString: "Onb2")),
     UIHostingController(rootView: OnboardingSubview(imgString: "Onb3"))]
     
     init(isOnboardingOver: Binding<Bool>) {
         self._isOnboardingOver = isOnboardingOver
-        self.captions = [String(format: NSLocalizedString("OnboardingStep1", comment: "How to select language")), String(format: NSLocalizedString("OnboardingStep2", comment: "How to use tab bar buttons")), String(format: NSLocalizedString("OnboardingStep3", comment: "How to deal with words on main screen"))]
+        self.captions = [String(format: NSLocalizedString("OnboardingStep0", comment: "Greeting and initial message")), String(format: NSLocalizedString("OnboardingStep1", comment: "How to select language")), String(format: NSLocalizedString("OnboardingStep2", comment: "How to use tab bar buttons")), String(format: NSLocalizedString("OnboardingStep3", comment: "How to deal with words on main screen"))]
     }
     
     var body: some View {
@@ -35,7 +35,7 @@ struct OnboardingView: View {
                         .frame(width: geometry.size.width/2, height: geometry.size.height/2)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color("MetallicBlue"), lineWidth: 5)
+                                .stroke(Color("MetallicBlue"), lineWidth: self.currentPageIndex == 0 ? 0 : 5)
                         )
 
                     ForEach(0..<2) { _ in
@@ -54,11 +54,12 @@ struct OnboardingView: View {
 
                     VStack(spacing: 20) {
                         Text(NSLocalizedString("How to use Verbalis", comment: "How to use the app"))
-                            .font(Font.custom("Georgia", size: 24))
+                            .font(Font.custom("Georgia-Bold", size: 24))
+                            .foregroundColor(Color("MetallicBlue"))
                         
                         Text(self.captions[self.currentPageIndex])
                             .font(Font.custom("Georgia", size: 16))
-                            .foregroundColor(Color.secondary)
+                            .foregroundColor(self.colorScheme == .dark ?  Color.secondary : Color("DarkGray"))
                             .frame(width: geometry.size.width/1.5)
                             .lineLimit(nil)
                             .multilineTextAlignment(.center)
@@ -70,7 +71,7 @@ struct OnboardingView: View {
                         Spacer()
                     }
                     
-                    Text(self.currentPageIndex != 2 ? NSLocalizedString("Next", comment: "Next step") : NSLocalizedString("GotIt", comment: "Finish onboarding"))
+                    Text(self.currentPageIndex != 3 ? NSLocalizedString("Next", comment: "Next step") : NSLocalizedString("GotIt", comment: "Finish onboarding"))
                         .frame(minHeight: 0, maxHeight: geometry.size.height/20)
                         .padding([.leading, .trailing])
                         .font(Font.custom("Georgia-Bold", size: 18))
@@ -132,7 +133,5 @@ struct ButtonContent: View {
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
         OnboardingView(isOnboardingOver: Binding<Bool>.constant(false))
-        //.previewDevice(PreviewDevice(stringLiteral: "iPhone SE (2nd generation)"))
-        .previewDevice(PreviewDevice(stringLiteral: "iPhone 11 Pro Max"))
     }
 }

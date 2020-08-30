@@ -22,6 +22,20 @@ struct OnboardingSubview: View {
     }
 }
 
+struct OnboardingSubview0: View {
+    var body: some View {
+        ZStack {
+            Color("BGElement")
+                .edgesIgnoringSafeArea(.all)
+            
+            Image("verbalisLogo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .clipped()
+        }
+    }
+}
+
 struct OnboardingSubview_Previews: PreviewProvider {
     static var previews: some View {
         OnboardingSubview(imgString: "Onb1")

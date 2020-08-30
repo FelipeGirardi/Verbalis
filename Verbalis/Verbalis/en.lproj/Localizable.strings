@@ -35,6 +35,7 @@
 // Onboarding
 
 "How to use Verbalis (%d)" = "How to use Verbalis - %d";
+"OnboardingStep0" = "Welcome! Here are some useful tips before you begin. Just read them and press Next!";
 "OnboardingStep1" = "First, select the language you would like to learn. Don't worry, you can change it later if you want.";
 "OnboardingStep2" = "On top of the screen, press\nLanguages to change language\nor + to add a new word.";
 "OnboardingStep3" = "After adding a word, you can tap it to see more information about it or swipe left to delete it.";

@@ -35,6 +35,7 @@
 // Onboarding
 
 "How to use Verbalis" = "Cómo utilizar Verbalis";
+"OnboardingStep0" = "¡Bienvenidos! Estos son algunos consejos útiles antes de comenzar. ¡Solo léelos y presione Próximo!";
 "OnboardingStep1" = "Primero, seleccione el idioma que le gustaría aprender. No se preocupe, puedes cambiarlo más tarde si lo quiere.";
 "OnboardingStep2" = "En la parte superior de la pantalla, presione Idiomas para cambiare idioma o + para agregar una nueva palabra.";
 "OnboardingStep3" = "Después de agregar una palabra, puede tocarla para ver más información o deslizar hacia la izquierda para eliminarla.";
