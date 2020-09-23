@@ -144,9 +144,9 @@ struct AddWordView: View {
                             
                             //Spacer()
                             
-                            TextField(NSLocalizedString("TypeHere", comment: "Tell user to type here"), text: self.$newWord) {
+                            TextField(NSLocalizedString("TypeHere", comment: "Tell user to type here"), text: self.$newWord, onCommit: {
                                 self.endEditing()
-                            }
+                            })
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .padding(.leading)
                                 .padding(.leading)
